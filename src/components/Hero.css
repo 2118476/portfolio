@@ -1,0 +1,29 @@
+/* Hero.css */
+.hero-section {
+  /* Full viewport height with a visually appealing background */
+  min-height: 100vh;
+  padding: 0 2rem;
+  background: linear-gradient(135deg, #1f3b70, #0a1f2c);  /* Example dark blue gradient */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-content {
+  text-align: center;
+  max-width: 800px;
+}
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+}
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin: 1rem 0 2rem;
+}
+.hero-btn {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  /* .btn base styles are defined globally */
+}
