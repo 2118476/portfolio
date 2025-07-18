@@ -1,8 +1,8 @@
 /* About.css */
 .about-section {
   padding: 4rem 2rem;
-  background: #f5f5f5;           /* Light grey background for contrast */
-  color: #333;                   /* Dark text on light background */
+  background: #161f1b;           /* Light grey background for contrast */
+  color: #fffafa;                   /* Dark text on light background */
 }
 .about-content {
   display: grid;

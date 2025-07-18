@@ -1,6 +1,6 @@
 .projects-section {
   padding: 4rem 2rem;
-  background: linear-gradient(135deg, #0b15d53f, #020b6f66);
+  background: linear-gradient(135deg, black, #e8d933b7);
   color: #fff;
   text-align: center;
   animation: fadeInUp 1s ease forwards;
@@ -12,10 +12,11 @@
   margin-bottom: 2rem;
   text-transform: uppercase;
   letter-spacing: 2px;
-  background: linear-gradient(to right, #00bcd4, #3f51b5);
+  background: linear-gradient(to right, rgb(255, 255, 255), #FFD700);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: glow 2s infinite alternate;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.6); /* sharp shadow */
+  animation: none; /* removed glow animation to avoid blur */
 }
 
 .projects-grid {
@@ -32,21 +33,21 @@
   background-position: center;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 15px rgb(255, 255, 255);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   transform-style: preserve-3d;
 }
 
 .project-card:hover {
-  transform: scale(1.05) rotateX(5deg) rotateY(5deg);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+  transform: scale(1.07) rotateX(5deg) rotateY(5deg);
+  box-shadow: 0 10px 25px rgb(2, 108, 0);
 }
 
 .project-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(0, 188, 212, 0.2), rgba(63, 81, 181, 0.2));
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(0, 0, 0, 0.3));
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -90,31 +91,19 @@
 .project-links .btn {
   margin: 0.3rem;
   padding: 0.4rem 1rem;
-  border: 2px solid #00bcd4;
+  border: 2px solid gold;
   background: transparent;
-  color: #00bcd4;
+  color: gold;
   text-decoration: none;
   border-radius: 6px;
   transition: all 0.3s ease;
 }
 
 .project-links .btn:hover {
-  background: #00bcd4;
-  color: #fff;
+  background: gold;
+  color: black;
   transform: scale(1.08);
-  box-shadow: 0 0 10px #00bcd4;
-}
-
-.secondary-btn {
-  border-color: #3f51b5;
-  color: #3f51b5;
-}
-
-.secondary-btn:hover {
-  background: #3f51b5;
-  color: #fff;
-  transform: scale(1.08);
-  box-shadow: 0 0 10px #3f51b5;
+  box-shadow: 0 0 10px gold;
 }
 
 /* Animations */
@@ -129,6 +118,6 @@
 }
 
 @keyframes glow {
-  0% { text-shadow: 0 0 5px #00bcd4, 0 0 10px #00bcd4; }
-  100% { text-shadow: 0 0 10px #3f51b5, 0 0 20px #3f51b5; }
+  0% { text-shadow: 0 0 5px gold, 0 0 10px gold; }
+  100% { text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700; }
 }
