@@ -1,0 +1,31 @@
+:root {
+  --accent-color: #00bcd4;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff;
+  color: #333;
+}
+.App {
+  text-align: center;
+}
+/* Global button styling */
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+  background: transparent;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.btn:hover {
+  background: var(--accent-color);
+  color: #fff;
+}
