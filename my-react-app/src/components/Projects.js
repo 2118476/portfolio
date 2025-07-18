@@ -1,26 +1,24 @@
-// Projects.js
+// File: src/components/Projects.js
 import React from 'react';
 import { motion } from 'framer-motion';
 import './Projects.css';
 
 const Projects = () => {
-  // Example projects data (replace with your actual projects)
   const projects = [
     {
-      title: "Project One",
-      description: "Description of project one.",
-      image: "project1.jpg",   // path or URL to project image
-      demoLink: "#",           // replace '#' with actual live demo URL
-      codeLink: "#"            // replace '#' with actual source code URL
+      title: "Stately Hamster App",
+      description: "A sleek React-based application showcasing modern design and animations.",
+      image: "/project1.jpg",   // You can place an image in the public folder or assets
+      demoLink: "https://stately-hamster-14d52f.netlify.app",
+      codeLink: "#"             // Add your GitHub repo if available
     },
     {
-      title: "Project Two",
-      description: "Description of project two.",
-      image: "project2.jpg",
-      demoLink: "#",
+      title: "Gorgeous Cendol App",
+      description: "A dynamic portfolio project with clean UI and responsive features.",
+      image: "/project2.jpg",
+      demoLink: "https://gorgeous-cendol-eb18cc.netlify.app",
       codeLink: "#"
     }
-    // ... add more projects as needed
   ];
 
   return (
@@ -28,7 +26,7 @@ const Projects = () => {
       <h2 className="section-title">Projects</h2>
       <div className="projects-grid">
         {projects.map((proj, index) => (
-          <motion.div 
+          <motion.div
             className="project-card"
             key={index}
             style={{ backgroundImage: `url(${proj.image})` }}
@@ -40,8 +38,14 @@ const Projects = () => {
             <div className="project-overlay">
               <h3>{proj.title}</h3>
               <p>{proj.description}</p>
-              <a href={proj.demoLink} className="btn" target="_blank" rel="noopener noreferrer">Live Demo</a>
-              <a href={proj.codeLink} className="btn" target="_blank" rel="noopener noreferrer">Source Code</a>
+              <div className="project-links">
+                <a href={proj.demoLink} className="btn" target="_blank" rel="noopener noreferrer">
+                  Live Demo
+                </a>
+                <a href={proj.codeLink} className="btn secondary-btn" target="_blank" rel="noopener noreferrer">
+                  Source Code
+                </a>
+              </div>
             </div>
           </motion.div>
         ))}
