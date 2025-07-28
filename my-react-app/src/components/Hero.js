@@ -2,14 +2,10 @@
 import React, { useCallback } from 'react';
 import { motion } from 'framer-motion';
 import Particles from '@tsparticles/react';
-import { loadFull } from 'tsparticles';
+import { loadFull } from 'tsparticles'; // Make sure tsparticles is installed
 import './Hero.css';
+import profileImage from '../assests/logo.png'; // ✅ match the folder name exactly
 
-// Corrected path to logo.png
-import profileImage from '../assets/logo.png';
-
-// Added video background
-import videoBackground from '../assets/Video_Ready_for_Portfolio_Website.mp4';
 
 const Hero = () => {
   const particlesInit = useCallback(async (engine) => {
@@ -60,25 +56,8 @@ const Hero = () => {
 
   return (
     <section id="hero" className="hero-section">
-      {/* Background Video */}
-      <motion.video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="hero-video"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-      >
-        <source src={videoBackground} type="video/mp4" />
-        Your browser does not support the video tag.
-      </motion.video>
-
-      {/* Particle Effect */}
       <Particles id="tsparticles" init={particlesInit} options={particlesOptions} />
 
-      {/* Content */}
       <div className="hero-content">
         <motion.img
           src={profileImage}
