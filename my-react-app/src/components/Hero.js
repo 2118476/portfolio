@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import Particles from '@tsparticles/react';
 import { loadFull } from 'tsparticles'; // Make sure tsparticles is installed
 import './Hero.css';
-import profileImage from '../assests/logo.png'; // ✅ match the folder name exactly
+import profileImage from '../assets/logo.png';
+import videoBackground from '../assets/Video_Ready_for_Portfolio_Website.mp4';
 
 
 const Hero = () => {
