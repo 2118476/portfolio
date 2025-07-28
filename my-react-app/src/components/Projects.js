@@ -9,7 +9,7 @@ const Projects = () => {
       title: "Stately Hamster App",
       description: "A sleek React-based application showcasing modern design and animations.",
       image: "/project1.jpg",   // You can place an image in the public folder or assets
-      demoLink: "https://stately-hamster-14d52f.netlify.app",
+      demoLink: "https://sparkling-gaufre-95d8cc.netlify.app",
       codeLink: "#"             // Add your GitHub repo if available
     },
     {
