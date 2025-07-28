@@ -4,12 +4,24 @@
   position: relative;
   min-height: 100vh;
   padding: 0 2rem;
-  background: linear-gradient(135deg, #000000, #3e3e3e);
+  background: #000; /* Fallback if video fails */
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+
+/* Background Video */
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: brightness(0.5) contrast(1.2);
 }
 
 #tsparticles {
@@ -94,6 +106,7 @@
   box-shadow: 0 4px 15px rgba(255, 215, 0, 0.6);
 }
 
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -127,6 +140,7 @@
   }
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2.4rem;
