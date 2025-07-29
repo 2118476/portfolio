@@ -2,10 +2,12 @@
 import React, { useCallback } from 'react';
 import { motion } from 'framer-motion';
 import Particles from '@tsparticles/react';
-import { loadFull } from 'tsparticles'; // Make sure tsparticles is installed
+import { loadFull } from 'tsparticles';
 import './Hero.css';
-import profileImage from '../assests/logo.png'; // ✅ match the folder name exactly
 
+// Correct paths
+import profileImage from '../assests/logo.png';
+import videoBackground from '../assests/Video_Ready_for_Portfolio_Website.mp4';
 
 const Hero = () => {
   const particlesInit = useCallback(async (engine) => {
@@ -19,14 +21,14 @@ const Hero = () => {
     interactivity: {
       events: {
         onHover: { enable: true, mode: 'repulse' },
-        resize: true
+        resize: true,
       },
       modes: {
         repulse: {
           distance: 120,
-          duration: 0.4
-        }
-      }
+          duration: 0.4,
+        },
+      },
     },
     particles: {
       color: { value: '#ffffff' },
@@ -35,29 +37,46 @@ const Hero = () => {
         color: '#00bcd4',
         distance: 120,
         opacity: 0.4,
-        width: 1
+        width: 1,
       },
       move: {
         enable: true,
         speed: 1.2,
         direction: 'none',
-        outModes: { default: 'bounce' }
+        outModes: { default: 'bounce' },
       },
       number: {
         value: 50,
-        density: { enable: true, area: 800 }
+        density: { enable: true, area: 800 },
       },
       opacity: { value: 0.5 },
       shape: { type: 'circle' },
-      size: { value: { min: 1, max: 5 } }
+      size: { value: { min: 1, max: 5 } },
     },
-    detectRetina: true
+    detectRetina: true,
   };
 
   return (
     <section id="hero" className="hero-section">
+      {/* Background Video */}
+      <motion.video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="hero-video"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5 }}
+      >
+        <source src={videoBackground} type="video/mp4" />
+        Your browser does not support the video tag.
+      </motion.video>
+
+      {/* Particle Effect */}
       <Particles id="tsparticles" init={particlesInit} options={particlesOptions} />
 
+      {/* Content */}
       <div className="hero-content">
         <motion.img
           src={profileImage}
