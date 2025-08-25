@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.0.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -16,6 +17,9 @@
     "react-scripts": "5.0.1",
     "tsparticles": "^3.8.1",
     "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "sass": "^1.69.0"
   },
   "scripts": {
     "start": "react-scripts start",

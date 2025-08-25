@@ -1,0 +1,19 @@
+.scrollTop {
+  position: fixed;
+  bottom: var(--spacing-6);
+  right: var(--spacing-6);
+  padding: var(--spacing-2);
+  font-size: 1.5rem;
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease;
+  z-index: 100;
+}
+
+.scrollTop:hover {
+  transform: translateY(-3px);
+}

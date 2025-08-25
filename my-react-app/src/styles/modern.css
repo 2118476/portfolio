@@ -1,0 +1,63 @@
+/*
+ * Modern design system variables and utility classes.
+ *
+ * This stylesheet defines a set of CSS custom properties that
+ * embody a contemporary, elegant design language based around
+ * glassmorphism, soft gradients, rounded shapes and accessible
+ * contrast ratios.  These values layer on top of the existing
+ * token definitions declared in `tokens.scss` and can be
+ * customised further per theme via the `[data-theme="dark"]`
+ * selector.  Components throughout the application consume
+ * these variables to achieve a consistent look and feel.
+ */
+
+/* Root variables for light mode */
+:root {
+  /* Glassmorphism backgrounds use semi‑transparent white on top of
+     the page background, coupled with a backdrop blur. */
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-blur: 12px;
+
+  /* Soft gradient colours for call‑to‑action elements.  These
+     gradients incorporate the brand palette to draw the eye
+     without overwhelming the rest of the interface. */
+  --gradient-primary: linear-gradient(135deg, #0077ff, #00b894);
+  --gradient-secondary: linear-gradient(135deg, #6a11cb, #2575fc);
+
+  /* Additional shadows for elevated elements.  Shadows are
+     separated from the base tokens to allow layering without
+     overwhelming contrast. */
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.12);
+
+  /* Global border radius used for cards, modals and buttons. */
+  --radius-card: 20px;
+  --radius-chip: 9999px;
+
+  /* Motion durations – respect reduced motion by overriding in the
+     media query below. */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.4s ease;
+  --transition-slow: 0.8s ease;
+}
+
+/* Dark mode overrides for glass and gradients.  Dark mode
+   surfaces use slightly higher opacity to maintain separation
+   against the darker background and cooler gradient hues. */
+[data-theme='dark'] {
+  --glass-bg: rgba(19, 32, 71, 0.4);
+  --gradient-primary: linear-gradient(135deg, #4da8ff, #00cec9);
+  --gradient-secondary: linear-gradient(135deg, #41295a, #2f0743);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.6);
+}
+
+/* Respect the user's reduced motion preference by shortening
+   animation durations and disabling parallax effects. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0.001s linear;
+    --transition-medium: 0.001s linear;
+    --transition-slow: 0.001s linear;
+  }
+}

@@ -1,0 +1,85 @@
+.projects {
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-6);
+  margin-top: var(--spacing-8);
+}
+
+.card {
+  position: relative;
+  cursor: pointer;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+  outline: none;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  opacity: 0;
+  padding: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .overlay,
+.card:focus .overlay {
+  opacity: 1;
+}
+
+.overlay h3 {
+  margin-bottom: var(--spacing-2);
+  font-size: 1.125rem;
+}
+
+.overlay p {
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-3);
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  text-align: left;
+}
+
+.modalImage {
+  width: 100%;
+  border-radius: var(--radius-lg);
+}
+
+.modalStack {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.modalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-4);
+}

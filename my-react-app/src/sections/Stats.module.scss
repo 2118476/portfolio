@@ -1,0 +1,32 @@
+.stats {
+  text-align: center;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-8);
+  margin-top: var(--spacing-8);
+}
+
+.card {
+  background: var(--color-panel);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6) var(--spacing-8);
+  box-shadow: var(--shadow);
+  flex: 1 0 150px;
+}
+
+.value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.label {
+  display: block;
+  margin-top: var(--spacing-2);
+  font-size: 1rem;
+  color: var(--color-text);
+}
