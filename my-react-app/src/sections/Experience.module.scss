@@ -1,3 +1,14 @@
+/*
+ * Styles for the Experience & Education timeline.  A vertical line
+ * runs down the left edge, with circular markers for each entry.
+ * Entries can be expanded to reveal detailed content.  Smooth
+ * transitions are achieved via max-height and opacity changes.
+ */
+
+.experience {
+  position: relative;
+}
+
 .timeline {
   position: relative;
   margin-top: var(--spacing-8);
@@ -7,60 +18,106 @@
 .timeline::before {
   content: '';
   position: absolute;
-  left: 0.5rem;
+  left: 0.6rem;
   top: 0;
   bottom: 0;
   width: 2px;
   background: var(--color-border);
 }
 
-.item {
+.entry {
   position: relative;
-  margin-bottom: var(--spacing-8);
-  padding-left: var(--spacing-6);
+  margin-bottom: var(--spacing-6);
 }
 
 .marker {
   position: absolute;
-  left: -0.7rem;
-  top: 0.3rem;
+  left: -0.75rem;
+  top: 1.2rem;
   width: 14px;
   height: 14px;
   background: var(--color-primary);
   border-radius: 50%;
 }
 
-.content {
+.entryHeader {
+  display: flex;
+  align-items: baseline;
+  width: 100%;
   background: var(--color-panel);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-4);
-  box-shadow: var(--shadow);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4) var(--spacing-6);
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease;
 }
 
-.content h3 {
-  margin-bottom: var(--spacing-2);
+.entryHeader:hover,
+.entryHeader:focus-visible {
+  background: var(--color-panel-hover);
+}
+
+.entryHeader h3 {
+  margin: 0;
   color: var(--color-primary);
+  font-size: 1rem;
 }
 
-.company {
+.org {
   font-weight: 600;
   color: var(--color-secondary);
-  display: block;
+  margin-left: var(--spacing-3);
 }
 
 .period {
+  margin-left: auto;
   font-size: 0.875rem;
   color: var(--color-muted);
-  display: block;
+}
+
+.entryContent {
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  max-height: 0;
+  opacity: 0;
+}
+
+.entryContent.open {
+  max-height: 2000px; /* large enough to hold content */
+  opacity: 1;
+}
+
+.entryContentInner {
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  padding: var(--spacing-6);
+}
+
+.entryContentInner p {
+  margin-top: 0;
   margin-bottom: var(--spacing-3);
 }
 
-.content ul {
-  padding-left: var(--spacing-4);
-  margin: 0;
+.entryContentInner ul {
+  padding-left: var(--spacing-5);
+  margin: 0 0 var(--spacing-3);
 }
 
-.content li {
+.entryContentInner li {
   list-style: disc;
-  margin-bottom: var(--spacing-2);
+  margin-bottom: var(--spacing-1);
+}
+
+.techStack {
+  margin-bottom: var(--spacing-3);
+}
+
+.impact {
+  margin-top: var(--spacing-3);
+  padding-left: var(--spacing-5);
+  list-style: disc;
+  font-style: italic;
 }

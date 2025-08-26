@@ -1,33 +1,184 @@
+/*
+ * Styles for the interactive Skills section.  Categories are
+ * presented in collapsible panels with clear typography and
+ * generous spacing.  Interactive elements include focus states
+ * and responsive behaviour.  The design is mindful of reduced
+ * motion preferences.
+ */
+
 .skills {
-  text-align: center;
+  position: relative;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--spacing-6);
+.categories {
   margin-top: var(--spacing-8);
 }
 
-.card {
+.category {
   background: var(--color-panel);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-6);
-  box-shadow: var(--shadow);
-  transition: transform 0.3s ease;
+  margin-bottom: var(--spacing-6);
+  overflow: hidden;
+}
+
+.categoryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: var(--spacing-4) var(--spacing-6);
+  cursor: pointer;
   text-align: left;
+  transition: background-color 0.2s ease;
 }
 
-.card:hover {
-  transform: translateY(-4px);
+.categoryHeader:hover,
+.categoryHeader:focus-visible {
+  background-color: var(--color-panel-hover);
 }
 
-.card h3 {
-  margin-bottom: var(--spacing-4);
+.categoryTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
   color: var(--color-primary);
 }
 
-.chips {
-  display: flex;
-  flex-wrap: wrap;
+.yearsBadge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+  border-radius: var(--radius-full);
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.yearsBadge:hover,
+.yearsBadge:focus-visible {
+  /* Use the main primary colour on hover/focus for emphasis */
+  background: var(--color-primary);
+  color: var(--color-panel);
+  outline: none;
+}
+
+.panel {
+  border-top: 1px solid var(--color-border);
+}
+
+.skillGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--spacing-4);
+  padding: var(--spacing-4) var(--spacing-6);
+}
+
+.skillButton {
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 0.4rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.skillButton:hover,
+.skillButton:focus-visible {
+  background: var(--color-panel-hover);
+  outline: none;
+}
+
+.activeSkill {
+  background: var(--color-primary-tint);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.skillDetails {
+  padding: var(--spacing-6);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-panel);
+}
+
+.skillDetails h4 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-2);
+  color: var(--color-primary);
+}
+
+.skillYearsBadge {
+  display: inline-block;
+  background: var(--color-secondary-tint);
+  color: var(--color-secondary);
+  border-radius: var(--radius-full);
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-left: var(--spacing-2);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.skillYearsBadge:hover,
+.skillYearsBadge:focus-visible {
+  /* Use the main secondary colour on hover/focus for emphasis */
+  background: var(--color-secondary);
+  color: var(--color-panel);
+  outline: none;
+}
+
+.summary {
+  margin: var(--spacing-3) 0;
+}
+
+.useCases {
+  margin: var(--spacing-3) 0;
+  padding-left: var(--spacing-4);
+  list-style: disc;
+}
+
+.proficiency {
+  margin-top: var(--spacing-4);
+}
+
+.proficiencyLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-right: var(--spacing-2);
+}
+
+.proficiencyBar {
+  position: relative;
+  height: 0.35rem;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: var(--spacing-1);
+}
+
+.proficiencyFill {
+  display: block;
+  height: 100%;
+  background: var(--color-primary);
+}
+
+.badgeDetails {
+  list-style: disc;
+  margin-top: var(--spacing-3);
+  padding-left: var(--spacing-6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .categoryHeader:hover,
+  .skillButton:hover {
+    /* Disable hover transitions when the user prefers reduced motion */
+    background-color: var(--color-panel);
+  }
 }

@@ -86,3 +86,17 @@
   align-items: center;
   justify-content: center;
 }
+
+/* Group the animation and theme toggles so they align neatly on
+   the right. */
+.toggleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+/* Animation toggle inherits styles from theme toggle but uses
+   its own icon. */
+.animToggle {
+  @extend .themeToggle;
+}

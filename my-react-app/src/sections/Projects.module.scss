@@ -1,70 +1,171 @@
+/*
+ * Styles for the Projects section.  Includes a responsive filter
+ * bar, grid of interactive project cards and rich modal content.
+ * Cards indicate clickability by shifting the affordance arrow on
+ * hover and focus.  Tooltips are positioned relative to their
+ * info icons.  The design maintains consistent spacing and a
+ * cohesive palette.
+ */
+
 .projects {
-  text-align: center;
+  position: relative;
 }
 
+/* Filter bar */
+.filterBar {
+  margin-top: var(--spacing-8);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+  justify-content: center;
+}
+
+.filterButton {
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 0.3rem 0.8rem;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.filterButton:hover,
+.filterButton:focus-visible {
+  background: var(--color-panel-hover);
+  outline: none;
+}
+
+.activeFilter {
+  background: var(--color-primary-tint);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Grid layout */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--spacing-6);
-  margin-top: var(--spacing-8);
+  margin-top: var(--spacing-6);
 }
 
+/* Card container */
 .card {
   position: relative;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-panel);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* Clickable inner area */
+.cardInner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   cursor: pointer;
-  height: 200px;
+  outline: none;
+  transition: transform 0.2s ease;
+}
+
+.cardInner:hover .affordance,
+.cardInner:focus-visible .affordance {
+  transform: translateX(4px);
+  color: var(--color-primary);
+}
+
+.thumbnail {
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 aspect ratio */
   background-size: cover;
   background-position: center;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  transition: transform 0.3s ease;
+}
+
+.cardHeader {
+  position: relative;
+  padding: var(--spacing-4) var(--spacing-4) 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardHeader h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  color: var(--color-primary);
+}
+
+/* Info icon */
+.infoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  background: var(--color-border);
+  color: var(--color-text);
+  border-radius: 50%;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.infoIcon:hover,
+.infoIcon:focus-visible {
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
   outline: none;
 }
 
-.card:hover {
-  transform: translateY(-4px);
+/* Tooltip for info icon */
+.tooltip {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  z-index: 2;
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-3);
+  width: 220px;
+  box-shadow: var(--shadow);
+  font-size: 0.8125rem;
 }
 
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  color: #fff;
-  opacity: 0;
+.tooltip p {
+  margin: 0;
+}
+
+.cardBody {
   padding: var(--spacing-4);
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  transition: opacity 0.3s ease;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.card:hover .overlay,
-.card:focus .overlay {
-  opacity: 1;
-}
-
-.overlay h3 {
-  margin-bottom: var(--spacing-2);
-  font-size: 1.125rem;
-}
-
-.overlay p {
-  font-size: 0.875rem;
-  margin-bottom: var(--spacing-3);
-}
-
-.stack {
+.tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem;
 }
 
+.affordance {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Modal content */
 .modalContent {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4);
+  max-height: 80vh;
+  overflow-y: auto;
   text-align: left;
+  gap: var(--spacing-4);
 }
 
 .modalImage {
@@ -75,6 +176,7 @@
 .modalStack {
   display: flex;
   flex-wrap: wrap;
+  gap: 0.25rem;
 }
 
 .modalLinks {
@@ -82,4 +184,15 @@
   flex-wrap: wrap;
   gap: var(--spacing-4);
   margin-top: var(--spacing-4);
+}
+
+.screenshots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-4);
+}
+
+.screenshots img {
+  width: 100%;
+  border-radius: var(--radius-md);
 }

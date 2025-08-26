@@ -27,8 +27,16 @@
   color: var(--color-text);
   font-size: 1.25rem;
   transition: color 0.3s ease;
+  outline: none;
 }
 
 .socials a:hover {
   color: var(--color-primary);
+}
+
+/* Provide a visible focus ring when navigating with the keyboard. */
+.socials a:focus-visible {
+  color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(var(--color-primary), 0.4);
+  border-radius: var(--radius-full);
 }

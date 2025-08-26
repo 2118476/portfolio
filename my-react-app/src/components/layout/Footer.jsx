@@ -13,7 +13,7 @@ const Footer = () => {
         <p>© {new Date().getFullYear()} Mihretab Nega. All rights reserved.</p>
         <div className={styles.socials}>
           <a
-            href="https://github.com/mihretab"
+            href="https://github.com/2118476"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
@@ -21,14 +21,17 @@ const Footer = () => {
             <i className="fab fa-github" aria-hidden="true"></i>
           </a>
           <a
-            href="https://linkedin.com/in/mihretab"
+            href="https://www.linkedin.com/in/mihretab-nega-56292819a/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
           >
             <i className="fab fa-linkedin" aria-hidden="true"></i>
           </a>
-          <a href="mailto:mihretabtesfahun2124@gmail.com" aria-label="Email">
+          <a
+            href="mailto:mihretabtesfahun2124@gmail.com"
+            aria-label="Email"
+          >
             <i className="fas fa-envelope" aria-hidden="true"></i>
           </a>
         </div>

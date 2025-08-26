@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
+import { AnimationProvider } from './context/AnimationContext';
 import ScrollToTop from './components/ui/ScrollToTop';
 import ChatbotWidget from './components/ui/ChatbotWidget';
 
@@ -23,21 +24,23 @@ const Footer = lazy(() => import('./components/layout/Footer'));
 function App() {
   return (
     <ThemeProvider>
-      <Suspense fallback={<div className="loading" role="status">Loading…</div>}>
-        <Navbar />
-        <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Stats />
-        <Contact />
-        <Footer />
-        <ScrollToTop />
-        {/* Floating chat widget that allows visitors to start a
-            conversation anywhere on the site. */}
-        <ChatbotWidget />
-      </Suspense>
+      <AnimationProvider>
+        <Suspense fallback={<div className="loading" role="status">Loading…</div>}>
+          <Navbar />
+          <Hero />
+          <About />
+          <Skills />
+          <Experience />
+          <Projects />
+          <Stats />
+          <Contact />
+          <Footer />
+          <ScrollToTop />
+          {/* Floating chat widget that allows visitors to start a
+              conversation anywhere on the site. */}
+          <ChatbotWidget />
+        </Suspense>
+      </AnimationProvider>
     </ThemeProvider>
   );
 }

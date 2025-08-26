@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useScrollSpy from '../../hooks/useScrollSpy';
 import useDarkMode from '../../hooks/useDarkMode';
+import { useAnimation } from '../../context/AnimationContext';
 import styles from './Navbar.module.scss';
 
 /*
@@ -10,6 +11,7 @@ import styles from './Navbar.module.scss';
  */
 const Navbar = () => {
   const { theme, toggleTheme } = useDarkMode();
+  const { animationsEnabled, toggleAnimations } = useAnimation();
   const sectionIds = [
     'hero',
     'about',
@@ -47,13 +49,22 @@ const Navbar = () => {
             </a>
           ))}
         </nav>
-        <button
-          className={styles.themeToggle}
-          onClick={toggleTheme}
-          aria-label="Toggle dark mode"
-        >
-          {theme === 'light' ? '🌙' : '☀️'}
-        </button>
+        <div className={styles.toggleGroup}>
+          <button
+            className={styles.animToggle}
+            onClick={toggleAnimations}
+            aria-label="Toggle animations"
+          >
+            {animationsEnabled ? '✨' : '⏸️'}
+          </button>
+          <button
+            className={styles.themeToggle}
+            onClick={toggleTheme}
+            aria-label="Toggle dark mode"
+          >
+            {theme === 'light' ? '🌙' : '☀️'}
+          </button>
+        </div>
       </div>
     </header>
   );

@@ -1,0 +1,33 @@
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  /* Soft diagonal gradient blending the primary and secondary
+     colours.  The large background size allows the gradient to
+     gently shift position. */
+  background-image: linear-gradient(
+    135deg,
+    rgba(var(--color-primary), 0.15),
+    rgba(var(--color-secondary), 0.15)
+  );
+  background-size: 200% 200%;
+  animation: wave 60s ease-in-out infinite alternate;
+  opacity: 0.25;
+}
+
+@keyframes wave {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.static {
+  animation: none;
+}
