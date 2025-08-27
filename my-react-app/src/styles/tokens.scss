@@ -25,7 +25,11 @@
   /* Use an RGB triplet for the page background so we can build
    * translucent colours on top of it.  The variables below contain
    * comma‑separated values, not CSS colours directly. */
-  --color-bg: 248, 250, 252;
+  /* Light mode background colour.  Adjusted from near‑white to a
+   * softly tinted light gradient so that moving particle backgrounds
+   * remain visible even in light mode.  The subtle blue tint echoes
+   * the brand colours without overwhelming the content. */
+  --color-bg: 240, 245, 255;
   --color-panel: #ffffff;
   --color-panel-rgb: 255, 255, 255;
   --color-panel-hover: #f1f5f9;
@@ -55,22 +59,29 @@
  * `ThemeContext` adds `data-theme="dark"` to the `<html>` element.
  * These variables override their light counterparts. */
 [data-theme='dark'] {
-  --color-primary: #4da8ff;
-  --color-primary-tint: #0a192f;
-  --color-secondary: #00cec9;
-  --color-secondary-tint: #073b4c;
-  --color-success: #27ae60;
-  --color-success-bg: #052e16;
-  --color-error: #e74c3c;
-  --color-error-bg: #4a1210;
-  --color-text: #e2e8f0;
-  --color-muted: #94a3b8;
-  --color-bg: 10, 25, 44;
-  --color-panel: #132047;
-  --color-panel-rgb: 19, 32, 71;
-  --color-panel-hover: #1d2e57;
-  --color-border: #243c74;
-  --color-input-bg: #0a192f;
-  --shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.6);
+  /*
+   * Lighten the dark theme to evoke a softer and more modern
+   * ambience similar to Samsung’s OneUI 7 dark mode.  The
+   * backgrounds are deep blue‑gray rather than pure navy and the
+   * primary/secondary colours are slightly desaturated for
+   * accessibility.  Text colours are brighter for contrast.
+   */
+  --color-primary: #3b82f6;      /* blue-500 */
+  --color-primary-tint: #1e40af; /* blue-800 for tints */
+  --color-secondary: #14b8a6;    /* teal-500 */
+  --color-secondary-tint: #134e4a; /* teal-900 */
+  --color-success: #22c55e;      /* green-500 */
+  --color-success-bg: #032f25;   /* dark green tinted */
+  --color-error: #ef4444;        /* red-500 */
+  --color-error-bg: #4a1313;     /* dark red tinted */
+  --color-text: #f1f5f9;         /* gray-100 */
+  --color-muted: #a0aec0;        /* gray-400 */
+  --color-bg: 18, 24, 39;        /* deep blue-gray background */
+  --color-panel: #1e293b;        /* card background */
+  --color-panel-rgb: 30, 41, 59;
+  --color-panel-hover: #334155;  /* dark slate for hover */
+  --color-border: #475569;       /* slate border */
+  --color-input-bg: #0f172a;     /* input backgrounds */
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
 }

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion';
 import LogoBadge from './LogoBadge';
-import Button from './Button';
+import ChatbotContact from '../ChatbotContact';
 import styles from './ChatbotWidget.module.scss';
 
 /*
@@ -16,35 +16,25 @@ import styles from './ChatbotWidget.module.scss';
  */
 const ChatbotWidget = () => {
   const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState(null);
   const prefersReducedMotion = usePrefersReducedMotion();
 
   const toggleOpen = () => {
     setOpen(!open);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
-    try {
-      const res = await fetch('https://formspree.io/f/xanbnewg', {
-        method: 'POST',
-        body: data,
-        headers: { Accept: 'application/json' }
+  // Automatically open the chat widget a few seconds after page load.
+  // This only runs once on mount.  The timer is cleared on unmount to
+  // prevent memory leaks.  We intentionally do not auto‑open if the
+  // user has already interacted with the widget.
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setOpen((prev) => {
+        // Only open automatically if it hasn’t been opened/closed yet
+        return prev ? prev : true;
       });
-      if (res.ok) {
-        setStatus('SUCCESS');
-        form.reset();
-      } else {
-        setStatus('ERROR');
-      }
-    } catch {
-      setStatus('ERROR');
-    }
-    // Reset status after a delay
-    setTimeout(() => setStatus(null), 5000);
-  };
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Animation variants for panel slide‑in/out
   const panelVariants = {
@@ -81,35 +71,10 @@ const ChatbotWidget = () => {
           >
             <div className={styles.header}>
               <LogoBadge size={40} />
-              <h3 id="chatbot-title" className={styles.title}>Let's chat!</h3>
+              <h3 id="chatbot-title" className={styles.title}>Chatbot</h3>
             </div>
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <div className={styles.field}>
-                <label htmlFor="chatbot-name">Name</label>
-                <input type="text" id="chatbot-name" name="name" required />
-              </div>
-              <div className={styles.field}>
-                <label htmlFor="chatbot-email">Email</label>
-                <input type="email" id="chatbot-email" name="email" required />
-              </div>
-              <div className={styles.field}>
-                <label htmlFor="chatbot-message">Message</label>
-                <textarea id="chatbot-message" name="message" rows="3" required></textarea>
-              </div>
-              <Button type="submit" variant="primary">Send</Button>
-            </form>
-            {status === 'SUCCESS' && (
-              <div className={`${styles.popup} ${styles.success}`} role="alert">
-                <LogoBadge size={32} className={styles.popupLogo} />
-                <span>Message sent successfully!</span>
-              </div>
-            )}
-              {status === 'ERROR' && (
-              <div className={`${styles.popup} ${styles.error}`} role="alert">
-                <LogoBadge size={32} className={styles.popupLogo} />
-                <span>Something went wrong. Please try again.</span>
-              </div>
-            )}
+            {/* Embed the conversational chatbot inside the panel instead of a simple form. */}
+            <ChatbotContact />
           </motion.div>
         )}
       </AnimatePresence>

@@ -27,20 +27,26 @@ const Experience = () => {
     }
   }, []);
 
-  // Toggle expansion of an entry.  When expanding, update the hash
-  // so that the current entry is linkable.  When collapsing, remove
-  // the hash to avoid stale references.
+  // Toggle expansion of an entry.  When expanding, update the
+  // URL hash so that the current entry is linkable.  When
+  // collapsing, remove the hash to avoid stale references.  Use
+  // window.history explicitly rather than the global `history` to
+  // satisfy linter rules.
   const toggle = (id) => {
-    setActiveId((prev) => (prev === id ? null : id));
-    setTimeout(() => {
-      if (activeId === id) {
-        // collapsing
-        history.replaceState(null, '', '#experience');
-      } else {
-        // expanding
-        history.replaceState(null, '', `#${id}`);
-      }
-    }, 0);
+    setActiveId((prev) => {
+      const next = prev === id ? null : id;
+      // defer hash updates until after state change
+      setTimeout(() => {
+        if (next === id) {
+          // expanding
+          window.history.replaceState(null, '', `#${id}`);
+        } else {
+          // collapsing
+          window.history.replaceState(null, '', '#experience');
+        }
+      }, 0);
+      return next;
+    });
   };
 
   return (

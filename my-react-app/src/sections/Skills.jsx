@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Section from '../components/layout/Section';
 import { skillCategories } from '../data/skills';
 import styles from './Skills.module.scss';
-import Badge from '../components/ui/Badge';
 import Modal from '../components/ui/Modal';
 import BackgroundSkills from '../components/backgrounds/BackgroundSkills';
 

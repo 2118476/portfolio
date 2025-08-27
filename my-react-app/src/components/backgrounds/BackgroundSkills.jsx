@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAnimation } from '../../context/AnimationContext';
+import Starfield from '../ui/Starfield';
 import styles from './BackgroundSkills.module.scss';
 
 /*
@@ -12,10 +13,13 @@ import styles from './BackgroundSkills.module.scss';
 const BackgroundSkills = () => {
   const { animationsEnabled } = useAnimation();
   return (
-    <div
-      className={`${styles.background} ${!animationsEnabled ? styles.static : ''}`}
-      aria-hidden="true"
-    />
+    <>
+      <Starfield numStars={100} />
+      <div
+        className={`${styles.background} ${!animationsEnabled ? styles.static : ''}`}
+        aria-hidden="true"
+      />
+    </>
   );
 };
 

@@ -44,7 +44,9 @@ export const experienceTimeline = [
       'Delivered a final year project – Hair Salon Booking System – applying full-stack skills.'
     ],
     achievements: [
-      'Graduated with honours.',
+      // Replace honours text with a neutral degree description.  Avoid
+      // mentioning honours explicitly to maintain professionalism.
+      'Bachelor of Computer Science.',
       'Final year project demonstrated an end-to-end booking platform with security and administration features.'
     ],
     techStack: ['Java', 'Spring Boot', 'MySQL'],

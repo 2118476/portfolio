@@ -21,16 +21,13 @@ const About = () => {
       >
         <h2 className="section-title">About Me</h2>
         <p>
-          I'm Mihretab Nega, a junior software developer with strong experience in
-          full‑stack Java and React development, currently expanding into .NET and
-          cloud technologies. I love building products that deliver real value and
-          impact, whether it's a communication app using Twilio APIs or a secure
-          booking platform.
+          I’m Mihretab&nbsp;Nega, a full‑stack developer specialising in Java,
+          Spring&nbsp;Boot and React. I enjoy building clean, scalable software that
+          turns ideas into dependable products.
         </p>
         <p>
-          My interests span web development, APIs, microservices and cloud
-          deployment. I’m always eager to learn and explore new tools, from C# and
-          ASP.NET to AI and distributed systems.
+          My focus spans APIs, microservices and cloud deployments, but I’m
+          always experimenting with new technologies to broaden my expertise.
         </p>
       </motion.div>
       <motion.div

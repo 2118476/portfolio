@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAnimation } from '../../context/AnimationContext';
+import Starfield from '../ui/Starfield';
 import styles from './BackgroundContact.module.scss';
 
 /*
@@ -11,10 +12,15 @@ import styles from './BackgroundContact.module.scss';
 const BackgroundContact = () => {
   const { animationsEnabled } = useAnimation();
   return (
-    <div
-      className={`${styles.background} ${!animationsEnabled ? styles.static : ''}`}
-      aria-hidden="true"
-    />
+    <>
+      {/* Subtle starfield behind the gradient.  Reuses the hero
+          starfield component for a consistent feel across the site. */}
+      <Starfield numStars={120} />
+      <div
+        className={`${styles.background} ${!animationsEnabled ? styles.static : ''}`}
+        aria-hidden="true"
+      />
+    </>
   );
 };
 

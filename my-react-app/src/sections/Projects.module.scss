@@ -142,8 +142,9 @@
 .cardBody {
   padding: var(--spacing-4);
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  gap: var(--spacing-3);
 }
 
 .tags {
@@ -152,10 +153,43 @@
   gap: 0.25rem;
 }
 
+/* Prominent view button within project cards.  It is centred and
+   slightly larger than the default buttons for better visibility. */
+.viewButton {
+  margin-top: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-5);
+  font-size: 1rem;
+  width: 80%;
+  justify-content: center;
+}
+
 .affordance {
   font-size: 0.875rem;
   color: var(--color-muted);
   transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Modal header containing the title and top links. */
+.modalHeader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+/* Ensure modal titles always use the primary text colour for better contrast
+   against the glass background.  Without this override the headings
+   inherit the accent colour which can be hard to read on tinted
+   backdrops (e.g. blue on blue). */
+.modalHeader h3 {
+  color: var(--color-text);
+}
+
+.modalLinksTop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
 }
 
 /* Modal content */

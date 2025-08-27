@@ -23,6 +23,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative; /* allows absolute positioning of the mobile dropdown */
 }
 
 .logo {
@@ -36,10 +37,67 @@
   gap: var(--spacing-6);
 }
 
+/* When menuOpen is true on small screens the nav links become a
+   vertical dropdown anchored to the right side of the navbar. */
+.navLinks.open {
+  display: flex;
+  position: absolute;
+  top: 100%;
+  right: var(--spacing-4);
+  flex-direction: column;
+  gap: var(--spacing-3);
+  background: var(--color-panel);
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  animation: dropdown 0.3s ease forwards;
+  z-index: 999;
+
+  /* Arrow indicator above the dropdown. */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: var(--spacing-3);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid var(--color-panel);
+  }
+}
+
+@keyframes dropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (min-width: 640px) {
   .navLinks {
     display: flex;
   }
+
+  /* Hide the mobile menu button on larger screens */
+  .menuButton {
+    display: none;
+  }
+}
+
+/* Hamburger menu button for small screens */
+.menuButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2);
 }
 
 .navLinks a {

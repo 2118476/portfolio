@@ -28,6 +28,32 @@ export const skillCategories = [
         proficiency: 4
       },
       {
+        id: 'typescript',
+        name: 'TypeScript',
+        years: 4,
+        summary:
+          'Typed superset of JavaScript that enables scalable and maintainable applications.',
+        useCases: [
+          'Type-safe React applications',
+          'Large-scale app development',
+          'Defining API contracts with types'
+        ],
+        proficiency: 4
+      },
+      {
+        id: 'tailwind',
+        name: 'Tailwind CSS',
+        years: 3,
+        summary:
+          'Utility-first CSS framework for rapidly building custom user interfaces.',
+        useCases: [
+          'Rapid prototyping of UI',
+          'Building consistent design systems',
+          'Responsive design'
+        ],
+        proficiency: 4
+      },
+      {
         id: 'javascript',
         name: 'JavaScript (ES6+)',
         years: 5,
@@ -74,7 +100,11 @@ export const skillCategories = [
         years: 4,
         summary:
           'Strongly typed object-oriented language used for API development and services.',
-        useCases: ['RESTful API development', 'Microservices', 'Enterprise applications'],
+        useCases: [
+          'RESTful API development',
+          'Microservices',
+          'Enterprise applications'
+        ],
         proficiency: 4
       },
       {
@@ -89,6 +119,45 @@ export const skillCategories = [
           'Data persistence with JPA'
         ],
         proficiency: 4
+      },
+      {
+        id: 'nodejs',
+        name: 'Node.js',
+        years: 4,
+        summary:
+          'JavaScript runtime enabling scalable server-side and full-stack applications.',
+        useCases: [
+          'Building REST APIs',
+          'Real-time applications with WebSockets',
+          'Serverless functions'
+        ],
+        proficiency: 4
+      },
+      {
+        id: 'express',
+        name: 'Express.js',
+        years: 4,
+        summary:
+          'Minimalist web framework for Node.js for creating robust APIs and services.',
+        useCases: [
+          'Routing and middleware systems',
+          'RESTful API development',
+          'Server-side rendering'
+        ],
+        proficiency: 4
+      },
+      {
+        id: 'csharp',
+        name: 'C# & ASP.NET',
+        years: 3,
+        summary:
+          'Statically typed language and framework for building robust web APIs and enterprise apps.',
+        useCases: [
+          'Building Web APIs',
+          'Enterprise application development',
+          'Microservices'
+        ],
+        proficiency: 3
       }
     ]
   },
@@ -109,6 +178,19 @@ export const skillCategories = [
           'Database administration and tuning'
         ],
         proficiency: 4
+      },
+      {
+        id: 'postgresql',
+        name: 'PostgreSQL',
+        years: 4,
+        summary:
+          'Advanced open-source relational database with strong ACID compliance and extensibility.',
+        useCases: [
+          'Schema design and indexing',
+          'Stored procedures and triggers',
+          'Data warehousing and analytics'
+        ],
+        proficiency: 4
       }
     ]
   },
@@ -123,7 +205,11 @@ export const skillCategories = [
         years: 5,
         summary:
           'Version control and collaboration on codebases using Git and GitHub.',
-        useCases: ['Branching and merging', 'Pull requests and code reviews', 'Continuous Integration'],
+        useCases: [
+          'Branching and merging',
+          'Pull requests and code reviews',
+          'Continuous Integration'
+        ],
         proficiency: 5
       },
       {
@@ -144,7 +230,11 @@ export const skillCategories = [
         name: 'Render',
         years: 2,
         summary: 'Platform-as-a-service for hosting web apps and APIs.',
-        useCases: ['Deploying full-stack applications', 'Database hosting', 'Continuous deployment'],
+        useCases: [
+          'Deploying full-stack applications',
+          'Database hosting',
+          'Continuous deployment'
+        ],
         proficiency: 3
       },
       {
@@ -153,7 +243,11 @@ export const skillCategories = [
         years: 2,
         summary:
           'Front-end hosting platform optimised for Jamstack and serverless functions.',
-        useCases: ['Hosting React and Next.js apps', 'Serverless API routes', 'Preview deployments'],
+        useCases: [
+          'Hosting React and Next.js apps',
+          'Serverless API routes',
+          'Preview deployments'
+        ],
         proficiency: 3
       },
       {
@@ -162,18 +256,49 @@ export const skillCategories = [
         years: 2,
         summary:
           'Static site hosting with CI/CD and serverless functions.',
-        useCases: ['Deploying static sites', 'Edge functions', 'Form handling'],
+        useCases: [
+          'Deploying static sites',
+          'Edge functions',
+          'Form handling'
+        ],
         proficiency: 3
       },
       {
         id: 'twilio',
         name: 'Twilio',
         years: 2,
-        summary: 'Cloud communications platform for SMS, voice and email.',
+        summary:
+          'Cloud communications platform for SMS, voice and email.',
         useCases: [
           'Sending SMS notifications',
           'Building voice call workflows',
           'Two-factor authentication'
+        ],
+        proficiency: 3
+      },
+      {
+        id: 'vscode',
+        name: 'VS Code',
+        years: 5,
+        summary:
+          'Powerful and extensible code editor with a rich ecosystem of extensions.',
+        useCases: [
+          'Front-end and full-stack development',
+          'Debugging and profiling',
+          'Remote and container-based development'
+        ],
+        proficiency: 5
+      },
+      {
+        id: 'postman',
+        name: 'Postman',
+        years: 3,
+        summary:
+          'API design and testing platform for REST and GraphQL services.',
+        useCases: [
+          'Testing and debugging APIs',
+          'Mock server creation',
+          'API documentation'
         ],
         proficiency: 3
       }

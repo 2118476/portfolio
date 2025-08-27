@@ -10,15 +10,23 @@
   position: relative;
 }
 
+/* Layout the category panels in a responsive grid rather than stacking
+ * them vertically.  Two categories per row on medium and larger
+ * screens result in a modern masonry-like layout. */
 .categories {
   margin-top: var(--spacing-8);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--spacing-6);
 }
 
+/* Individual category cards.  Remove bottom margin because the grid
+ * controls spacing.  Ensure overflow is hidden so expand/collapse
+ * animations do not bleed into neighbouring cells. */
 .category {
   background: var(--color-panel);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  margin-bottom: var(--spacing-6);
   overflow: hidden;
 }
 

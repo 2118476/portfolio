@@ -1,7 +1,7 @@
 import React from 'react';
 import Section from '../components/layout/Section';
 import { motion } from 'framer-motion';
-import ChatbotContact from '../components/ChatbotContact';
+import ContactForm from '../components/ContactForm';
 import BackgroundContact from '../components/backgrounds/BackgroundContact';
 import styles from './Contact.module.scss';
 
@@ -40,7 +40,9 @@ const Contact = () => {
         transition={{ duration: 0.5, delay: 0.2 }}
         viewport={{ once: true }}
       >
-        <ChatbotContact />
+        {/* Render a simple contact form rather than the chatbot.  The form
+            collects name, email and message and submits to Formspree. */}
+        <ContactForm />
       </motion.div>
     </Section>
   );

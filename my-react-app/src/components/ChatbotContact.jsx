@@ -16,28 +16,32 @@ import styles from './ChatbotContact.module.scss';
  */
 const ChatbotContact = () => {
   const prefersReducedMotion = usePrefersReducedMotion();
+  // Keep track of all messages exchanged between the bot and the user.
   const [messages, setMessages] = useState([]);
+  // Indicates whether the bot is "typing" a response.
   const [typing, setTyping] = useState(false);
-  const [step, setStep] = useState(0);
+  // Tracks the conversation phase: askName → awaitingQuestion → askEmail → completed
+  const [phase, setPhase] = useState('askName');
+  // Bound to the input field; cleared after each submission.
   const [inputValue, setInputValue] = useState('');
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  // Collects the user's name and email so they can be sent via Formspree.
+  const [formData, setFormData] = useState({ name: '', email: '' });
+  // Submission status: null, 'SUCCESS' or 'ERROR'.
   const [status, setStatus] = useState(null);
 
-  const steps = [
-    { question: "What's your name?", field: 'name' },
-    { question: "What's your email?", field: 'email' },
-    { question: 'What can I help with?', field: 'message' }
-  ];
-
-  // Push the first bot question on mount
+  // On mount, greet the visitor and ask for their name.
   useEffect(() => {
-    addBotMessage(steps[0].question);
+    addBotMessage("Hi, welcome! What's your name?");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Helper to push a bot message and optionally show typing delay
+  /**
+   * Append a message from the bot to the conversation.  If the user
+   * prefers reduced motion we skip the typing delay, otherwise a
+   * small pause is inserted for a more conversational feel.
+   * @param {string} text The message to display
+   */
   const addBotMessage = (text) => {
-    // Immediately add the message if reduced motion; otherwise show typing
     if (prefersReducedMotion) {
       setMessages((prev) => [...prev, { sender: 'bot', text }]);
     } else {
@@ -49,47 +53,94 @@ const ChatbotContact = () => {
     }
   };
 
+  /**
+   * Append a user message to the conversation.  Messages are stored
+   * verbatim; validation happens in the submission handler.
+   * @param {string} text
+   */
   const addUserMessage = (text) => {
     setMessages((prev) => [...prev, { sender: 'user', text }]);
   };
 
-  // Handle input submission for each step
+  /**
+   * Handle submission of the input field.  Behaviour depends on the
+   * current conversation phase.  Name is collected first, followed
+   * by free‑form questions.  If the visitor asks about the
+   * developer's capabilities we answer immediately.  Otherwise we
+   * treat the query as detailed and request an email to follow up.
+   */
   const handleInputSubmit = () => {
     const value = inputValue.trim();
     if (!value) return;
-    // push user message bubble
     addUserMessage(value);
-    const currentField = steps[step].field;
-    setFormData((prev) => ({ ...prev, [currentField]: value }));
     setInputValue('');
-    // Validate email format when on email step
-    if (
-      currentField === 'email' &&
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-    ) {
-      addBotMessage("Hmm, that email doesn't look valid. Could you try again?");
-      return;
-    }
-    // Move to next step or to summary
-    const nextStep = step + 1;
-    if (nextStep < steps.length) {
-      setStep(nextStep);
-      addBotMessage(steps[nextStep].question);
-    } else {
-      setStep(nextStep);
-      // summary
-      const summary = `Thanks, ${formData.name || value}! I'll email you at ${currentField === 'email' ? value : formData.email} once I've read your message. Ready to send?`;
-      addBotMessage(summary);
+    switch (phase) {
+      case 'askName': {
+        // Capture the visitor's name and transition to the question phase.
+        setFormData((prev) => ({ ...prev, name: value }));
+        addBotMessage(
+          `Nice to meet you, ${value}! I'm here to help. Try asking me what I can do or tell me more about your project.`
+        );
+        setPhase('awaitingQuestion');
+        break;
+      }
+      case 'awaitingQuestion': {
+        const lower = value.toLowerCase();
+        // If the visitor asks about capabilities, answer based on the CV/skills.
+        if (lower.includes('what can you do')) {
+          addBotMessage(
+            "I build full‑stack apps with React, Spring Boot, MySQL and more. I'm experienced in API development, microservices and cloud deployments."
+          );
+          addBotMessage(
+            "If you have a specific question or project in mind, feel free to ask!"
+          );
+        } else {
+          // Treat any other question as detailed.  Let the visitor know we'll follow up via email.
+          addBotMessage(
+            "That’s a great question — I’ll get back to you by email with a full answer."
+          );
+          addBotMessage(
+            'Could you please provide your email so I can follow up?'
+          );
+          setPhase('askEmail');
+        }
+        break;
+      }
+      case 'askEmail': {
+        // Validate email format
+        const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        if (!emailValid) {
+          addBotMessage("Hmm, that email doesn't look valid. Could you try again?");
+          break;
+        }
+        setFormData((prev) => ({ ...prev, email: value }));
+        addBotMessage("Thanks! I'll reach out to you soon.");
+        // After capturing the email, send the conversation log to the configured endpoint.
+        // We include the entire conversation so that Mihretab has context for the inquiry.
+        const conversationLog = [...messages, { sender: 'user', text: value }]
+          .map((msg) => `${msg.sender === 'bot' ? 'Bot' : 'You'}: ${msg.text}`)
+          .join('\n');
+        handleSubmit(conversationLog);
+        setPhase('completed');
+        break;
+      }
+      default:
+        break;
     }
   };
 
-  // Submit to Formspree
-  const handleSubmit = async () => {
-    // Build form data for POST
+  /**
+   * Submit the collected data to Formspree.  The message includes the
+   * conversation log so the developer can see the full context of
+   * the interaction.  Status flags drive success and error
+   * feedback within the UI.
+   * @param {string} conversationLog Full transcript of the chat
+   */
+  const handleSubmit = async (conversationLog) => {
     const data = new FormData();
     data.append('name', formData.name);
     data.append('email', formData.email);
-    data.append('message', formData.message);
+    data.append('message', conversationLog || '');
     try {
       const res = await fetch('https://formspree.io/f/xanbnewg', {
         method: 'POST',
@@ -109,7 +160,7 @@ const ChatbotContact = () => {
     }
   };
 
-  // Form submission handler for the input form
+  // Intercept the form submit event and delegate to our handler.
   const onSubmit = (e) => {
     e.preventDefault();
     handleInputSubmit();
@@ -117,21 +168,12 @@ const ChatbotContact = () => {
 
   return (
     <div className={styles.chatbot} aria-live="polite">
-      {/* Progress indicator */}
-      <div className={styles.progress} aria-hidden="true">
-        <div
-          className={styles.progressBar}
-          style={{ width: `${(Math.min(step, steps.length) / (steps.length + 1)) * 100}%` }}
-        ></div>
-      </div>
       {/* Message bubbles */}
       <div className={styles.messages} id="chatbot-messages">
         {messages.map((msg, idx) => (
           <motion.div
             key={idx}
-            className={
-              msg.sender === 'bot' ? styles.botBubble : styles.userBubble
-            }
+            className={msg.sender === 'bot' ? styles.botBubble : styles.userBubble}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: prefersReducedMotion ? 0.01 : 0.3 }}
@@ -152,16 +194,16 @@ const ChatbotContact = () => {
           </motion.div>
         )}
       </div>
-      {/* Input area or confirmation */}
-      {status === null && step < steps.length && (
+      {/* Input area: show only while the conversation is active and there is no submission status */}
+      {status === null && phase !== 'completed' && (
         <form className={styles.inputArea} onSubmit={onSubmit}>
           <label htmlFor="chatbot-input" className="sr-only">
-            {steps[step].field}
+            chat input
           </label>
           <input
             id="chatbot-input"
-            type={steps[step].field === 'email' ? 'email' : 'text'}
-            name={steps[step].field}
+            type={phase === 'askEmail' ? 'email' : 'text'}
+            name="chatbot-input"
             required
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
@@ -173,17 +215,7 @@ const ChatbotContact = () => {
           </Button>
         </form>
       )}
-      {status === null && step >= steps.length && (
-        <div className={styles.confirmArea}>
-          <Button
-            variant="primary"
-            onClick={handleSubmit}
-            className={styles.submitButton}
-          >
-            Submit
-          </Button>
-        </div>
-      )}
+      {/* Feedback after sending */}
       {status === 'SUCCESS' && (
         <div className={styles.result} role="alert">
           Thank you! Your message has been sent.

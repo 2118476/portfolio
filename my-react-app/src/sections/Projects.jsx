@@ -124,7 +124,20 @@ const Projects = () => {
                     </Badge>
                   ))}
                 </div>
-                <span className={styles.affordance}>View →</span>
+                {/* A prominent view button centred in the card.  Clicking
+                    the button opens the project modal.  Stop
+                    propagation so that the button doesn’t trigger
+                    nested click handlers unnecessarily. */}
+                <Button
+                  variant="primary"
+                  className={styles.viewButton}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedProject(proj);
+                  }}
+                >
+                  View
+                </Button>
               </div>
             </div>
           </div>
@@ -133,7 +146,29 @@ const Projects = () => {
       {selectedProject && (
         <Modal isOpen={!!selectedProject} onClose={() => setSelectedProject(null)}>
           <div className={styles.modalContent}>
-            <h3>{selectedProject.title}</h3>
+            <div className={styles.modalHeader}>
+              <h3>{selectedProject.title}</h3>
+              <div className={styles.modalLinksTop}>
+                {selectedProject.demo && selectedProject.demo !== '#' && (
+                  <a
+                    href={selectedProject.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="primary">Live Demo</Button>
+                  </a>
+                )}
+                {selectedProject.code && selectedProject.code !== '#' && (
+                  <a
+                    href={selectedProject.code}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="secondary">Source Code</Button>
+                  </a>
+                )}
+              </div>
+            </div>
             <img
               src={selectedProject.image.replace('/600/400', '/800/500')}
               alt={selectedProject.title}
@@ -202,26 +237,7 @@ const Projects = () => {
                 </div>
               </>
             )}
-            <div className={styles.modalLinks}>
-              {selectedProject.demo && selectedProject.demo !== '#' && (
-                <a
-                  href={selectedProject.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button variant="primary">Live Demo</Button>
-                </a>
-              )}
-              {selectedProject.code && selectedProject.code !== '#' && (
-                <a
-                  href={selectedProject.code}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button variant="secondary">Source Code</Button>
-                </a>
-              )}
-            </div>
+            {/* Remove the bottom link bar as links are now placed in the header */}
           </div>
         </Modal>
       )}
