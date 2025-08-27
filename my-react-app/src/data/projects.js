@@ -32,7 +32,13 @@ export const projects = [
       'Achieved smooth voice call connections with minimal latency.',
       'Simplified user experience with a clean dashboard and real-time feedback.'
     ],
-    demo: 'https://sparkling-gaufre-95d8cc.netlify.app',
+    /*
+     * Corrected live demo link for the MMS / SMS / VoiceCall App.
+     * This now points to the proper Netlify deployment rather than
+     * the hair salon booking system.  See the acceptance
+     * checklist for details.
+     */
+    demo: 'https://gorgeous-cendol-eb18cc.netlify.app/',
     code: '#',
     image: 'https://picsum.photos/seed/project1/600/400',
     screenshots: ['https://picsum.photos/seed/project1a/800/500'],
@@ -93,7 +99,13 @@ export const projects = [
       'Improved administrative efficiency with intuitive dashboards.',
       'Demonstrated as final year project with positive feedback from faculty.'
     ],
-    demo: '#',
+    /*
+     * The hair salon booking system was previously linked to the
+     * MMS app.  Swap the URLs so that this project now points to
+     * the booking demo.  Leaving a trailing slash avoids a
+     * redirect and ensures a clean URL.
+     */
+    demo: 'https://sparkling-gaufre-95d8cc.netlify.app',
     code: '#',
     image: 'https://picsum.photos/seed/project2/600/400',
     screenshots: ['https://picsum.photos/seed/project2a/800/500'],

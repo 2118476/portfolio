@@ -7,6 +7,10 @@
  */
 
 @import '@fortawesome/fontawesome-free/css/all.min.css';
+/* Import the Montserrat font for the logo and headings.  The font
+   is loaded from Google Fonts and will fall back gracefully if
+   unavailable. */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap');
 @import './tokens.scss';
 
 /* Box sizing reset */
@@ -28,6 +32,13 @@ body {
   color: var(--color-text);
   line-height: 1.6;
   min-height: 100vh;
+
+  /* Respect safe area insets on modern mobile devices so that
+     content doesn’t overlap with the status bar or gesture areas.
+     This effectively pushes the body content inward while the
+     background colour continues to extend to the edges. */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 img {

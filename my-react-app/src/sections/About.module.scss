@@ -35,10 +35,14 @@
   .about {
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
   }
+  /* When the layout switches to horizontal, give the content
+     breathing room on the left rather than the right because
+     the portrait now precedes the text. */
   .content {
     flex: 1;
-    margin-right: var(--spacing-8);
+    margin-left: var(--spacing-8);
   }
   .imageWrapper {
     flex: 0 0 auto;

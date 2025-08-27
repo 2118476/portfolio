@@ -16,25 +16,42 @@ import styles from './ChatbotWidget.module.scss';
  */
 const ChatbotWidget = () => {
   const [open, setOpen] = useState(false);
+  // Whether to show the chat invitation teaser.  This pill is
+  // displayed after a delay for new visitors but is suppressed
+  // once dismissed or after the chat has been opened in the
+  // current session.
+  const [showTeaser, setShowTeaser] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
 
   const toggleOpen = () => {
     setOpen(!open);
   };
 
-  // Automatically open the chat widget a few seconds after page load.
-  // This only runs once on mount.  The timer is cleared on unmount to
-  // prevent memory leaks.  We intentionally do not auto‑open if the
-  // user has already interacted with the widget.
+  // Show a teaser pill after a delay instead of automatically
+  // opening the chat.  We rely on sessionStorage to remember
+  // whether the invitation has been dismissed or the chat was
+  // previously opened.  The teaser will not display again once
+  // dismissed for the duration of the session.
   useEffect(() => {
+    // If the user has already opened or dismissed the chat in this
+    // session then bail early.
+    const dismissed = sessionStorage.getItem('chatTeaserDismissed');
+    if (dismissed === 'true') return;
     const timer = setTimeout(() => {
-      setOpen((prev) => {
-        // Only open automatically if it hasn’t been opened/closed yet
-        return prev ? prev : true;
-      });
-    }, 5000);
+      setShowTeaser(true);
+    }, 15000);
     return () => clearTimeout(timer);
   }, []);
+
+  // Whenever the chat is opened, hide the teaser and record the
+  // dismissal so it doesn’t reappear this session.  Closing the
+  // chat does not reset the flag.
+  useEffect(() => {
+    if (open) {
+      setShowTeaser(false);
+      sessionStorage.setItem('chatTeaserDismissed', 'true');
+    }
+  }, [open]);
 
   // Animation variants for panel slide‑in/out
   const panelVariants = {
@@ -44,6 +61,41 @@ const ChatbotWidget = () => {
 
   return (
     <div className={styles.container} aria-live="polite">
+      {/* Teaser pill inviting the visitor to chat.  Appears after
+          a delay and disappears when clicked or dismissed. */}
+      {showTeaser && !open && (
+        <div
+          className={styles.teaser}
+          role="button"
+          tabIndex={0}
+          onClick={() => setOpen(true)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setOpen(true);
+            }
+          }}
+          aria-label="Open chat"
+        >
+          {/* A short, friendly greeting with an emoji.  This shows after
+              a 15 second delay and invites the visitor to tap the
+              floating button.  Keeping the copy concise avoids
+              cluttering the interface. */}
+          <span>👋 Hi! Need help? Tap me to chat.</span>
+          <button
+            type="button"
+            className={styles.teaserClose}
+            aria-label="Dismiss chat invitation"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowTeaser(false);
+              sessionStorage.setItem('chatTeaserDismissed', 'true');
+            }}
+          >
+            ×
+          </button>
+        </div>
+      )}
       <button
         className={styles.fab}
         onClick={toggleOpen}

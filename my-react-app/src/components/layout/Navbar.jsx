@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useScrollSpy from '../../hooks/useScrollSpy';
 import useDarkMode from '../../hooks/useDarkMode';
-import { useAnimation } from '../../context/AnimationContext';
 import styles from './Navbar.module.scss';
 
 /*
@@ -11,7 +10,6 @@ import styles from './Navbar.module.scss';
  */
 const Navbar = () => {
   const { theme, toggleTheme } = useDarkMode();
-  const { animationsEnabled, toggleAnimations } = useAnimation();
   const sectionIds = [
     'hero',
     'about',
@@ -56,23 +54,15 @@ const Navbar = () => {
   return (
     <header className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
+        {/* Logo using a distinctive font.  When focused or hovered it
+            subtly scales or increases letter-spacing for a micro
+            interaction. */}
         <a className={styles.logo} href="#hero">
           Mihretab
         </a>
-        {/* Hamburger button for mobile screens.  This is hidden on larger
-            viewports via CSS.  The icon swaps between the bars and a
-            close icon based on the open state. */}
-        <button
-          className={styles.menuButton}
-          onClick={toggleMenu}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-        >
-          <i
-            className={`fas ${menuOpen ? 'fa-times' : 'fa-bars'}`}
-            aria-hidden="true"
-          ></i>
-        </button>
+        {/* Navigation links.  Hidden on small screens. */}
         <nav
+          id="main-navigation"
           className={`${styles.navLinks} ${menuOpen ? styles.open : ''}`}
           aria-label="Main navigation"
         >
@@ -87,18 +77,8 @@ const Navbar = () => {
             </a>
           ))}
         </nav>
+        {/* Theme toggle button remains visible on all screen sizes. */}
         <div className={styles.toggleGroup}>
-          <button
-            className={styles.animToggle}
-            onClick={toggleAnimations}
-            aria-label={animationsEnabled ? 'Pause animations' : 'Play animations'}
-          >
-            {/* Replace the star/pause emoji with FontAwesome icons for a cleaner look */}
-            <i
-              className={`fas ${animationsEnabled ? 'fa-pause' : 'fa-play'}`}
-              aria-hidden="true"
-            ></i>
-          </button>
           <button
             className={styles.themeToggle}
             onClick={toggleTheme}
@@ -107,6 +87,19 @@ const Navbar = () => {
             {theme === 'light' ? '🌙' : '☀️'}
           </button>
         </div>
+        {/* Mobile menu toggle positioned at the far right. */}
+        <button
+          className={styles.menuButton}
+          onClick={toggleMenu}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          aria-controls="main-navigation"
+        >
+          <i
+            className={`fas ${menuOpen ? 'fa-times' : 'fa-bars'}`}
+            aria-hidden="true"
+          ></i>
+        </button>
       </div>
     </header>
   );

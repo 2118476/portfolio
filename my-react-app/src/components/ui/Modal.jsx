@@ -11,6 +11,29 @@ import LogoBadge from './LogoBadge';
  * framer‑motion.  The parent should control the `isOpen` state.
  */
 const Modal = ({ isOpen, onClose, children }) => {
+  // Lock body scroll when the modal is open.  Store the scroll
+  // position so it can be restored on close.  Without this the
+  // background would scroll behind the overlay which is
+  // distracting and can cause layout shifts.
+  useEffect(() => {
+    if (!isOpen) return;
+    const scrollY = window.scrollY;
+    const originalStyle = {
+      position: document.body.style.position,
+      top: document.body.style.top,
+      overflow: document.body.style.overflow
+    };
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.position = originalStyle.position || '';
+      document.body.style.top = originalStyle.top || '';
+      document.body.style.overflow = originalStyle.overflow || '';
+      // Restore the previous scroll position after releasing the lock
+      window.scrollTo(0, scrollY);
+    };
+  }, [isOpen]);
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape') onClose();

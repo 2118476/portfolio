@@ -1,12 +1,33 @@
+/*
+ * The hero wrapper uses a sticky video background.  It occupies
+ * slightly more than the viewport height (120vh) so that the
+ * content can scroll over the video, creating a parallax
+ * effect.  Overflow is clipped to prevent the video from
+ * bleeding into subsequent sections.
+ */
+/*
+ * The hero section spans the full viewport height.  It uses flexbox
+ * to centre the content both horizontally and vertically.  A
+ * relative positioning context is required for absolutely
+ * positioned children such as the starfield and overlay.  We clip
+ * overflow to ensure that absolutely or fixed positioned
+ * descendants don’t bleed into neighbouring sections.
+ */
+/*
+ * The hero section spans slightly more than the viewport to allow
+ * for a parallax effect when using the sticky video approach.  It
+ * centres the content using an absolutely positioned wrapper
+ * instead of relying on flexbox, preventing the video from
+ * displacing the text.  Overflow is clipped so that sticky
+ * descendants don’t bleed into neighbouring sections.
+ */
 .hero {
   position: relative;
+  height: 120vh;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   text-align: center;
   color: var(--color-text);
-  overflow: hidden;
+  overflow: clip;
 }
 
 .background {
@@ -21,17 +42,135 @@
   background-image: url('https://picsum.photos/1920/1080?seed=hero');
   background-size: cover;
   background-position: center;
-  filter: brightness(0.6);
+  /* Lighten the base image slightly so that it remains crisp in light
+     mode.  A value near 0.8 avoids washing the photo out while
+     still allowing the overlay to provide adequate contrast for
+     text. */
+  filter: brightness(0.8);
   z-index: -3; /* behind starfield */
+}
+
+/*
+ * Video wrapper for the hero.  The wrapper itself is sticky so
+ * that the video remains pinned to the top of the viewport while
+ * the hero content scrolls past it.  Once the hero is scrolled
+ * out of view the wrapper moves out of the viewport and the
+ * video disappears.  A very low z-index ensures it sits behind
+ * the starfield and overlay.
+ */
+/*
+ * The video wrapper is fixed to the viewport rather than
+ * participating in the normal layout.  This ensures that the
+ * background video doesn’t displace any content.  Visibility is
+ * controlled via the `.videoVisible` class which toggles the
+ * opacity when the hero is in or out of view.  A negative z-index
+ * places the video behind the starfield and overlay.
+ */
+/*
+ * Sticky wrapper for the background video.  It sticks to the
+ * top of the viewport while the hero is in view and then
+ * scrolls away when the hero ends.  A negative z-index keeps
+ * the video behind the starfield, overlay and content.  Pointer
+ * events are disabled so that the video doesn’t intercept any
+ * interactions.
+ */
+.heroVideoWrap {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -4;
+  pointer-events: none;
+}
+
+/* When the hero section is intersecting the viewport the
+ * IntersectionObserver adds the `.videoVisible` class to the
+ * wrapper, fading the video in.  When it scrolls out of view
+ * the class is removed and the video fades out.
+ */
+
+/*
+ * The video element fills its wrapper and uses `object-fit: cover`
+ * to ensure it covers the entire area without distortion.  Pointer
+ * events are disabled to avoid intercepting scroll or tap events.
+ */
+.heroVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+/*
+ * Fallback image for users who prefer reduced motion.  It takes
+ * the place of the video and is sized identically.  The
+ * brightness is reduced slightly to match the video’s look and
+ * maintain text readability.
+ */
+.fallback {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  display: block;
+  filter: brightness(0.8);
+}
+
+/*
+ * Container that centres the hero content.  Positioned absolutely
+ * so that it layers above the background video and starfield.
+ * Flexbox is used internally to centre the card both vertically
+ * and horizontally.
+ */
+.contentWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Ensure links and interactive elements inside the content are
+ * clickable by re-enabling pointer events.  Without this the
+ * parent wrapper’s pointer-events: none would block interactions.
+ */
+.contentWrapper .content {
+  pointer-events: auto;
 }
 
 .overlay {
   position: absolute;
   inset: 0;
+  /*
+   * Use a dynamic gradient based on the current theme.  In light
+   * mode the overlay pulls from the page background colour to
+   * softly tint the hero image without darkening it too much.  In
+   * dark mode it still provides contrast but avoids a harsh pure
+   * black overlay.  Leveraging CSS variables allows the same
+   * gradient to work across both themes.  The alpha values are
+   * intentionally subtle so the particles and photo remain visible
+   * while ensuring text legibility.
+   */
+  /*
+   * Apply a subtle bottom‑to‑top fade.  The overlay draws from
+   * the page background colour so that in light mode the fade is
+   * pale and in dark mode it is deeper.  The gradient is heaviest
+   * at the bottom (behind the call‑to‑action) and fades out towards
+   * the top, preserving the clarity of the new hero image.  This
+   * ensures readability without making the entire background look
+   * washed out.
+   */
   background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.4) 0%,
-    rgba(0, 0, 0, 0.8) 100%
+    to top,
+    rgba(var(--color-bg), 0.9) 0%,
+    rgba(var(--color-bg), 0.5) 40%,
+    rgba(var(--color-bg), 0) 100%
   );
   z-index: -1;
 }

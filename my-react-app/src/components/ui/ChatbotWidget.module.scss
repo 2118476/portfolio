@@ -132,3 +132,61 @@
   background: var(--color-error-bg);
   color: var(--color-error);
 }
+
+/* Invitation teaser shown above the floating button.  This pill
+   encourages visitors to engage with the chatbot without being
+   intrusive.  It slides in from the right and respects dark and
+   light themes. */
+.teaser {
+  position: absolute;
+  bottom: 72px;
+  right: 0;
+  max-width: 260px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  background: var(--color-panel);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: var(--spacing-2) var(--spacing-3);
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  /* start slightly translated for a subtle entrance effect */
+  transform: translateX(20px);
+  opacity: 0;
+  animation: teaser-in 0.5s forwards;
+}
+
+@keyframes teaser-in {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.teaser span {
+  flex: 1;
+  font-size: 0.875rem;
+}
+
+.teaserClose {
+  background: none;
+  border: none;
+  color: var(--color-muted);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  margin-left: var(--spacing-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.teaserClose:hover,
+.teaserClose:focus-visible {
+  color: var(--color-text);
+  outline: none;
+}

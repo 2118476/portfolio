@@ -22,19 +22,33 @@
   height: 60px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   position: relative; /* allows absolute positioning of the mobile dropdown */
 }
 
 .logo {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
   color: var(--color-primary);
+  text-decoration: none;
+  transition: transform 0.2s ease, letter-spacing 0.2s ease;
+}
+
+/* Micro-interaction for the logo: gently scale and adjust
+   letter spacing on hover or keyboard focus to give it a
+   premium feel. */
+.logo:hover,
+.logo:focus-visible {
+  transform: scale(1.05);
+  letter-spacing: 0.5px;
+  outline: none;
 }
 
 .navLinks {
   display: none;
   gap: var(--spacing-6);
+  margin-left: var(--spacing-6);
 }
 
 /* When menuOpen is true on small screens the nav links become a
@@ -98,6 +112,7 @@
   align-items: center;
   justify-content: center;
   padding: var(--spacing-2);
+  margin-left: var(--spacing-2);
 }
 
 .navLinks a {
@@ -151,10 +166,8 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-2);
+  /* Push the toggle group to the far right of the navbar. */
+  margin-left: auto;
 }
 
-/* Animation toggle inherits styles from theme toggle but uses
-   its own icon. */
-.animToggle {
-  @extend .themeToggle;
-}
+/* Remove the animation toggle entirely. */
