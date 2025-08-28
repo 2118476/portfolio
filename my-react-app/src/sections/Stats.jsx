@@ -11,7 +11,7 @@ import styles from './Stats.module.scss';
  */
 const statsData = [
   { label: 'Projects', value: 3 },
-  { label: 'Years of Experience', value: 2 },
+  { label: 'Years of Experience', value: 5 },
   { label: 'Languages', value: 3 }
 ];
 
