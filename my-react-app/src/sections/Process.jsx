@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Section from '../components/layout/Section';
+import Collapse from '../components/ui/Collapse';
 import styles from './Process.module.scss';
 
 const steps = [
@@ -30,6 +31,8 @@ const steps = [
 ];
 
 const Process = () => {
+  const [openStep, setOpenStep] = useState(0);
+
   return (
     <Section id="process" className={styles.process}>
       <div className="split-heading">
@@ -47,13 +50,27 @@ const Process = () => {
       </div>
 
       <div className={styles.steps}>
-        {steps.map((step, index) => (
-          <article key={step.title} className={styles.step}>
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <h3>{step.title}</h3>
-            <p>{step.text}</p>
-          </article>
-        ))}
+        {steps.map((step, index) => {
+          const open = openStep === index;
+          return (
+            <article key={step.title} className={`${styles.step} ${open ? styles.openStep : ''}`}>
+              <button
+                type="button"
+                className={styles.stepHeader}
+                onClick={() => setOpenStep(open ? -1 : index)}
+                aria-expanded={open}
+                aria-controls={`process-panel-${index}`}
+              >
+                <span className={styles.stepNumber}>{String(index + 1).padStart(2, '0')}</span>
+                <h3>{step.title}</h3>
+                <i className={`fas fa-chevron-down ${styles.chevron}`} aria-hidden="true" />
+              </button>
+              <Collapse open={open} id={`process-panel-${index}`}>
+                <p className={styles.stepBody}>{step.text}</p>
+              </Collapse>
+            </article>
+          );
+        })}
       </div>
     </Section>
   );

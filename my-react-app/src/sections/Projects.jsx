@@ -82,19 +82,7 @@ const Projects = () => {
                 <span>{project.status}</span>
               </div>
               <h3>{project.title}</h3>
-              <div className={styles.statement}>
-                <strong>Problem</strong>
-                <p>{project.problem}</p>
-              </div>
-              <div className={styles.statement}>
-                <strong>Solution</strong>
-                <p>{project.solution}</p>
-              </div>
-              <ul className={styles.features}>
-                {project.features.slice(0, 3).map((feature) => (
-                  <li key={feature}>{feature}</li>
-                ))}
-              </ul>
+              <p className={styles.summary}>{project.solution}</p>
               <div className={styles.stack}>
                 {project.stack.slice(0, 5).map((tech, index) => (
                   <Badge key={tech} color={index % 2 === 0 ? 'secondary' : 'tertiary'}>
@@ -133,10 +121,10 @@ const Projects = () => {
               <Button
                 type="button"
                 variant="outline"
-                icon="fas fa-book-open"
+                icon="fas fa-circle-info"
                 onClick={() => setSelectedProject(project)}
               >
-                Case study
+                View details
               </Button>
             </div>
           </article>

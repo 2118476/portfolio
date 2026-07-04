@@ -1,7 +1,7 @@
 @import '../styles/mixins.scss';
 
 .process {
-  background: rgba(var(--color-surface-rgb), 0.34);
+  background: rgba(2, 6, 16, 0.28);
 }
 
 .steps {
@@ -13,27 +13,63 @@
 
 .step {
   @include glass-panel;
+  @include card-hover;
 
   border-radius: var(--radius-lg);
-  padding: var(--space-5);
-  display: grid;
-  gap: var(--space-3);
-
-  span {
-    width: 42px;
-    height: 42px;
-    border-radius: var(--radius-md);
-    display: grid;
-    place-items: center;
-    color: var(--color-secondary);
-    background: rgba(var(--color-secondary-rgb), 0.12);
-    font-size: 0.82rem;
-    font-weight: 800;
-  }
+  overflow: hidden;
+  align-self: start;
 
   h3 {
-    font-size: 1.14rem;
+    font-size: 1.08rem;
+    line-height: 1.3;
   }
+}
+
+.stepHeader {
+  width: 100%;
+  min-height: 64px;
+  border: 0;
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+
+  &:active {
+    transform: scale(0.99);
+  }
+}
+
+.stepNumber {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  display: grid;
+  place-items: center;
+  color: var(--color-secondary);
+  background: rgba(var(--color-secondary-rgb), 0.14);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.chevron {
+  margin-left: auto;
+  flex-shrink: 0;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), color 320ms ease;
+}
+
+.openStep .chevron {
+  transform: rotate(180deg);
+  color: var(--color-secondary);
+}
+
+.stepBody {
+  padding: 0 var(--space-5) var(--space-5);
 }
 
 @media (min-width: 760px) {

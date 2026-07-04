@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Section from '../components/layout/Section';
+import Collapse from '../components/ui/Collapse';
 import profile from '../assets/me.jpg';
 import styles from './About.module.scss';
 
@@ -28,6 +29,8 @@ const timeline = [
 ];
 
 const About = () => {
+  const [openItem, setOpenItem] = useState(0);
+
   return (
     <Section id="about" className={styles.about}>
       <div className="split-heading">
@@ -73,23 +76,37 @@ const About = () => {
           </p>
 
           <div className={styles.timeline}>
-            {timeline.map((item, index) => (
-              <motion.article
-                key={item.title}
-                className={styles.timelineItem}
-                initial={{ opacity: 0, x: 18 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.35, delay: index * 0.06 }}
-                viewport={{ once: true, amount: 0.4 }}
-              >
-                <span className={styles.marker}>{String(index + 1).padStart(2, '0')}</span>
-                <div>
-                  <h3>{item.title}</h3>
-                  <span>{item.meta}</span>
-                  <p>{item.text}</p>
-                </div>
-              </motion.article>
-            ))}
+            {timeline.map((item, index) => {
+              const open = openItem === index;
+              return (
+                <motion.article
+                  key={item.title}
+                  className={`${styles.timelineItem} ${open ? styles.openItem : ''}`}
+                  initial={{ opacity: 0, x: 18 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.35, delay: index * 0.06 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                >
+                  <button
+                    type="button"
+                    className={styles.timelineHeader}
+                    onClick={() => setOpenItem(open ? -1 : index)}
+                    aria-expanded={open}
+                    aria-controls={`about-panel-${index}`}
+                  >
+                    <span className={styles.marker}>{String(index + 1).padStart(2, '0')}</span>
+                    <span className={styles.headerText}>
+                      <strong>{item.title}</strong>
+                      <em>{item.meta}</em>
+                    </span>
+                    <i className={`fas fa-chevron-down ${styles.chevron}`} aria-hidden="true" />
+                  </button>
+                  <Collapse open={open} id={`about-panel-${index}`}>
+                    <p className={styles.timelineBody}>{item.text}</p>
+                  </Collapse>
+                </motion.article>
+              );
+            })}
           </div>
         </div>
       </div>

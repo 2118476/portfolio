@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Section from '../components/layout/Section';
 import Button from '../components/ui/Button';
+import Collapse from '../components/ui/Collapse';
 import styles from './Services.module.scss';
 
 const services = [
@@ -62,6 +63,8 @@ const services = [
 ];
 
 const Services = () => {
+  const [openService, setOpenService] = useState(-1);
+
   return (
     <Section id="services" className={styles.services}>
       <div className="split-heading">
@@ -80,27 +83,46 @@ const Services = () => {
       </div>
 
       <div className={styles.grid}>
-        {services.map((service, index) => (
-          <motion.article
-            key={service.title}
-            className={styles.card}
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: index * 0.03 }}
-            viewport={{ once: true, amount: 0.25 }}
-          >
-            <i className={service.icon} aria-hidden="true" />
-            <h3>{service.title}</h3>
-            <p>{service.description}</p>
-            <div className={styles.useCase}>
-              <span>Example</span>
-              <strong>{service.useCase}</strong>
-            </div>
-            <Button href="#contact" variant="outline" icon="fas fa-arrow-right">
-              Ask for this
-            </Button>
-          </motion.article>
-        ))}
+        {services.map((service, index) => {
+          const open = openService === index;
+          return (
+            <motion.article
+              key={service.title}
+              className={`${styles.card} ${open ? styles.openCard : ''}`}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: index * 0.03 }}
+              viewport={{ once: true, amount: 0.25 }}
+            >
+              <div className={styles.cardTop}>
+                <i className={service.icon} aria-hidden="true" />
+                <h3>{service.title}</h3>
+              </div>
+              <p>{service.description}</p>
+              <button
+                type="button"
+                className={styles.toggle}
+                onClick={() => setOpenService(open ? -1 : index)}
+                aria-expanded={open}
+                aria-controls={`service-panel-${index}`}
+              >
+                {open ? 'Hide details' : 'Details'}
+                <i className="fas fa-chevron-down" aria-hidden="true" />
+              </button>
+              <Collapse open={open} id={`service-panel-${index}`}>
+                <div className={styles.detail}>
+                  <div className={styles.useCase}>
+                    <span>Example</span>
+                    <strong>{service.useCase}</strong>
+                  </div>
+                  <Button href="#contact" variant="outline" icon="fas fa-arrow-right">
+                    Ask for this
+                  </Button>
+                </div>
+              </Collapse>
+            </motion.article>
+          );
+        })}
       </div>
     </Section>
   );
