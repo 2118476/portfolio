@@ -1,48 +1,25 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import styles from './Modal.module.scss';
-import LogoBadge from './LogoBadge';
 
-/*
- * Accessible modal component.  Renders its content in a portal at
- * `document.body` to avoid z‑index issues.  Clicking outside the
- * modal or pressing Escape closes it.  Animations are provided by
- * framer‑motion.  The parent should control the `isOpen` state.
- */
-const Modal = ({ isOpen, onClose, children }) => {
-  // Lock body scroll when the modal is open.  Store the scroll
-  // position so it can be restored on close.  Without this the
-  // background would scroll behind the overlay which is
-  // distracting and can cause layout shifts.
+const Modal = ({ isOpen, onClose, children, title = 'Project case study' }) => {
   useEffect(() => {
-    if (!isOpen) return;
-    const scrollY = window.scrollY;
-    const originalStyle = {
-      position: document.body.style.position,
-      top: document.body.style.top,
-      overflow: document.body.style.overflow
+    if (!isOpen) return undefined;
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') onClose();
     };
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
+    const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', onKeyDown);
     return () => {
-      document.body.style.position = originalStyle.position || '';
-      document.body.style.top = originalStyle.top || '';
-      document.body.style.overflow = originalStyle.overflow || '';
-      // Restore the previous scroll position after releasing the lock
-      window.scrollTo(0, scrollY);
+      document.body.style.overflow = originalOverflow;
+      document.removeEventListener('keydown', onKeyDown);
     };
-  }, [isOpen]);
-  useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === 'Escape') onClose();
-    };
-    document.addEventListener('keydown', handleEsc);
-    return () => document.removeEventListener('keydown', handleEsc);
-  }, [onClose]);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
+
   return ReactDOM.createPortal(
     <AnimatePresence>
       <motion.div
@@ -54,24 +31,18 @@ const Modal = ({ isOpen, onClose, children }) => {
       >
         <motion.div
           className={styles.modal}
-          onClick={(e) => e.stopPropagation()}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.9 }}
-          transition={{ duration: 0.3 }}
+          onClick={(event) => event.stopPropagation()}
+          initial={{ opacity: 0, y: 20, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.98 }}
+          transition={{ duration: 0.22 }}
           role="dialog"
           aria-modal="true"
+          aria-label={title}
         >
-          <div className={styles.header}>
-            <LogoBadge size={40} />
-            <button
-              className={styles.close}
-              onClick={onClose}
-              aria-label="Close modal"
-            >
-              ×
-            </button>
-          </div>
+          <button className={styles.close} onClick={onClose} type="button" aria-label="Close modal">
+            <i className="fas fa-xmark" aria-hidden="true" />
+          </button>
           <div className={styles.body}>{children}</div>
         </motion.div>
       </motion.div>

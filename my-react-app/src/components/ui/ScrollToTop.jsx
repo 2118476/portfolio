@@ -1,36 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ScrollToTop.module.scss';
 
-/*
- * Displays a small button in the bottom‑right corner when the user
- * scrolls down the page.  Clicking the button scrolls smoothly back
- * to the top.  The button hides itself at the top of the page.
- */
 const ScrollToTop = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const toggleVisibility = () => {
-      setVisible(window.scrollY > 300);
-    };
-    window.addEventListener('scroll', toggleVisibility);
-    // Invoke once on mount
-    toggleVisibility();
-    return () => window.removeEventListener('scroll', toggleVisibility);
+    const updateVisibility = () => setVisible(window.scrollY > 520);
+    updateVisibility();
+    window.addEventListener('scroll', updateVisibility);
+    return () => window.removeEventListener('scroll', updateVisibility);
   }, []);
 
-  const handleClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   if (!visible) return null;
+
   return (
     <button
       className={styles.scrollTop}
-      onClick={handleClick}
-      aria-label="Scroll to top"
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      type="button"
+      aria-label="Back to top"
     >
-      ↑
+      <i className="fas fa-arrow-up" aria-hidden="true" />
     </button>
   );
 };

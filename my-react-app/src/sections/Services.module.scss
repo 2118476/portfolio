@@ -1,0 +1,76 @@
+@import '../styles/mixins.scss';
+
+.services {
+  background:
+    linear-gradient(180deg, transparent, rgba(var(--color-primary-rgb), 0.04), transparent);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-10);
+}
+
+.card {
+  @include glass-panel;
+  @include card-hover;
+
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+
+  > i {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    display: grid;
+    place-items: center;
+    color: var(--color-primary);
+    background: rgba(var(--color-primary-rgb), 0.12);
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  p {
+    min-height: 4.8rem;
+  }
+}
+
+.useCase {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-4);
+
+  span {
+    display: block;
+    color: var(--color-muted);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  strong {
+    display: block;
+    margin-top: var(--space-1);
+    color: var(--color-soft);
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+}
+
+@media (min-width: 720px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1060px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

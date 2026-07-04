@@ -1,19 +1,23 @@
 .scrollTop {
   position: fixed;
-  bottom: var(--spacing-6);
-  right: var(--spacing-6);
-  padding: var(--spacing-2);
-  font-size: 1.5rem;
-  border: none;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  z-index: 1200;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(var(--color-primary-rgb), 0.35);
   border-radius: var(--radius-full);
-  background: var(--color-primary);
-  color: #fff;
+  display: grid;
+  place-items: center;
+  background: var(--glass-bg);
+  color: var(--color-heading);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(14px);
   cursor: pointer;
-  box-shadow: var(--shadow);
-  transition: transform 0.2s ease;
-  z-index: 100;
-}
+  transition: transform 180ms ease, border-color 180ms ease;
 
-.scrollTop:hover {
-  transform: translateY(-3px);
+  &:hover {
+    transform: translateY(-3px);
+    border-color: rgba(var(--color-primary-rgb), 0.7);
+  }
 }

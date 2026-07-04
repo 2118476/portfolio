@@ -1,0 +1,49 @@
+@import '../styles/mixins.scss';
+
+.process {
+  background: rgba(var(--color-surface-rgb), 0.34);
+}
+
+.steps {
+  position: relative;
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-10);
+}
+
+.step {
+  @include glass-panel;
+
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: grid;
+  gap: var(--space-3);
+
+  span {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-md);
+    display: grid;
+    place-items: center;
+    color: var(--color-secondary);
+    background: rgba(var(--color-secondary-rgb), 0.12);
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  h3 {
+    font-size: 1.14rem;
+  }
+}
+
+@media (min-width: 760px) {
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1080px) {
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

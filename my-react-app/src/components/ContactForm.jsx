@@ -2,69 +2,171 @@ import React, { useState } from 'react';
 import Button from './ui/Button';
 import styles from '../sections/Contact.module.scss';
 
-/*
- * A simple contact form used in the Contact section.  It exposes
- * name, email and message fields along with a send button.  On
- * submission the data is posted to Formspree and the form shows
- * success or error feedback.  The form respects existing
- * styling from Contact.module.scss so that it integrates with
- * the surrounding section.  All interactive elements are
- * keyboard accessible.
- */
-const ContactForm = () => {
-  const [status, setStatus] = useState(null);
+const initialValues = {
+  name: '',
+  email: '',
+  projectType: '',
+  budget: '',
+  message: ''
+};
 
-  // Handle form submission.  Post the form data to the
-  // configured Formspree endpoint.  Reset the form on success and
-  // provide basic feedback messages.  Errors are caught and
-  // reported to the user.  After a delay the status is cleared
-  // again so repeated submissions show fresh feedback.
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
+const endpoint = 'https://formspree.io/f/xanbnewg';
+
+const ContactForm = () => {
+  const [values, setValues] = useState(initialValues);
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  const updateField = (event) => {
+    const { name, value } = event.target;
+    setValues((current) => ({ ...current, [name]: value }));
+    setErrors((current) => ({ ...current, [name]: '' }));
+  };
+
+  const validate = () => {
+    const nextErrors = {};
+    if (!values.name.trim()) nextErrors.name = 'Please add your name.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
+      nextErrors.email = 'Please add a valid email address.';
+    }
+    if (!values.message.trim()) {
+      nextErrors.message = 'Please write a short message.';
+    }
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setStatus(null);
+    if (!validate()) return;
+
+    setSubmitting(true);
+    const data = new FormData();
+    Object.entries(values).forEach(([key, value]) => data.append(key, value));
+
     try {
-      const res = await fetch('https://formspree.io/f/xanbnewg', {
+      const response = await fetch(endpoint, {
         method: 'POST',
         body: data,
         headers: { Accept: 'application/json' }
       });
-      if (res.ok) {
-        setStatus('SUCCESS');
-        form.reset();
-      } else {
-        setStatus('ERROR');
-      }
+
+      if (!response.ok) throw new Error('Form submission failed');
+      setValues(initialValues);
+      setStatus({ type: 'success', message: 'Thanks. Your message has been sent.' });
     } catch {
-      setStatus('ERROR');
+      setStatus({
+        type: 'error',
+        message: (
+          <>
+            Something went wrong. You can{' '}
+            <a href="mailto:mihretabtesfahun2124@gmail.com">email me directly</a> instead.
+          </>
+        )
+      });
+    } finally {
+      setSubmitting(false);
     }
-    // Clear the feedback after a few seconds so it doesn’t stick
-    setTimeout(() => setStatus(null), 5000);
   };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
-      <div className={styles.field}>
-        <label htmlFor="contact-name">Name</label>
-        <input type="text" id="contact-name" name="name" required />
+      <div className={styles.fieldGroup}>
+        <div className={styles.field}>
+          <label htmlFor="contact-name">Name</label>
+          <input
+            id="contact-name"
+            name="name"
+            type="text"
+            value={values.name}
+            onChange={updateField}
+            autoComplete="name"
+            aria-invalid={Boolean(errors.name)}
+          />
+          {errors.name && <span className={styles.errorText}>{errors.name}</span>}
+        </div>
+
+        <div className={styles.field}>
+          <label htmlFor="contact-email">Email</label>
+          <input
+            id="contact-email"
+            name="email"
+            type="email"
+            value={values.email}
+            onChange={updateField}
+            autoComplete="email"
+            aria-invalid={Boolean(errors.email)}
+          />
+          {errors.email && <span className={styles.errorText}>{errors.email}</span>}
+        </div>
       </div>
-      <div className={styles.field}>
-        <label htmlFor="contact-email">Email</label>
-        <input type="email" id="contact-email" name="email" required />
+
+      <div className={styles.fieldGroup}>
+        <div className={styles.field}>
+          <label htmlFor="project-type">Project type (optional)</label>
+          <select
+            id="project-type"
+            name="projectType"
+            value={values.projectType}
+            onChange={updateField}
+            aria-invalid={Boolean(errors.projectType)}
+          >
+            <option value="">Select one</option>
+            <option>Junior developer role</option>
+            <option>Business website</option>
+            <option>Booking system</option>
+            <option>Full-stack web app</option>
+            <option>Community platform</option>
+            <option>SMS / WhatsApp automation</option>
+            <option>App maintenance</option>
+          </select>
+          {errors.projectType && <span className={styles.errorText}>{errors.projectType}</span>}
+        </div>
+
+        <div className={styles.field}>
+          <label htmlFor="budget">Budget range (optional)</label>
+          <select
+            id="budget"
+            name="budget"
+            value={values.budget}
+            onChange={updateField}
+            aria-invalid={Boolean(errors.budget)}
+          >
+            <option value="">Select one</option>
+            <option>Hiring / job opportunity</option>
+            <option>Under GBP 500</option>
+            <option>GBP 500 - 1,500</option>
+            <option>GBP 1,500 - 3,000</option>
+            <option>GBP 3,000+</option>
+            <option>Not sure yet</option>
+          </select>
+          {errors.budget && <span className={styles.errorText}>{errors.budget}</span>}
+        </div>
       </div>
+
       <div className={styles.field}>
         <label htmlFor="contact-message">Message</label>
-        <textarea id="contact-message" name="message" rows="4" required></textarea>
+        <textarea
+          id="contact-message"
+          name="message"
+          rows="6"
+          value={values.message}
+          onChange={updateField}
+          placeholder="Tell me what you want to build, improve, or hire for."
+          aria-invalid={Boolean(errors.message)}
+        />
+        {errors.message && <span className={styles.errorText}>{errors.message}</span>}
       </div>
-      <Button type="submit" variant="primary">Send</Button>
-      {status === 'SUCCESS' && (
-        <div className={`${styles.popup} ${styles.success}`} role="alert">
-          <span>Thank you! Your message has been sent.</span>
-        </div>
-      )}
-      {status === 'ERROR' && (
-        <div className={`${styles.popup} ${styles.error}`} role="alert">
-          <span>Something went wrong. Please try again.</span>
+
+      <Button type="submit" icon="fas fa-paper-plane" disabled={submitting}>
+        {submitting ? 'Sending...' : 'Send enquiry'}
+      </Button>
+
+      {status && (
+        <div className={`${styles.toast} ${styles[status.type]}`} role="alert">
+          {status.message}
         </div>
       )}
     </form>

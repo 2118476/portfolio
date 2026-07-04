@@ -1,0 +1,22 @@
+.page-shell {
+  width: min(var(--container), calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.split-heading {
+  display: grid;
+  gap: var(--space-5);
+  align-items: end;
+
+  @media (min-width: 860px) {
+    grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.7fr);
+  }
+}
+
+.eyebrow-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  box-shadow: 0 0 22px rgba(var(--color-primary-rgb), 0.7);
+}

@@ -1,50 +1,43 @@
+@import '../../styles/mixins.scss';
+
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  z-index: 2000;
+  padding: var(--space-4);
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.68);
 }
 
-// Modal container uses glass effect and modern shadows.  We set
-// overflow hidden so that the header and body remain contained.
 .modal {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  color: var(--color-text);
-  border-radius: var(--radius-card);
-  position: relative;
-  width: 90%;
-  max-width: 600px;
-  max-height: 90vh;
-  overflow: hidden;
-  box-shadow: var(--shadow-xl);
-}
+  @include glass-panel;
 
-// Header container for the logo and close button.  Using
-// flexbox to space items evenly.  The button inherits its
-// background from the parent.
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--spacing-3) var(--spacing-4);
-  border-bottom: 1px solid var(--color-border);
+  position: relative;
+  width: min(920px, 100%);
+  max-height: min(86vh, 820px);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
 }
 
 .close {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  background: rgba(var(--color-bg-rgb), 0.68);
+  color: var(--color-heading);
   cursor: pointer;
-  color: var(--color-text);
-  line-height: 1;
 }
 
 .body {
-  padding: var(--spacing-4);
-  max-height: calc(90vh - 60px);
+  max-height: inherit;
   overflow-y: auto;
+  padding: clamp(1.25rem, 4vw, 2rem);
 }

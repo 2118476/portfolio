@@ -1,69 +1,136 @@
+@import '../styles/mixins.scss';
+
 .contact {
-  text-align: center;
+  background:
+    linear-gradient(180deg, rgba(var(--color-primary-rgb), 0.04), rgba(var(--color-secondary-rgb), 0.05)),
+    rgba(var(--color-surface-rgb), 0.34);
 }
 
-.subtext {
-  margin-bottom: var(--spacing-6);
-  color: var(--color-muted);
+.grid {
+  display: grid;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.copy {
+  display: grid;
+  gap: var(--space-5);
+
+  p {
+    max-width: 650px;
+    color: var(--color-soft);
+    font-size: 1.08rem;
+  }
+}
+
+.availability {
+  @include glass-panel;
+
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  color: var(--color-soft);
+
+  i {
+    color: var(--color-secondary);
+    margin-top: 0.25rem;
+  }
+}
+
+.quickLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.formPanel,
+.form {
+  @include glass-panel;
+}
+
+.formPanel {
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-  max-width: 500px;
-  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.fieldGroup {
+  display: grid;
+  gap: var(--space-4);
 }
 
 .field {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
+  display: grid;
+  gap: var(--space-2);
+
+  label {
+    color: var(--color-heading);
+    font-size: 0.9rem;
+    font-weight: 800;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-input-bg);
+    color: var(--color-heading);
+    padding: 0.82rem 0.9rem;
+    outline: none;
+    transition: border-color 180ms ease, box-shadow 180ms ease;
+
+    &:focus {
+      border-color: rgba(var(--color-primary-rgb), 0.72);
+      box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb), 0.12);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 150px;
+  }
 }
 
-.field label {
-  margin-bottom: var(--spacing-1);
-  font-weight: 500;
+.errorText {
+  color: var(--color-error);
+  font-size: 0.85rem;
+  font-weight: 700;
 }
 
-.field input,
-.field textarea {
-  padding: var(--spacing-2) var(--spacing-3);
-  border: 1px solid var(--color-border);
+.toast {
   border-radius: var(--radius-md);
-  background: var(--color-input-bg);
-  color: var(--color-text);
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.field input:focus,
-.field textarea:focus {
-  border-color: var(--color-primary);
-}
-
-// Popups display feedback after form submission.  Use flex layout
-// so that the logo badge and message align horizontally.  These
-// classes are enhanced with shadows and spacing for improved
-// readability on both light and dark backgrounds.
-.popup {
-  margin-top: var(--spacing-4);
-  padding: var(--spacing-2) var(--spacing-3);
-  border-radius: var(--radius-md);
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  box-shadow: var(--shadow-medium);
+  padding: var(--space-3) var(--space-4);
+  font-weight: 800;
 }
 
 .success {
-  background: var(--color-success-bg);
   color: var(--color-success);
+  background: var(--color-success-bg);
 }
 
 .error {
-  background: var(--color-error-bg);
   color: var(--color-error);
+  background: var(--color-error-bg);
+}
+
+@media (min-width: 760px) {
+  .fieldGroup {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 980px) {
+  .grid {
+    grid-template-columns: minmax(0, 0.85fr) minmax(420px, 0.75fr);
+  }
 }

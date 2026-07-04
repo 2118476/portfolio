@@ -1,154 +1,188 @@
-/*
- * Project data used to populate the portfolio. Each project
- * includes an identifier, title, overview, a list of features,
- * the technologies used, the developer’s role, challenges faced,
- * results or impact, live demo and code repository links,
- * primary image and optional additional screenshots. Tags are
- * extracted from the tech stack for use in filtering.
- */
+export const projectCategories = [
+  'Full-stack',
+  'Community',
+  'Business',
+  'Automation',
+  'AI/Tools'
+];
 
 export const projects = [
   {
-    id: 'mms-app',
-    title: 'MMS – SMS & Voice Call Web App',
-    overview:
-      'A full-stack communication platform enabling users to send SMS messages, initiate and receive voice calls, and maintain a history of conversations.',
-    features: [
-      'Send and receive SMS messages via Twilio integration',
-      'Initiate and answer voice calls directly within the browser',
-      'Real-time call status and history tracking',
-      'User authentication and personalised dashboard'
-    ],
-    stack: ['React', 'Java', 'Spring Boot', 'MySQL', 'Twilio'],
-    role:
-      'Designed and implemented both the front-end and back-end layers, integrated Twilio APIs and deployed the application on Render and Vercel.',
-    challenges: [
-      'Handling asynchronous communication events and state updates across the UI',
-      'Securing API keys and managing authentication flows',
-      'Ensuring reliable cross-browser media device support for calls'
-    ],
-    results: [
-      'Delivered a robust and responsive communication tool used by small businesses for client outreach.',
-      'Achieved smooth voice call connections with minimal latency.',
-      'Simplified user experience with a clean dashboard and real-time feedback.'
-    ],
-    /*
-     * Corrected live demo link for the MMS / SMS / VoiceCall App.
-     * This now points to the proper Netlify deployment rather than
-     * the hair salon booking system.  See the acceptance
-     * checklist for details.
-     */
-    demo: 'https://gorgeous-cendol-eb18cc.netlify.app/',
-    code: '#',
-    image: 'https://picsum.photos/seed/project1/600/400',
-    screenshots: ['https://picsum.photos/seed/project1a/800/500'],
-    // optional explicit tags (otherwise could derive from `stack`)
-    tags: ['React', 'Spring Boot', 'MySQL', 'Twilio']
-  },
-  {
     id: 'habesha-community',
-    title: 'Habesha Community Platform',
-    overview:
-      'A social platform for the Ethiopian diaspora to connect, share resources and support one another. Responsive and accessible design fosters community engagement.',
+    title: 'Habesha Community Platform / UK Habesha',
+    category: 'Community',
+    status: 'Active concept and product build',
+    problem:
+      'Habesha communities in the UK often rely on scattered WhatsApp groups and informal posts to find services, rentals, events, and trusted recommendations.',
+    solution:
+      'A mobile-first community platform that brings profiles, local services, rentals, events, classified ads, and messaging into one structured experience.',
     features: [
-      'User accounts and authentication',
-      'Post and comment system with rich text editing',
-      'Resource hub for sharing opportunities and events',
-      'Responsive design optimised for mobile and desktop'
+      'Service, rental, event, and marketplace listings',
+      'User profiles, messaging, and saved posts',
+      'Admin moderation flows for trusted community content',
+      'Responsive UI designed first for phone users'
     ],
-    stack: ['React', 'Node.js', 'Express', 'MongoDB'],
-    role:
-      'Built the front-end using React, designed the UI/UX and collaborated on back-end API development.',
-    challenges: [
-      'Designing an inclusive community space with intuitive navigation',
-      'Implementing real-time updates and notifications',
-      'Ensuring robust access control for community moderators'
-    ],
-    results: [
-      'Launched a thriving online community with hundreds of active users.',
-      'Facilitated resource sharing and event organisation for members.',
-      'Received positive feedback for ease of use and performance.'
-    ],
+    stack: ['React', 'Spring Boot', 'PostgreSQL', 'JWT', 'Render', 'Netlify'],
     demo: 'https://habesha-community-frontend.netlify.app',
-    code: '#',
-    image: 'https://picsum.photos/seed/habesha/600/400',
-    screenshots: ['https://picsum.photos/seed/habesha1/800/500'],
-    tags: ['React', 'Node.js', 'Express', 'MongoDB']
+    code: '',
+    caseStudy: {
+      role: 'Product thinking, UI architecture, API planning, and full-stack implementation direction.',
+      result:
+        'Designed as a practical platform for a real diaspora audience, with a structure that can grow into bookings, ads, and paid local business listings.'
+    },
+    visual: {
+      label: 'Community app mockup',
+      icon: 'fas fa-users',
+      metrics: ['Listings', 'Events', 'Messages']
+    }
   },
   {
     id: 'hair-salon',
     title: 'Hair Salon Booking System',
-    overview:
-      'A secure appointment booking platform built as a final year project, providing separate admin and user roles with role-based access control.',
+    category: 'Business',
+    status: 'Built as a production-style booking system',
+    problem:
+      'Local salons lose time managing appointments manually, and customers need a simple way to choose services, stylists, and available slots.',
+    solution:
+      'A full-stack booking platform with customer booking, admin controls, service management, staff availability, and authentication.',
     features: [
-      'User registration and authentication',
-      'Appointment scheduling with real-time availability',
-      'Admin dashboard for managing services, staff and bookings',
-      'Email notifications for confirmations and reminders'
+      'Customer appointment booking flow',
+      'Admin panel for services, stylists, and bookings',
+      'Authentication and role-based access',
+      'Availability handling for smoother scheduling'
     ],
-    stack: ['Java', 'Spring Boot', 'MySQL'],
-    role:
-      'Architected the back-end API, designed the database schema and implemented the front-end UI.',
-    challenges: [
-      'Designing a flexible data model to support multiple salons and services',
-      'Implementing secure role-based access control',
-      'Ensuring smooth user experience across devices'
-    ],
-    results: [
-      'Reduced appointment scheduling errors by providing real-time availability.',
-      'Improved administrative efficiency with intuitive dashboards.',
-      'Demonstrated as final year project with positive feedback from faculty.'
-    ],
-    /*
-     * The hair salon booking system was previously linked to the
-     * MMS app.  Swap the URLs so that this project now points to
-     * the booking demo.  Leaving a trailing slash avoids a
-     * redirect and ensures a clean URL.
-     */
+    stack: ['Java', 'Spring Boot', 'MySQL', 'React', 'JWT'],
     demo: 'https://sparkling-gaufre-95d8cc.netlify.app',
-    code: '#',
-    image: 'https://picsum.photos/seed/project2/600/400',
-    screenshots: ['https://picsum.photos/seed/project2a/800/500'],
-    tags: ['Java', 'Spring Boot', 'MySQL']
+    code: '',
+    caseStudy: {
+      role: 'Database design, backend API architecture, authentication, and responsive frontend implementation.',
+      result:
+        'Converted a common local-business workflow into a structured digital product with admin visibility and customer self-service.'
+    },
+    visual: {
+      label: 'Booking calendar mockup',
+      icon: 'fas fa-calendar-check',
+      metrics: ['Bookings', 'Services', 'Stylists']
+    }
   },
   {
-    id: 'e-learning',
-    title: 'E-Learning Platform',
-    overview:
-      'A coding lesson web application built as part of a team using agile methodology. Provides interactive lessons and coding challenges.',
+    id: 'sms-voice-ivr',
+    title: 'SMS and Voice IVR App',
+    category: 'Automation',
+    status: 'Twilio communication app',
+    problem:
+      'Small teams need simple communication tools for reminders, outbound calls, inbound flows, recordings, and SMS without manually tracking everything.',
+    solution:
+      'A Twilio-based web app for SMS, browser voice workflows, IVR-style call handling, recordings, and communication history.',
     features: [
-      'Lesson management with progress tracking',
-      'In-browser coding editor and compiler',
-      'Discussion forums for peer support',
-      'Admin panel for content creation and analytics'
+      'Outbound and inbound call handling',
+      'SMS sending and conversation history',
+      'IVR-style routing and call recordings',
+      'Dashboard views for communication status'
     ],
-    stack: ['React', 'Spring Boot', 'MySQL'],
-    role:
-      'Developed front-end components, integrated REST APIs and contributed to curriculum design.',
-    challenges: [
-      'Providing an intuitive code editor within the browser',
-      'Managing state across complex learning modules',
-      'Ensuring scalability for concurrent learners'
+    stack: ['React', 'Spring Boot', 'MySQL', 'Twilio', 'REST APIs'],
+    demo: 'https://gorgeous-cendol-eb18cc.netlify.app/',
+    code: '',
+    caseStudy: {
+      role: 'Integrated Twilio APIs, built the dashboard flow, and connected backend communication events to the UI.',
+      result:
+        'A practical automation foundation for appointment reminders, customer outreach, and phone-based business workflows.'
+    },
+    visual: {
+      label: 'Voice and SMS dashboard mockup',
+      icon: 'fas fa-phone-volume',
+      metrics: ['SMS', 'Calls', 'Recordings']
+    }
+  },
+  {
+    id: 'jobpilot',
+    title: 'JobPilot / Job Search Assistant',
+    category: 'AI/Tools',
+    status: 'Concept and roadmap',
+    problem:
+      'Job seekers often lose track of applications, repeat CV edits manually, and struggle to compare opportunities quickly.',
+    solution:
+      'A job-search workspace for tracking applications, ranking opportunities, saving roles, and preparing better tailored CV versions.',
+    features: [
+      'Job tracker with statuses and saved roles',
+      'Opportunity scoring and filtering',
+      'CV tailoring workflow concept',
+      'Dashboard for actions, deadlines, and progress'
     ],
-    results: [
-      'Enabled learners to practise coding directly within lessons.',
-      'Facilitated team collaboration with agile processes.',
-      'Increased learner engagement with interactive content.'
+    stack: ['React', 'Supabase', 'PostgreSQL', 'AI-assisted workflows', 'Netlify'],
+    demo: '',
+    code: '',
+    caseStudy: {
+      role: 'Product design, workflow planning, and prototype architecture.',
+      result:
+        'A focused tool idea shaped around a real job-search workflow, suitable for future AI-assisted CV and cover letter features.'
+    },
+    visual: {
+      label: 'Job pipeline dashboard mockup',
+      icon: 'fas fa-briefcase',
+      metrics: ['Saved', 'Ranked', 'Applied']
+    }
+  },
+  {
+    id: 'trading-dashboard',
+    title: 'Trading Bot Dashboard',
+    category: 'Full-stack',
+    status: 'Dashboard concept',
+    problem:
+      'Trading systems need clear visibility into decisions, open trades, risk, historical performance, and what the bot is doing right now.',
+    solution:
+      'A monitoring dashboard concept for XAU/MT5-style strategies with live status panels, trade logs, backtesting views, and risk controls.',
+    features: [
+      'Live monitoring panels and trade decisions',
+      'Risk, exposure, and performance snapshots',
+      'Backtesting and analytics layout',
+      'Decision logs for transparency'
     ],
-    demo: '#',
-    code: '#',
-    image: 'https://picsum.photos/seed/project3/600/400',
-    screenshots: ['https://picsum.photos/seed/project3a/800/500'],
-    tags: ['React', 'Spring Boot', 'MySQL']
+    stack: ['React', 'Spring Boot', 'PostgreSQL', 'WebSockets', 'Charts'],
+    demo: '',
+    code: '',
+    caseStudy: {
+      role: 'Dashboard architecture, data model planning, and interface design for decision-heavy tools.',
+      result:
+        'A clear product direction for turning automated trading activity into understandable, inspectable data.'
+    },
+    visual: {
+      label: 'Trading analytics mockup',
+      icon: 'fas fa-chart-line',
+      metrics: ['Risk', 'Trades', 'Signals']
+    }
+  },
+  {
+    id: 'business-tools',
+    title: 'Business, Order, and Stock Tools',
+    category: 'Business',
+    status: 'Practical tool suite',
+    problem:
+      'Small businesses often use manual spreadsheets for stock, orders, receipts, image handling, and WhatsApp sharing.',
+    solution:
+      'A set of practical full-stack tools for stock records, order tracking, receipt generation, image handling, and WhatsApp export.',
+    features: [
+      'Stock and order tracking flows',
+      'Receipt and business record generation',
+      'Image workflow and export support',
+      'WhatsApp-friendly sharing paths'
+    ],
+    stack: ['React', 'Java', 'Spring Boot', 'MySQL', 'WhatsApp workflows'],
+    demo: '',
+    code: '',
+    caseStudy: {
+      role: 'Workflow mapping, frontend implementation, backend data modelling, and deployment planning.',
+      result:
+        'A reusable pattern for turning everyday business admin tasks into small, useful software products.'
+    },
+    visual: {
+      label: 'Operations tool mockup',
+      icon: 'fas fa-boxes-stacked',
+      metrics: ['Orders', 'Stock', 'Receipts']
+    }
   }
 ];
 
-/*
- * Helper to derive a sorted list of unique tags across all projects.
- * Use this to build a tag filter UI.
- */
-export function getProjectTags() {
-  const tagSet = new Set();
-  projects.forEach((p) => p.tags?.forEach((t) => tagSet.add(t)));
-  return Array.from(tagSet).sort();
+export function getProjectCategories() {
+  return ['All', ...projectCategories];
 }

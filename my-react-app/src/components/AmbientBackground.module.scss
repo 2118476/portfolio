@@ -1,0 +1,223 @@
+$slide-count: 4;
+$slide-cycle: 36s;
+
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  overflow: hidden;
+  pointer-events: none;
+  background: rgb(var(--color-bg-rgb));
+}
+
+.slide {
+  position: absolute;
+  inset: -4%;
+  background-position: center 22%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  will-change: opacity, transform;
+  animation:
+    crossfade $slide-cycle ease-in-out calc(var(--slide) * ($slide-cycle / $slide-count)) infinite,
+    kenburns-in $slide-cycle ease-in-out calc(var(--slide) * ($slide-cycle / $slide-count)) infinite;
+
+  &:nth-child(even) {
+    animation-name: crossfade, kenburns-out;
+  }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 50%, transparent 46%, rgba(var(--color-bg-rgb), 0.5) 100%),
+    linear-gradient(
+      180deg,
+      rgba(var(--color-bg-rgb), 0.32) 0%,
+      rgba(var(--color-bg-rgb), 0.44) 40%,
+      rgba(var(--color-bg-rgb), 0.64) 100%
+    );
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.4;
+  will-change: transform;
+}
+
+.blobOne {
+  width: 44vw;
+  height: 44vw;
+  top: -14%;
+  left: -10%;
+  background: radial-gradient(circle, rgba(var(--color-primary-rgb), 0.4), transparent 68%);
+  animation: blob-drift 26s ease-in-out infinite alternate;
+}
+
+.blobTwo {
+  width: 36vw;
+  height: 36vw;
+  bottom: -12%;
+  right: -10%;
+  background: radial-gradient(circle, rgba(var(--color-tertiary-rgb), 0.34), transparent 68%);
+  animation: blob-drift 32s ease-in-out -8s infinite alternate-reverse;
+}
+
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.ringOne {
+  width: 46vmin;
+  height: 46vmin;
+  top: 8%;
+  right: -8vmin;
+  border: 1.5px dashed rgba(var(--color-primary-rgb), 0.4);
+  animation: spin-slow 48s linear infinite;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    box-shadow: 0 0 16px rgba(var(--color-primary-rgb), 0.9);
+  }
+}
+
+.ringTwo {
+  width: 34vmin;
+  height: 34vmin;
+  bottom: 12%;
+  left: -6vmin;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(var(--color-secondary-rgb), 0.8) 18%,
+    transparent 40%
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  animation: spin-slow 32s linear infinite reverse;
+}
+
+.particles span {
+  position: absolute;
+  bottom: -3vh;
+  left: calc((var(--i) * 7.3%) + 2%);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(var(--color-text-rgb), 0.5);
+  box-shadow: 0 0 12px rgba(var(--color-primary-rgb), 0.6);
+  opacity: 0;
+  animation: particle-rise calc(16s + var(--i) * 1.7s) linear calc(var(--i) * -3.1s) infinite;
+
+  &:nth-child(3n) {
+    width: 5px;
+    height: 5px;
+  }
+
+  &:nth-child(4n) {
+    width: 2px;
+    height: 2px;
+    box-shadow: 0 0 8px rgba(var(--color-tertiary-rgb), 0.6);
+  }
+}
+
+/*
+ * Each slide owns 1/4 of the cycle: fade in over ~8%, hold, fade out.
+ * The Ken Burns pair runs on the same clock so the pan direction
+ * alternates between slides.
+ */
+@keyframes crossfade {
+  0% {
+    opacity: 0;
+  }
+
+  6% {
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  33% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes kenburns-in {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  33%,
+  100% {
+    transform: scale(1.12) translate(-1.4%, -1.2%);
+  }
+}
+
+@keyframes kenburns-out {
+  0% {
+    transform: scale(1.12) translate(1.2%, 1%);
+  }
+
+  33%,
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+@keyframes blob-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(6vw, 5vh, 0) scale(1.12);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes particle-rise {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 0.7;
+  }
+
+  85% {
+    opacity: 0.35;
+  }
+
+  100% {
+    transform: translateY(-108vh);
+    opacity: 0;
+  }
+}

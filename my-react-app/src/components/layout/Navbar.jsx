@@ -1,105 +1,100 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import useScrollSpy from '../../hooks/useScrollSpy';
-import useDarkMode from '../../hooks/useDarkMode';
 import styles from './Navbar.module.scss';
 
-/*
- * The navigation bar is sticky and uses a glassmorphism effect.  It
- * becomes opaque when the user scrolls beyond a threshold and
- * highlights the active section using a simple scrollspy hook.
- */
+const navItems = [
+  { id: 'hero', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'services', label: 'Services' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'process', label: 'Process' },
+  { id: 'contact', label: 'Contact' }
+];
+
 const Navbar = () => {
-  const { theme, toggleTheme } = useDarkMode();
-  const sectionIds = [
-    'hero',
-    'about',
-    'skills',
-    'experience',
-    'projects',
-    'stats',
-    'contact'
-  ];
-  const activeId = useScrollSpy(sectionIds, 80);
+  const sectionIds = useMemo(() => navItems.map((item) => item.id), []);
+  const activeId = useScrollSpy(sectionIds, 96);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Track whether the mobile navigation is open.  When true the
-  // `navLinks` are displayed as a vertical dropdown on small screens.
-  const [menuOpen, setMenuOpen] = useState(false);
-
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const updateScrolled = () => setScrolled(window.scrollY > 12);
+    updateScrolled();
+    window.addEventListener('scroll', updateScrolled);
+    return () => window.removeEventListener('scroll', updateScrolled);
   }, []);
 
-  // Close the mobile menu when navigating to a new section or when
-  // resizing the window up to a desktop breakpoint.  This ensures
-  // that the dropdown doesn’t remain open inadvertently.
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 640) {
-        setMenuOpen(false);
-      }
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const toggleMenu = () => {
-    setMenuOpen((prev) => !prev);
-  };
+  }, [menuOpen]);
 
   return (
     <header className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
-      <div className={styles.container}>
-        {/* Logo using a distinctive font.  When focused or hovered it
-            subtly scales or increases letter-spacing for a micro
-            interaction. */}
-        <a className={styles.logo} href="#hero">
-          Mihretab
+      <div className={styles.inner}>
+        <a className={styles.brand} href="#hero" aria-label="Mihretab Nega home">
+          <span className={styles.brandMark}>MN</span>
+          <span className={styles.brandText}>
+            <strong>Mihretab Nega</strong>
+            <span>Full-stack developer</span>
+          </span>
         </a>
-        {/* Navigation links.  Hidden on small screens. */}
+
         <nav
           id="main-navigation"
           className={`${styles.navLinks} ${menuOpen ? styles.open : ''}`}
           aria-label="Main navigation"
         >
-          {sectionIds.map((id) => (
+          {navItems.map((item) => (
             <a
-              key={id}
-              href={`#${id}`}
-              className={activeId === id ? styles.active : ''}
+              key={item.id}
+              href={`#${item.id}`}
+              className={activeId === item.id ? styles.active : ''}
               onClick={() => setMenuOpen(false)}
             >
-              {id.charAt(0).toUpperCase() + id.slice(1)}
+              {item.label}
             </a>
           ))}
         </nav>
-        {/* Theme toggle button remains visible on all screen sizes. */}
-        <div className={styles.toggleGroup}>
-          <button
-            className={styles.themeToggle}
-            onClick={toggleTheme}
-            aria-label="Toggle dark mode"
+
+        <div className={styles.actions}>
+          <a
+            className={`${styles.iconButton} ${styles.social}`}
+            href="https://github.com/2118476"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub profile"
           >
-            {theme === 'light' ? '🌙' : '☀️'}
+            <i className="fab fa-github" aria-hidden="true" />
+          </a>
+          <a
+            className={`${styles.iconButton} ${styles.social}`}
+            href="https://www.linkedin.com/in/mihretab-nega-56292819a/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn profile"
+          >
+            <i className="fab fa-linkedin-in" aria-hidden="true" />
+          </a>
+          <a className={styles.cta} href="#contact">
+            Let's Build
+          </a>
+          <button
+            className={`${styles.menuButton} ${menuOpen ? styles.menuOpen : ''}`}
+            onClick={() => setMenuOpen((open) => !open)}
+            type="button"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="main-navigation"
+          >
+            <span />
+            <span />
+            <span />
           </button>
         </div>
-        {/* Mobile menu toggle positioned at the far right. */}
-        <button
-          className={styles.menuButton}
-          onClick={toggleMenu}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-          aria-controls="main-navigation"
-        >
-          <i
-            className={`fas ${menuOpen ? 'fa-times' : 'fa-bars'}`}
-            aria-hidden="true"
-          ></i>
-        </button>
       </div>
     </header>
   );

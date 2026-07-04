@@ -1,49 +1,73 @@
 import React from 'react';
 import Section from '../components/layout/Section';
-import { motion } from 'framer-motion';
 import ContactForm from '../components/ContactForm';
-import BackgroundContact from '../components/backgrounds/BackgroundContact';
+import Button from '../components/ui/Button';
 import styles from './Contact.module.scss';
 
-/*
- * Contact section utilising a chatbot interface.  A subtle
- * animated background complements the design.  The ChatbotContact
- * component manages the conversation flow and handles
- * submission to Formspree.
- */
+const quickLinks = [
+  {
+    label: 'Email me',
+    href: 'mailto:mihretabtesfahun2124@gmail.com',
+    icon: 'fas fa-envelope'
+  },
+  {
+    label: 'WhatsApp',
+    href: 'https://wa.me/',
+    icon: 'fab fa-whatsapp'
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/mihretab-nega-56292819a/',
+    icon: 'fab fa-linkedin'
+  },
+  {
+    label: 'GitHub',
+    href: 'https://github.com/2118476',
+    icon: 'fab fa-github'
+  }
+];
+
 const Contact = () => {
   return (
     <Section id="contact" className={styles.contact}>
-      <BackgroundContact />
-      <motion.h2
-        className="section-title"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-      >
-        Contact
-      </motion.h2>
-      <motion.p
-        className={styles.subtext}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        viewport={{ once: true }}
-      >
-        I\'m always open to discussing new projects or opportunities. Feel free
-        to reach out!
-      </motion.p>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        viewport={{ once: true }}
-      >
-        {/* Render a simple contact form rather than the chatbot.  The form
-            collects name, email and message and submits to Formspree. */}
-        <ContactForm />
-      </motion.div>
+      <div className={styles.grid}>
+        <div className={styles.copy}>
+          <span className="section-kicker">
+            <span className="eyebrow-dot" />
+            Contact
+          </span>
+          <h2 className="section-title">Tell me what you want to build.</h2>
+          <p>
+            Available for junior developer roles, freelance websites, booking systems,
+            and full-stack apps. Send a short brief and I will come back with the
+            next sensible step.
+          </p>
+
+          <div className={styles.availability}>
+            <i className="fas fa-circle-check" aria-hidden="true" />
+            <span>Open to UK software roles, selected freelance projects, and community-focused products.</span>
+          </div>
+
+          <div className={styles.quickLinks}>
+            {quickLinks.map((link) => (
+              <Button
+                key={link.label}
+                href={link.href}
+                variant="secondary"
+                icon={link.icon}
+                target={link.href.startsWith('http') ? '_blank' : undefined}
+                rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              >
+                {link.label}
+              </Button>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.formPanel}>
+          <ContactForm />
+        </div>
+      </div>
     </Section>
   );
 };

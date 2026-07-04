@@ -1,234 +1,384 @@
-/*
- * The hero wrapper uses a sticky video background.  It occupies
- * slightly more than the viewport height (120vh) so that the
- * content can scroll over the video, creating a parallax
- * effect.  Overflow is clipped to prevent the video from
- * bleeding into subsequent sections.
- */
-/*
- * The hero section spans the full viewport height.  It uses flexbox
- * to centre the content both horizontally and vertically.  A
- * relative positioning context is required for absolutely
- * positioned children such as the starfield and overlay.  We clip
- * overflow to ensure that absolutely or fixed positioned
- * descendants don’t bleed into neighbouring sections.
- */
-/*
- * The hero section spans slightly more than the viewport to allow
- * for a parallax effect when using the sticky video approach.  It
- * centres the content using an absolutely positioned wrapper
- * instead of relying on flexbox, preventing the video from
- * displacing the text.  Overflow is clipped so that sticky
- * descendants don’t bleed into neighbouring sections.
- */
+@import '../styles/mixins.scss';
+
 .hero {
   position: relative;
-  height: 120vh;
-  min-height: 100vh;
-  text-align: center;
-  color: var(--color-text);
+  padding: calc(var(--nav-height) + 2.5rem) 0 clamp(2rem, 4vw, 3.5rem);
   overflow: clip;
 }
 
-.background {
+.hero::after {
+  content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* Background images are set dynamically via inline styles in
-     Hero.jsx.  A default remote fallback remains in CSS so that a
-     reasonable backdrop appears if inline styles are not applied. */
-  background-image: url('https://picsum.photos/1920/1080?seed=hero');
-  background-size: cover;
-  background-position: center;
-  /* Lighten the base image slightly so that it remains crisp in light
-     mode.  A value near 0.8 avoids washing the photo out while
-     still allowing the overlay to provide adequate contrast for
-     text. */
-  filter: brightness(0.8);
-  z-index: -3; /* behind starfield */
+  inset: auto 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border-strong), transparent);
 }
 
-/*
- * Video wrapper for the hero.  The wrapper itself is sticky so
- * that the video remains pinned to the top of the viewport while
- * the hero content scrolls past it.  Once the hero is scrolled
- * out of view the wrapper moves out of the viewport and the
- * video disappears.  A very low z-index ensures it sits behind
- * the starfield and overlay.
- */
-/*
- * The video wrapper is fixed to the viewport rather than
- * participating in the normal layout.  This ensures that the
- * background video doesn’t displace any content.  Visibility is
- * controlled via the `.videoVisible` class which toggles the
- * opacity when the hero is in or out of view.  A negative z-index
- * places the video behind the starfield and overlay.
- */
-/*
- * Sticky wrapper for the background video.  It sticks to the
- * top of the viewport while the hero is in view and then
- * scrolls away when the hero ends.  A negative z-index keeps
- * the video behind the starfield, overlay and content.  Pointer
- * events are disabled so that the video doesn’t intercept any
- * interactions.
- */
-.heroVideoWrap {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: -4;
+.inner {
+  width: min(var(--container), calc(100% - 2rem));
+  margin-inline: auto;
+  display: grid;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+
+.copy {
+  max-width: 760px;
+}
+
+.copy h1 {
+  margin-top: var(--space-5);
+  max-width: 900px;
+  font-size: clamp(2.1rem, 4.1vw, 3.35rem);
+}
+
+.lead {
+  max-width: 710px;
+  margin-top: var(--space-5);
+  color: var(--color-soft);
+  font-size: clamp(1rem, 1.6vw, 1.1rem);
+}
+
+.roleLine {
+  margin-top: var(--space-4);
+  color: var(--color-muted);
+  font-weight: 800;
+
+  span {
+    color: var(--color-primary);
+  }
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.stage {
+  position: relative;
+}
+
+.stageGlow {
+  position: absolute;
+  inset: -18% -12%;
+  z-index: -1;
+  background:
+    radial-gradient(52% 48% at 30% 24%, rgba(var(--color-primary-rgb), 0.26), transparent 70%),
+    radial-gradient(46% 44% at 76% 78%, rgba(var(--color-tertiary-rgb), 0.22), transparent 70%);
+  filter: blur(34px);
   pointer-events: none;
 }
 
-/* When the hero section is intersecting the viewport the
- * IntersectionObserver adds the `.videoVisible` class to the
- * wrapper, fading the video in.  When it scrolls out of view
- * the class is removed and the video fades out.
- */
-
-/*
- * The video element fills its wrapper and uses `object-fit: cover`
- * to ensure it covers the entire area without distortion.  Pointer
- * events are disabled to avoid intercepting scroll or tap events.
- */
-.heroVideo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  pointer-events: none;
-}
-
-/*
- * Fallback image for users who prefer reduced motion.  It takes
- * the place of the video and is sized identically.  The
- * brightness is reduced slightly to match the video’s look and
- * maintain text readability.
- */
-.fallback {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  display: block;
-  filter: brightness(0.8);
-}
-
-/*
- * Container that centres the hero content.  Positioned absolutely
- * so that it layers above the background video and starfield.
- * Flexbox is used internally to centre the card both vertically
- * and horizontally.
- */
-.contentWrapper {
+.orbit {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: -9% -7%;
+  z-index: -1;
+  border: 1.5px dashed rgba(var(--color-text-rgb), 0.22);
+  border-radius: 50%;
+  animation: orbit-spin 30s linear infinite;
+  pointer-events: none;
+
+  span {
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+  }
+
+  span:first-child {
+    top: -6px;
+    left: 50%;
+    background: var(--color-primary);
+    box-shadow: 0 0 18px rgba(var(--color-primary-rgb), 0.95);
+  }
+
+  span:last-child {
+    bottom: -6px;
+    left: 22%;
+    background: var(--color-secondary);
+    box-shadow: 0 0 18px rgba(var(--color-secondary-rgb), 0.95);
+  }
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.visual {
+  @include glass-panel;
+  @include float(9s, 0.4s, 8px);
+
+  display: grid;
+  gap: var(--space-4);
+  border-radius: var(--radius-lg);
+  padding: clamp(1rem, 3vw, 1.35rem);
+  box-shadow: var(--shadow-glow);
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 46%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.07), transparent);
+    animation: sheen 6.5s ease-in-out 2s infinite;
+    pointer-events: none;
+  }
+}
+
+.floatCard {
+  @include glass-panel;
+  @include float(6.5s, 0s, 14px);
+
+  --float-tilt: 3deg;
+
+  position: absolute;
+  top: -3.4rem;
+  right: -2.4rem;
+  z-index: 2;
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* Ensure links and interactive elements inside the content are
- * clickable by re-enabling pointer events.  Without this the
- * parent wrapper’s pointer-events: none would block interactions.
- */
-.contentWrapper .content {
-  pointer-events: auto;
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  /*
-   * Use a dynamic gradient based on the current theme.  In light
-   * mode the overlay pulls from the page background colour to
-   * softly tint the hero image without darkening it too much.  In
-   * dark mode it still provides contrast but avoids a harsh pure
-   * black overlay.  Leveraging CSS variables allows the same
-   * gradient to work across both themes.  The alpha values are
-   * intentionally subtle so the particles and photo remain visible
-   * while ensuring text legibility.
-   */
-  /*
-   * Apply a subtle bottom‑to‑top fade.  The overlay draws from
-   * the page background colour so that in light mode the fade is
-   * pale and in dark mode it is deeper.  The gradient is heaviest
-   * at the bottom (behind the call‑to‑action) and fades out towards
-   * the top, preserving the clarity of the new hero image.  This
-   * ensures readability without making the entire background look
-   * washed out.
-   */
-  background: linear-gradient(
-    to top,
-    rgba(var(--color-bg), 0.9) 0%,
-    rgba(var(--color-bg), 0.5) 40%,
-    rgba(var(--color-bg), 0) 100%
-  );
-  z-index: -1;
-}
-
-.content {
-  padding: var(--spacing-8);
-  background: rgba(var(--color-panel-rgb), 0.2);
-  backdrop-filter: blur(6px);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  max-width: 800px;
-}
-
-.title {
-  font-size: 2.5rem;
-  line-height: 1.2;
-  margin-bottom: var(--spacing-4);
-}
-
-.title span {
-  color: var(--color-primary);
-}
-
-.subtitle {
-  font-size: 1.25rem;
-  color: var(--color-muted);
-  margin-bottom: var(--spacing-6);
-}
-
-.typewriter {
-  color: var(--color-secondary);
-  font-weight: 600;
-}
-
-.cta {
-  display: inline-block;
-  padding: var(--spacing-2) var(--spacing-4);
+  gap: var(--space-3);
+  width: min(310px, 78%);
   border-radius: var(--radius-md);
-  background: var(--color-primary);
-  color: #fff;
-  font-weight: 500;
-  transition: transform 0.2s ease;
-  box-shadow: var(--shadow);
-}
+  padding: var(--space-3);
+  box-shadow: var(--shadow-glow);
 
-.cta:hover {
-  transform: translateY(-2px);
-}
-
-.cta:active {
-  transform: translateY(0);
-}
-
-@media (min-width: 768px) {
-  .title {
-    font-size: 3.5rem;
+  img {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-xs);
+    object-fit: cover;
+    border: 1px solid var(--color-border);
   }
-  .subtitle {
-    font-size: 1.5rem;
+
+  > i {
+    margin-left: auto;
+    color: var(--color-secondary);
+    font-size: 1.05rem;
+    filter: drop-shadow(0 0 8px rgba(var(--color-secondary-rgb), 0.7));
+  }
+}
+
+.floatCardAlt {
+  @include float(7.8s, 1.2s, 11px);
+
+  --float-tilt: -2.5deg;
+
+  top: auto;
+  bottom: -3rem;
+  right: auto;
+  left: -2.8rem;
+}
+
+.floatIcon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: var(--radius-xs);
+  background: var(--gradient-accent);
+  color: #f5f9ff;
+  font-size: 1.15rem;
+  box-shadow: 0 10px 26px rgba(var(--color-tertiary-rgb), 0.35);
+}
+
+.floatMeta {
+  min-width: 0;
+
+  strong {
+    display: block;
+    overflow: hidden;
+    color: var(--color-heading);
+    font-size: 0.85rem;
+    line-height: 1.25;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  span {
+    display: block;
+    color: var(--color-muted);
+    font-size: 0.72rem;
+  }
+}
+
+.progress {
+  margin-top: 0.45rem;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: rgba(var(--color-text-rgb), 0.14);
+  overflow: hidden;
+
+  span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--gradient-primary);
+    box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.7);
+  }
+}
+
+.profileStrip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+
+  img {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-md);
+    object-fit: cover;
+    border: 1px solid var(--color-border);
+  }
+
+  strong {
+    display: block;
+    color: var(--color-heading);
+    font-size: 1.05rem;
+  }
+
+  span {
+    display: block;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+  }
+}
+
+.window {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.12), transparent 35%),
+    rgba(var(--color-bg-rgb), 0.52);
+  overflow: hidden;
+}
+
+.windowTop {
+  height: 40px;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 var(--space-4);
+
+  span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(var(--color-text-rgb), 0.28);
+  }
+}
+
+.codeRows {
+  padding: var(--space-5);
+  display: grid;
+  gap: var(--space-3);
+
+  span {
+    height: 12px;
+    width: 68%;
+    border-radius: var(--radius-full);
+    background: rgba(var(--color-text-rgb), 0.14);
+  }
+
+  .wide {
+    width: 88%;
+    background: rgba(var(--color-primary-rgb), 0.38);
+  }
+
+  .medium {
+    width: 58%;
+    background: rgba(var(--color-secondary-rgb), 0.34);
+  }
+
+  .short {
+    width: 38%;
+  }
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+
+  div {
+    min-width: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    background: rgba(var(--color-text-rgb), 0.04);
+  }
+
+  strong {
+    display: block;
+    color: var(--color-heading);
+    font-size: clamp(1.15rem, 3vw, 1.6rem);
+    line-height: 1;
+  }
+
+  span {
+    display: block;
+    margin-top: var(--space-2);
+    color: var(--color-muted);
+    font-size: 0.82rem;
+    line-height: 1.25;
+  }
+}
+
+@media (min-width: 980px) {
+  .inner {
+    grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.72fr);
+  }
+}
+
+@media (max-width: 1279px) {
+  .floatCard {
+    top: -2.2rem;
+    right: 0.25rem;
+  }
+
+  .floatCardAlt {
+    top: auto;
+    bottom: -2rem;
+    left: 0.25rem;
+    right: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .copy h1 {
+    max-width: 100%;
+  }
+
+  .actions > * {
+    width: 100%;
+  }
+
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .stage {
+    display: none;
   }
 }
