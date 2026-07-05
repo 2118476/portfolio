@@ -85,6 +85,9 @@ const Projects = () => {
                       <span key={metric}>{metric}</span>
                     ))}
                   </div>
+                  <span className={styles.mockupNote}>
+                    Illustrative preview — screenshots coming soon
+                  </span>
                 </>
               )}
             </div>
@@ -129,6 +132,11 @@ const Projects = () => {
                   icon="fab fa-github"
                 >
                   Code
+                </Button>
+              )}
+              {!project.code && project.privateCode && (
+                <Button type="button" variant="outline" icon="fas fa-lock" disabled>
+                  Private repo
                 </Button>
               )}
               <Button
@@ -236,6 +244,11 @@ const Projects = () => {
                   icon="fab fa-github"
                 >
                   Backend code
+                </Button>
+              )}
+              {!selectedProject.code && selectedProject.privateCode && (
+                <Button type="button" variant="outline" icon="fas fa-lock" disabled>
+                  Code available on request
                 </Button>
               )}
               <Button href="#contact" variant="secondary" icon="fas fa-paper-plane">

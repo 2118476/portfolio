@@ -11,9 +11,9 @@ const quickLinks = [
     icon: 'fas fa-envelope'
   },
   {
-    label: 'WhatsApp',
-    href: 'https://wa.me/',
-    icon: 'fab fa-whatsapp'
+    label: 'WhatsApp coming soon',
+    icon: 'fab fa-whatsapp',
+    disabled: true
   },
   {
     label: 'LinkedIn',
@@ -49,18 +49,24 @@ const Contact = () => {
           </div>
 
           <div className={styles.quickLinks}>
-            {quickLinks.map((link) => (
-              <Button
-                key={link.label}
-                href={link.href}
-                variant="secondary"
-                icon={link.icon}
-                target={link.href.startsWith('http') ? '_blank' : undefined}
-                rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              >
-                {link.label}
-              </Button>
-            ))}
+            {quickLinks.map((link) =>
+              link.disabled ? (
+                <Button key={link.label} type="button" variant="secondary" icon={link.icon} disabled>
+                  {link.label}
+                </Button>
+              ) : (
+                <Button
+                  key={link.label}
+                  href={link.href}
+                  variant="secondary"
+                  icon={link.icon}
+                  target={link.href.startsWith('http') ? '_blank' : undefined}
+                  rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                >
+                  {link.label}
+                </Button>
+              )
+            )}
           </div>
         </div>
 

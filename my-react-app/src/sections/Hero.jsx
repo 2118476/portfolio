@@ -53,9 +53,12 @@ const Hero = () => {
             UK-based full-stack developer
           </span>
           <h1>
-            Full-stack developer building real-world{' '}
-            <span className="gradient-text">React + Spring Boot</span> applications for businesses
-            and communities.
+            <span className={styles.name}>Mihretab Nega</span>
+            <span className={styles.headline}>
+              Full-stack developer building real-world{' '}
+              <span className="gradient-text">React + Spring Boot</span> applications for
+              businesses and communities.
+            </span>
           </h1>
           <p className={styles.lead}>
             I create practical web platforms, booking systems, community apps, business

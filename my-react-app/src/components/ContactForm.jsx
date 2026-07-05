@@ -10,7 +10,8 @@ const initialValues = {
   message: ''
 };
 
-const endpoint = 'https://formspree.io/f/xanbnewg';
+const endpoint = process.env.REACT_APP_FORMSPREE_ENDPOINT || 'https://formspree.io/f/xanbnewg';
+const fallbackEmail = 'mihretabtesfahun2124@gmail.com';
 
 const ContactForm = () => {
   const [values, setValues] = useState(initialValues);
@@ -42,6 +43,16 @@ const ContactForm = () => {
     setStatus(null);
     if (!validate()) return;
 
+    if (!endpoint) {
+      const subject = encodeURIComponent(`Portfolio enquiry from ${values.name}`);
+      const body = encodeURIComponent(
+        `${values.message}\n\nProject type: ${values.projectType || '-'}\nBudget: ${values.budget || '-'}\nFrom: ${values.name} <${values.email}>`
+      );
+      window.location.href = `mailto:${fallbackEmail}?subject=${subject}&body=${body}`;
+      setStatus({ type: 'success', message: 'Opening your email app to send the message directly.' });
+      return;
+    }
+
     setSubmitting(true);
     const data = new FormData();
     Object.entries(values).forEach(([key, value]) => data.append(key, value));
@@ -62,7 +73,7 @@ const ContactForm = () => {
         message: (
           <>
             Something went wrong. You can{' '}
-            <a href="mailto:mihretabtesfahun2124@gmail.com">email me directly</a> instead.
+            <a href={`mailto:${fallbackEmail}`}>email me directly</a> instead.
           </>
         )
       });

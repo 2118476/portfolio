@@ -126,6 +126,7 @@ export const projects = [
     stack: ['React', 'Supabase', 'PostgreSQL', 'AI-assisted workflows', 'Netlify'],
     demo: '',
     code: '',
+    privateCode: true,
     caseStudy: {
       role: 'I own the product design, workflow planning, and prototype architecture.',
       result:
@@ -141,24 +142,24 @@ export const projects = [
     id: 'goldsignal',
     title: 'GoldSignal / Trading Signal Platform',
     category: 'Full-stack',
-    status: 'Python strategy bot + dashboard build',
+    status: 'Python MT5 bot public · dashboard in development',
     problem:
       'Automated trading strategies need clear visibility into decisions, open trades, risk, historical performance, and what the bot is doing right now.',
     solution:
-      'A Python XAU/MT5 strategy bot paired with a monitoring dashboard: live status panels, trade logs, backtesting views, and risk controls.',
+      'A Python XAU/MT5 strategy bot with entry, risk, and exposure logic (public repo). A monitoring dashboard with live status panels, trade logs, and backtesting views is designed and currently in development.',
     features: [
-      'Automated strategy logic for XAU/MT5-style trading',
-      'Live monitoring panels and trade decisions',
-      'Risk, exposure, and performance snapshots',
-      'Backtesting views and decision logs for transparency'
+      'Automated XAU/MT5 strategy and risk logic (public repo)',
+      'Backtesting and parameter iteration workflow',
+      'Trade and decision logging for transparency',
+      'Monitoring dashboard UI — designed, in development'
     ],
-    stack: ['Python', 'MT5', 'React', 'Spring Boot', 'PostgreSQL', 'WebSockets'],
+    stack: ['Python', 'MT5', 'Backtesting', 'Risk logic', 'React (planned UI)'],
     demo: '',
     code: 'https://github.com/2118476/bot15COrv5-15b-18v4',
     caseStudy: {
-      role: 'I wrote the Python strategy and risk logic, and designed the dashboard architecture and data model for decision-heavy monitoring.',
+      role: 'I wrote the Python strategy, risk, and logging logic in the public bot repo; the monitoring dashboard and its data model are designed and being built.',
       result:
-        'Automated trading activity turned into understandable, inspectable data instead of a black box.'
+        'A working automated strategy whose decisions are logged and inspectable, with a clear path to a full monitoring UI.'
     },
     visual: {
       label: 'Trading analytics mockup',
@@ -184,6 +185,7 @@ export const projects = [
     stack: ['React', 'Java', 'Spring Boot', 'MySQL', 'WhatsApp workflows'],
     demo: '',
     code: '',
+    privateCode: true,
     caseStudy: {
       role: 'I mapped the real order workflow with the business owner, then built the frontend, backend data model, and deployment plan.',
       result:

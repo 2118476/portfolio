@@ -79,6 +79,12 @@
     rgba(var(--color-bg-rgb), 0.42);
 }
 
+.mockupNote {
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  font-style: italic;
+}
+
 .mockupShot {
   position: absolute;
   inset: 0;

@@ -71,11 +71,18 @@ npm run build    # production build in my-react-app/build
 
 ## Contact form setup
 
-The contact form posts to [Formspree](https://formspree.io). The endpoint lives in
-`src/components/ContactForm.jsx` (`const endpoint = 'https://formspree.io/f/...'`).
-To route messages to a different inbox, create a new Formspree form and replace that
-endpoint ID. On any submission error, the UI shows a direct `mailto:` fallback link,
-so visitors are never left with a dead form.
+The contact form posts to [Formspree](https://formspree.io). The endpoint is read from
+an environment variable, with a working default baked in:
+
+1. Copy `my-react-app/.env.example` to `my-react-app/.env`.
+2. Create a form at [formspree.io](https://formspree.io) and set
+   `REACT_APP_FORMSPREE_ENDPOINT=https://formspree.io/f/<your-id>`.
+3. Restart the dev server (CRA reads env vars at startup).
+
+If the variable is unset, the form uses the default portfolio endpoint. If it is set
+to an empty value, the form falls back to opening the visitor's email app with the
+message pre-filled (`mailto:`). On any submission error, the UI also shows a direct
+`mailto:` link — visitors are never left with a dead form.
 
 ## Deployment
 
