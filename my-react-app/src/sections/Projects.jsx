@@ -60,20 +60,31 @@ const Projects = () => {
             className={`${styles.card} ${styles[accentByCategory[project.category]] || ''}`}
           >
             <div className={styles.mockup} aria-label={project.visual.label}>
-              <div className={styles.mockupTop}>
-                <i className={project.visual.icon} aria-hidden="true" />
-                <span>{project.category}</span>
-              </div>
-              <div className={styles.mockupBody}>
-                <span className={styles.lineWide} />
-                <span />
-                <span className={styles.lineShort} />
-              </div>
-              <div className={styles.mockupMetrics}>
-                {project.visual.metrics.map((metric) => (
-                  <span key={metric}>{metric}</span>
-                ))}
-              </div>
+              {project.screenshots ? (
+                <img
+                  className={styles.mockupShot}
+                  src={project.screenshots[0].src}
+                  alt={project.screenshots[0].alt}
+                  loading="lazy"
+                />
+              ) : (
+                <>
+                  <div className={styles.mockupTop}>
+                    <i className={project.visual.icon} aria-hidden="true" />
+                    <span>{project.category}</span>
+                  </div>
+                  <div className={styles.mockupBody}>
+                    <span className={styles.lineWide} />
+                    <span />
+                    <span className={styles.lineShort} />
+                  </div>
+                  <div className={styles.mockupMetrics}>
+                    {project.visual.metrics.map((metric) => (
+                      <span key={metric}>{metric}</span>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
 
             <div className={styles.cardBody}>
@@ -140,7 +151,6 @@ const Projects = () => {
           <div className={styles.modalContent}>
             <Badge color="primary">{selectedProject.category}</Badge>
             <h3>{selectedProject.title}</h3>
-            <p>{selectedProject.caseStudy.role}</p>
 
             <div className={styles.modalGrid}>
               <div>
@@ -157,6 +167,17 @@ const Projects = () => {
               </div>
             </div>
 
+            {selectedProject.screenshots && (
+              <div>
+                <h4>Screenshots</h4>
+                <div className={styles.gallery}>
+                  {selectedProject.screenshots.map((shot) => (
+                    <img key={shot.src} src={shot.src} alt={shot.alt} loading="lazy" />
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div>
               <h4>Main features</h4>
               <ul className={styles.modalList}>
@@ -164,6 +185,11 @@ const Projects = () => {
                   <li key={feature}>{feature}</li>
                 ))}
               </ul>
+            </div>
+
+            <div>
+              <h4>What I built</h4>
+              <p>{selectedProject.caseStudy.role}</p>
             </div>
 
             <div>
@@ -186,6 +212,28 @@ const Projects = () => {
                   icon="fas fa-arrow-up-right-from-square"
                 >
                   Open demo
+                </Button>
+              )}
+              {selectedProject.code && (
+                <Button
+                  href={selectedProject.code}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="outline"
+                  icon="fab fa-github"
+                >
+                  {selectedProject.codeBackend ? 'Frontend code' : 'Code'}
+                </Button>
+              )}
+              {selectedProject.codeBackend && (
+                <Button
+                  href={selectedProject.codeBackend}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="outline"
+                  icon="fab fa-github"
+                >
+                  Backend code
                 </Button>
               )}
               <Button href="#contact" variant="secondary" icon="fas fa-paper-plane">

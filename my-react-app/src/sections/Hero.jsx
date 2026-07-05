@@ -14,7 +14,18 @@ const roles = [
   'automation tools'
 ];
 
-const trustBadges = ['React', 'Spring Boot', 'PostgreSQL', 'REST APIs', 'JWT', 'Cloud Deployment'];
+const trustBadges = [
+  'React',
+  'Spring Boot',
+  'Java',
+  'PostgreSQL',
+  'MySQL',
+  'JWT',
+  'REST APIs',
+  'Twilio',
+  'Netlify',
+  'Render'
+];
 
 const Hero = () => {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -40,8 +51,9 @@ const Hero = () => {
             UK-based full-stack developer
           </span>
           <h1>
-            Full-stack developer building <span className="gradient-text">real-world web apps</span>{' '}
-            for businesses and communities.
+            Full-stack developer building real-world{' '}
+            <span className="gradient-text">React + Spring Boot</span> applications for businesses
+            and communities.
           </h1>
           <p className={styles.lead}>
             I build practical platforms, dashboards, booking systems, community apps, and

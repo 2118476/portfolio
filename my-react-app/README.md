@@ -1,14 +1,15 @@
-# Mihretab Nega Portfolio
+# Mihretab Nega Portfolio (app)
 
-Premium one-page portfolio for [mihretab.org](https://mihretab.org/), built with Create React App, React, SCSS modules, Framer Motion, and FontAwesome.
+Premium one-page portfolio for [mihretab.org](https://mihretab.org/), built with Create React App, React, SCSS modules, Framer Motion, and FontAwesome. See the [repository README](../README.md) for the full overview, screenshots, and featured project links.
 
 ## What is included
 
-- Dark-first responsive portfolio design
-- Sticky glass navbar with mobile menu and theme toggle
+- Cinematic photo slideshow background with glassmorphism UI throughout
+- Sticky glass navbar with mobile hamburger menu, scroll-spy, and social buttons
 - Hero, About, Projects, Services, Skills, Process, Trust, Contact, and Footer sections
-- Project filtering and case-study modals
-- Client lead form using Formspree
+- Project filtering, real screenshots, and case-study modals with demo + GitHub links
+- Accordion About/Process sections and collapsible Services details (mobile-first)
+- Client lead form using Formspree with validation and direct-email fallback
 - SEO metadata, Open Graph tags, JSON-LD, sitemap, robots.txt, and SVG favicon
 
 ## Run locally

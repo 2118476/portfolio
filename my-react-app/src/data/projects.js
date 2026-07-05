@@ -1,3 +1,8 @@
+import habeshaFeed from '../assets/shots/habesha-feed.jpg';
+import habeshaServices from '../assets/shots/habesha-services.jpg';
+import habeshaRental from '../assets/shots/habesha-rental.jpg';
+import habeshaSwap from '../assets/shots/habesha-swap.jpg';
+
 export const projectCategories = [
   'Full-stack',
   'Community',
@@ -11,7 +16,7 @@ export const projects = [
     id: 'habesha-community',
     title: 'Habesha Community Platform / UK Habesha',
     category: 'Community',
-    status: 'Active concept and product build',
+    status: 'Live product build',
     problem:
       'Habesha communities in the UK often rely on scattered WhatsApp groups and informal posts to find services, rentals, events, and trusted recommendations.',
     solution:
@@ -24,14 +29,21 @@ export const projects = [
     ],
     stack: ['React', 'Spring Boot', 'PostgreSQL', 'JWT', 'Render', 'Netlify'],
     demo: 'https://habesha-community-frontend.netlify.app',
-    code: '',
+    code: 'https://github.com/2118476/Habesha-community-Frontend',
+    codeBackend: 'https://github.com/2118476/Habesha-community-backend',
+    screenshots: [
+      { src: habeshaFeed, alt: 'UK Habesha community feed screen' },
+      { src: habeshaServices, alt: 'UK Habesha local services listings screen' },
+      { src: habeshaRental, alt: 'UK Habesha rental listing detail screen' },
+      { src: habeshaSwap, alt: 'UK Habesha marketplace swap screen' }
+    ],
     caseStudy: {
-      role: 'Product thinking, UI architecture, API planning, and full-stack implementation direction.',
+      role: 'I built the full product: React frontend, Spring Boot REST API, PostgreSQL schema, JWT authentication, listing/moderation flows, and Netlify + Render deployment.',
       result:
-        'Designed as a practical platform for a real diaspora audience, with a structure that can grow into bookings, ads, and paid local business listings.'
+        'A working platform for a real diaspora audience, with a structure that can grow into bookings, ads, and paid local business listings.'
     },
     visual: {
-      label: 'Community app mockup',
+      label: 'UK Habesha app screenshots',
       icon: 'fas fa-users',
       metrics: ['Listings', 'Events', 'Messages']
     }
@@ -40,7 +52,7 @@ export const projects = [
     id: 'hair-salon',
     title: 'Hair Salon Booking System',
     category: 'Business',
-    status: 'Built as a production-style booking system',
+    status: 'Production-style booking system',
     problem:
       'Local salons lose time managing appointments manually, and customers need a simple way to choose services, stylists, and available slots.',
     solution:
@@ -53,9 +65,10 @@ export const projects = [
     ],
     stack: ['Java', 'Spring Boot', 'MySQL', 'React', 'JWT'],
     demo: 'https://sparkling-gaufre-95d8cc.netlify.app',
-    code: '',
+    code: 'https://github.com/2118476/hair-salon-frontend',
+    codeBackend: 'https://github.com/2118476/hair-salon-backend',
     caseStudy: {
-      role: 'Database design, backend API architecture, authentication, and responsive frontend implementation.',
+      role: 'I designed the MySQL schema, built the Spring Boot API with role-based JWT auth, and implemented the responsive React booking and admin interfaces.',
       result:
         'Converted a common local-business workflow into a structured digital product with admin visibility and customer self-service.'
     },
@@ -82,9 +95,9 @@ export const projects = [
     ],
     stack: ['React', 'Spring Boot', 'MySQL', 'Twilio', 'REST APIs'],
     demo: 'https://gorgeous-cendol-eb18cc.netlify.app/',
-    code: '',
+    code: 'https://github.com/2118476/Mms',
     caseStudy: {
-      role: 'Integrated Twilio APIs, built the dashboard flow, and connected backend communication events to the UI.',
+      role: 'I integrated the Twilio SMS and Voice APIs, built the dashboard flow, and connected backend communication events to the UI.',
       result:
         'A practical automation foundation for appointment reminders, customer outreach, and phone-based business workflows.'
     },
@@ -98,7 +111,7 @@ export const projects = [
     id: 'jobpilot',
     title: 'JobPilot / Job Search Assistant',
     category: 'AI/Tools',
-    status: 'Concept and roadmap',
+    status: 'In development',
     problem:
       'Job seekers often lose track of applications, repeat CV edits manually, and struggle to compare opportunities quickly.',
     solution:
@@ -113,9 +126,9 @@ export const projects = [
     demo: '',
     code: '',
     caseStudy: {
-      role: 'Product design, workflow planning, and prototype architecture.',
+      role: 'I own the product design, workflow planning, and prototype architecture.',
       result:
-        'A focused tool idea shaped around a real job-search workflow, suitable for future AI-assisted CV and cover letter features.'
+        'A focused tool shaped around a real job-search workflow, suitable for future AI-assisted CV and cover letter features.'
     },
     visual: {
       label: 'Job pipeline dashboard mockup',
@@ -124,27 +137,27 @@ export const projects = [
     }
   },
   {
-    id: 'trading-dashboard',
-    title: 'Trading Bot Dashboard',
+    id: 'goldsignal',
+    title: 'GoldSignal / Trading Signal Platform',
     category: 'Full-stack',
-    status: 'Dashboard concept',
+    status: 'Python strategy bot + dashboard build',
     problem:
-      'Trading systems need clear visibility into decisions, open trades, risk, historical performance, and what the bot is doing right now.',
+      'Automated trading strategies need clear visibility into decisions, open trades, risk, historical performance, and what the bot is doing right now.',
     solution:
-      'A monitoring dashboard concept for XAU/MT5-style strategies with live status panels, trade logs, backtesting views, and risk controls.',
+      'A Python XAU/MT5 strategy bot paired with a monitoring dashboard: live status panels, trade logs, backtesting views, and risk controls.',
     features: [
+      'Automated strategy logic for XAU/MT5-style trading',
       'Live monitoring panels and trade decisions',
       'Risk, exposure, and performance snapshots',
-      'Backtesting and analytics layout',
-      'Decision logs for transparency'
+      'Backtesting views and decision logs for transparency'
     ],
-    stack: ['React', 'Spring Boot', 'PostgreSQL', 'WebSockets', 'Charts'],
+    stack: ['Python', 'MT5', 'React', 'Spring Boot', 'PostgreSQL', 'WebSockets'],
     demo: '',
-    code: '',
+    code: 'https://github.com/2118476/bot15COrv5-15b-18v4',
     caseStudy: {
-      role: 'Dashboard architecture, data model planning, and interface design for decision-heavy tools.',
+      role: 'I wrote the Python strategy and risk logic, and designed the dashboard architecture and data model for decision-heavy monitoring.',
       result:
-        'A clear product direction for turning automated trading activity into understandable, inspectable data.'
+        'Automated trading activity turned into understandable, inspectable data instead of a black box.'
     },
     visual: {
       label: 'Trading analytics mockup',
@@ -153,27 +166,27 @@ export const projects = [
     }
   },
   {
-    id: 'business-tools',
-    title: 'Business, Order, and Stock Tools',
+    id: 'enku-habesha',
+    title: 'Enku Habesha / Business & Order Management',
     category: 'Business',
-    status: 'Practical tool suite',
+    status: 'Real-world business tool',
     problem:
-      'Small businesses often use manual spreadsheets for stock, orders, receipts, image handling, and WhatsApp sharing.',
+      'A Habesha clothing business managed stock, orders, receipts, product photos, and customer updates manually across spreadsheets and WhatsApp.',
     solution:
-      'A set of practical full-stack tools for stock records, order tracking, receipt generation, image handling, and WhatsApp export.',
+      'A practical full-stack toolset for stock records, order tracking, receipt generation, product image handling, and WhatsApp-ready sharing.',
     features: [
       'Stock and order tracking flows',
       'Receipt and business record generation',
-      'Image workflow and export support',
-      'WhatsApp-friendly sharing paths'
+      'Product image workflow and export support',
+      'WhatsApp-friendly sharing for customer updates'
     ],
     stack: ['React', 'Java', 'Spring Boot', 'MySQL', 'WhatsApp workflows'],
     demo: '',
     code: '',
     caseStudy: {
-      role: 'Workflow mapping, frontend implementation, backend data modelling, and deployment planning.',
+      role: 'I mapped the real order workflow with the business owner, then built the frontend, backend data model, and deployment plan.',
       result:
-        'A reusable pattern for turning everyday business admin tasks into small, useful software products.'
+        'Everyday business admin turned into a small, dependable software product used for real orders.'
     },
     visual: {
       label: 'Operations tool mockup',

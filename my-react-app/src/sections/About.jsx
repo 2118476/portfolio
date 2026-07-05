@@ -42,8 +42,9 @@ const About = () => {
           <h2 className="section-title">Practical software for real workflows.</h2>
         </div>
         <p className="section-copy">
-          I am Mihretab Nega, a Computer Science graduate and full-stack developer
-          focused on building useful software rather than surface-level demos.
+          I am Mihretab Nega, a London-based full-stack developer with a Computer
+          Science background. I build practical web applications using React, Spring
+          Boot, REST APIs, PostgreSQL/MySQL, JWT authentication, and cloud deployment.
         </p>
       </div>
 
@@ -64,9 +65,11 @@ const About = () => {
 
         <div className={styles.copy}>
           <p>
-            My main stack is Java, Spring Boot, React, PostgreSQL/MySQL, JWT, REST APIs,
-            Netlify, Render, and Twilio. I enjoy projects where the frontend, backend,
-            data model, and deployment all have to work together cleanly.
+            My work focuses on real-world platforms: booking systems, community apps,
+            job tools, and business management software. My main stack is Java, Spring
+            Boot, React, PostgreSQL/MySQL, JWT, REST APIs, Netlify, Render, and Twilio,
+            and I enjoy projects where the frontend, backend, data model, and deployment
+            all have to work together cleanly.
           </p>
           <p>
             The portfolio highlights production-style thinking: authentication, admin
