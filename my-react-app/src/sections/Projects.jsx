@@ -57,7 +57,9 @@ const Projects = () => {
         {visibleProjects.map((project) => (
           <article
             key={project.id}
-            className={`${styles.card} ${styles[accentByCategory[project.category]] || ''}`}
+            className={`${styles.card} ${styles[accentByCategory[project.category]] || ''} ${
+              project.featured ? styles.featuredCard : ''
+            }`}
           >
             <div className={styles.mockup} aria-label={project.visual.label}>
               {project.screenshots ? (
@@ -114,8 +116,8 @@ const Projects = () => {
                   Live demo
                 </Button>
               ) : (
-                <Button href="#contact" variant="secondary" icon="fas fa-message">
-                  Ask for walkthrough
+                <Button type="button" variant="secondary" icon="far fa-clock" disabled>
+                  Demo coming soon
                 </Button>
               )}
               {project.code && (

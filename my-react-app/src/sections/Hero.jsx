@@ -16,12 +16,14 @@ const roles = [
 
 const trustBadges = [
   'React',
-  'Spring Boot',
+  'JavaScript',
   'Java',
+  'Spring Boot',
+  'REST APIs',
   'PostgreSQL',
   'MySQL',
   'JWT',
-  'REST APIs',
+  'BCrypt',
   'Twilio',
   'Netlify',
   'Render'
@@ -56,9 +58,9 @@ const Hero = () => {
             and communities.
           </h1>
           <p className={styles.lead}>
-            I build practical platforms, dashboards, booking systems, community apps, and
-            automation tools with React, Spring Boot, databases, authentication, APIs, and
-            deployment in mind from day one.
+            I create practical web platforms, booking systems, community apps, business
+            tools, and automation-focused software with clean frontend experiences and
+            secure backend APIs.
           </p>
 
           <div className={styles.roleLine} aria-live="polite">
@@ -69,11 +71,20 @@ const Hero = () => {
             <Button href="#projects" icon="fas fa-table-cells-large">
               View Projects
             </Button>
-            <Button href="#contact" variant="secondary" icon="fas fa-handshake">
-              Hire Me
-            </Button>
-            <Button href="/Mihretab-Nega-CV.pdf" variant="outline" icon="fas fa-file-arrow-down" download>
+            <Button href="/Mihretab-Nega-CV.pdf" variant="secondary" icon="fas fa-file-arrow-down" download>
               Download CV
+            </Button>
+            <Button href="#contact" variant="outline" icon="fas fa-paper-plane">
+              Contact Me
+            </Button>
+            <Button
+              href="https://github.com/2118476"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="outline"
+              icon="fab fa-github"
+            >
+              GitHub
             </Button>
           </div>
 

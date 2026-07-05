@@ -11,7 +11,7 @@ export const skillCategories = [
     title: 'Backend',
     icon: 'fas fa-server',
     summary: 'Production-style APIs with authentication, validation, business logic, and clean service layers.',
-    skills: ['Java', 'Spring Boot', 'REST APIs', 'JWT', 'Authentication', 'Spring Security']
+    skills: ['Java', 'Spring Boot', 'REST APIs', 'JWT', 'BCrypt', 'Spring Security']
   },
   {
     id: 'database',

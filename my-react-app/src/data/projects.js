@@ -16,6 +16,7 @@ export const projects = [
     id: 'habesha-community',
     title: 'Habesha Community Platform / UK Habesha',
     category: 'Community',
+    featured: true,
     status: 'Live product build',
     problem:
       'Habesha communities in the UK often rely on scattered WhatsApp groups and informal posts to find services, rentals, events, and trusted recommendations.',

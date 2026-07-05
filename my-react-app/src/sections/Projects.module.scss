@@ -280,6 +280,25 @@
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .featuredCard {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    grid-template-rows: 1fr auto;
+
+    .mockup {
+      grid-row: 1 / -1;
+      min-height: 100%;
+    }
+
+    .cardBody h3 {
+      font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    }
+
+    .summary {
+      -webkit-line-clamp: 3;
+    }
+  }
 }
 
 @media (min-width: 1080px) {

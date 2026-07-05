@@ -42,6 +42,24 @@ Real product screenshots from the featured UK Habesha community platform:
 - **Tooling:** Create React App (react-scripts), Sass
 - **Hosting:** Netlify (see `my-react-app/netlify.toml`)
 
+## Project structure
+
+```
+my-react-app/
+├── public/                 # index.html (SEO/OG/JSON-LD), CV, sitemap, robots.txt
+├── src/
+│   ├── assets/             # profile photo, background photos, project screenshots
+│   ├── components/
+│   │   ├── layout/         # Navbar, Footer, Section, Container
+│   │   ├── ui/             # Button, Badge, Modal, Collapse, ScrollToTop
+│   │   ├── AmbientBackground.jsx   # cinematic slideshow background layer
+│   │   └── ContactForm.jsx
+│   ├── data/               # projects.js, skills.js (edit content here)
+│   ├── sections/           # Hero, About, Projects, Services, Skills, Process, Trust, Contact
+│   └── styles/             # design tokens (variables.scss), mixins, globals
+└── netlify.toml            # Netlify build configuration
+```
+
 ## Getting started
 
 ```bash
@@ -50,6 +68,14 @@ npm install
 npm start        # dev server at http://localhost:3000
 npm run build    # production build in my-react-app/build
 ```
+
+## Contact form setup
+
+The contact form posts to [Formspree](https://formspree.io). The endpoint lives in
+`src/components/ContactForm.jsx` (`const endpoint = 'https://formspree.io/f/...'`).
+To route messages to a different inbox, create a new Formspree form and replace that
+endpoint ID. On any submission error, the UI shows a direct `mailto:` fallback link,
+so visitors are never left with a dead form.
 
 ## Deployment
 
