@@ -15,11 +15,15 @@ Real product screenshots from the featured UK Habesha community platform:
 ## Features
 
 - Cinematic photo slideshow background with Ken Burns pan/zoom, aurora glows, rotating rings, and rising light particles
+- Futuristic hero with an interactive particle constellation, animated headline lane, glass OS-window dashboard, 3D device mockups, orbiting tech constellation, and live availability widget
+- Custom cursor, magnetic button movement, dot navigation, proximity scroll snap, and scroll-driven section choreography
+- Command palette for fast navigation/actions, plus recruiter mode that condenses the page to hiring-focused sections
 - Frosted-glass (glassmorphism) UI — neutral transparent cards, pill navbar, glass buttons with sheen hover, and cursor-following spotlight + 3D tilt on cards
 - One-time intro name-reveal loader and a gradient scroll-progress bar
 - Sticky glass navbar with mobile hamburger drawer, scroll-spy active links, GitHub/LinkedIn buttons, and a "Let's Build" CTA
-- Hero with rotating role line, animated impact counters, tech badges, floating project cards, and four CTAs (View Projects, Download CV, Contact Me, GitHub)
-- Featured projects with category filters and real screenshots, plus dedicated shareable **case-study pages** (`/projects/:id`) with problem, solution, what I built, features, stack, screenshot gallery, and demo/frontend/backend links
+- Compact bento-grid snapshot and a one-page resume route (`/resume`) with print and CV actions
+- Featured projects with category filters, animated horizontal desktop rail, real screenshots, plus dedicated shareable **case-study pages** (`/projects/:id`) with problem, solution, what I built, features, stack, screenshot gallery, and demo/frontend/backend links
+- Reference-ready proof/testimonial carousel without fake client quotes
 - Sections for Skills, Services, **Pricing packages**, Process, **Education & growth**, **live GitHub activity** (fetched from the GitHub API), Trust, and **FAQ**
 - Accordion-style About timeline, Process steps, and FAQ; collapsible Services details — mobile-first, tap-friendly
 - Working contact form (Formspree via env var) with validation, `mailto:` fallback, and direct email/LinkedIn/GitHub links

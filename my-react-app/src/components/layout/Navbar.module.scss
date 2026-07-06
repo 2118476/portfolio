@@ -111,6 +111,10 @@
   cursor: pointer;
 }
 
+.commandButton {
+  color: var(--color-secondary);
+}
+
 .iconButton {
   display: grid;
   place-items: center;
@@ -130,6 +134,12 @@
   @media (min-width: 720px) {
     display: grid;
   }
+}
+
+.activeMode {
+  color: #061017;
+  border-color: transparent;
+  background: var(--gradient-warm);
 }
 
 .cta {

@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import Section from '../components/layout/Section';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
@@ -52,12 +53,19 @@ const Projects = () => {
         ))}
       </div>
 
-      <div className={styles.grid}>
+      <div className={styles.grid} role="list">
+        <AnimatePresence initial={false}>
         {visibleProjects.map((project) => (
           <Tilt
-            as="article"
+            as={motion.article}
             tilt={false}
             key={project.id}
+            layout
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 18, scale: 0.96 }}
+            transition={{ duration: 0.28 }}
+            role="listitem"
             className={`${styles.card} ${styles[accentByCategory[project.category]] || ''} ${
               project.featured ? styles.featuredCard : ''
             }`}
@@ -150,6 +158,7 @@ const Projects = () => {
             </div>
           </Tilt>
         ))}
+        </AnimatePresence>
       </div>
     </Section>
   );

@@ -191,6 +191,16 @@ button {
   }
 }
 
+@media (min-width: 960px) and (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+
+  main > section {
+    scroll-snap-align: start;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

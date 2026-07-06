@@ -39,6 +39,7 @@
   display: grid;
   gap: var(--space-5);
   margin-top: var(--space-8);
+  align-items: stretch;
 }
 
 .card {
@@ -48,6 +49,7 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   display: grid;
+  min-width: 0;
 }
 
 .community {
@@ -309,7 +311,36 @@
 
 @media (min-width: 1080px) {
   .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-padding-inline: var(--space-5);
+    scroll-snap-type: x mandatory;
+    padding-bottom: var(--space-4);
+  }
+
+  .grid::-webkit-scrollbar {
+    height: 9px;
+  }
+
+  .grid::-webkit-scrollbar-track {
+    border-radius: var(--radius-full);
+    background: rgba(var(--color-text-rgb), 0.08);
+  }
+
+  .grid::-webkit-scrollbar-thumb {
+    border-radius: var(--radius-full);
+    background: linear-gradient(90deg, rgba(var(--color-primary-rgb), 0.72), rgba(var(--color-secondary-rgb), 0.72));
+  }
+
+  .card {
+    flex: 0 0 min(420px, 38vw);
+    scroll-snap-align: start;
+  }
+
+  .featuredCard {
+    flex-basis: min(640px, 56vw);
   }
 }
 
