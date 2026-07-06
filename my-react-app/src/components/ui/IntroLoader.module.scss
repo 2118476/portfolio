@@ -1,0 +1,48 @@
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--space-5);
+  background:
+    radial-gradient(60% 50% at 50% 40%, rgba(96, 182, 255, 0.14), transparent 70%),
+    rgb(var(--color-bg-rgb));
+}
+
+.mark {
+  width: 92px;
+  height: 92px;
+  border-radius: var(--radius-lg);
+  display: grid;
+  place-items: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #071018;
+  background: var(--gradient-primary);
+  box-shadow: 0 20px 60px rgba(96, 182, 255, 0.4);
+}
+
+.loader p {
+  color: var(--color-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.barTrack {
+  width: 180px;
+  height: 3px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  background: rgba(var(--color-text-rgb), 0.14);
+}
+
+.barFill {
+  height: 100%;
+  width: 100%;
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, #60b6ff, #44debb);
+}

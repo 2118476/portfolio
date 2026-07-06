@@ -10,7 +10,8 @@ const initialValues = {
   message: ''
 };
 
-const endpoint = process.env.REACT_APP_FORMSPREE_ENDPOINT || 'https://formspree.io/f/xanbnewg';
+const endpoint =
+  import.meta.env.VITE_FORMSPREE_ENDPOINT ?? 'https://formspree.io/f/xanbnewg';
 const fallbackEmail = 'mihretabtesfahun2124@gmail.com';
 
 const ContactForm = () => {

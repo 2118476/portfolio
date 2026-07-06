@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import useScrollSpy from '../../hooks/useScrollSpy';
 import styles from './Navbar.module.scss';
 
@@ -7,16 +8,20 @@ const navItems = [
   { id: 'about', label: 'About' },
   { id: 'projects', label: 'Projects' },
   { id: 'services', label: 'Services' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'process', label: 'Process' },
+  { id: 'pricing', label: 'Pricing' },
   { id: 'contact', label: 'Contact' }
 ];
 
 const Navbar = () => {
+  const { pathname } = useLocation();
+  const onHome = pathname === '/';
   const sectionIds = useMemo(() => navItems.map((item) => item.id), []);
   const activeId = useScrollSpy(sectionIds, 96);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  // On the home page use in-page anchors; elsewhere route back to home + hash.
+  const linkFor = (id) => (onHome ? `#${id}` : `/#${id}`);
 
   useEffect(() => {
     const updateScrolled = () => setScrolled(window.scrollY > 12);
@@ -35,7 +40,7 @@ const Navbar = () => {
   return (
     <header className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.inner}>
-        <a className={styles.brand} href="#hero" aria-label="Mihretab Nega home">
+        <a className={styles.brand} href={onHome ? '#hero' : '/'} aria-label="Mihretab Nega home">
           <span className={styles.brandMark}>MN</span>
           <span className={styles.brandText}>
             <strong>Mihretab Nega</strong>
@@ -51,8 +56,8 @@ const Navbar = () => {
           {navItems.map((item) => (
             <a
               key={item.id}
-              href={`#${item.id}`}
-              className={activeId === item.id ? styles.active : ''}
+              href={linkFor(item.id)}
+              className={onHome && activeId === item.id ? styles.active : ''}
               onClick={() => setMenuOpen(false)}
             >
               {item.label}
@@ -79,7 +84,7 @@ const Navbar = () => {
           >
             <i className="fab fa-linkedin-in" aria-hidden="true" />
           </a>
-          <a className={styles.cta} href="#contact">
+          <a className={styles.cta} href={linkFor('contact')}>
             Let's Build
           </a>
           <button

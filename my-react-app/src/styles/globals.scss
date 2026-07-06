@@ -152,6 +152,45 @@ button {
   border: 0;
 }
 
+/* Cursor-following spotlight + subtle 3D tilt, driven by the Tilt wrapper. */
+.i-spotlight {
+  position: relative;
+}
+
+.i-spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 255, 255, 0.12),
+    transparent 62%
+  );
+  transition: opacity 260ms ease;
+}
+
+.i-spotlight:hover::after {
+  opacity: 1;
+}
+
+.i-tilt {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms ease,
+    box-shadow 220ms ease;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .i-tilt {
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

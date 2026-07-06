@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import Section from '../components/layout/Section';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
-import Modal from '../components/ui/Modal';
+import Tilt from '../components/ui/Tilt';
 import { getProjectCategories, projects } from '../data/projects';
 import styles from './Projects.module.scss';
 
@@ -16,7 +16,6 @@ const accentByCategory = {
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('All');
-  const [selectedProject, setSelectedProject] = useState(null);
   const categories = useMemo(() => getProjectCategories(), []);
 
   const visibleProjects = projects.filter((project) => {
@@ -55,7 +54,9 @@ const Projects = () => {
 
       <div className={styles.grid}>
         {visibleProjects.map((project) => (
-          <article
+          <Tilt
+            as="article"
+            tilt={false}
             key={project.id}
             className={`${styles.card} ${styles[accentByCategory[project.category]] || ''} ${
               project.featured ? styles.featuredCard : ''
@@ -140,124 +141,16 @@ const Projects = () => {
                 </Button>
               )}
               <Button
-                type="button"
+                to={`/projects/${project.id}`}
                 variant="outline"
-                icon="fas fa-circle-info"
-                onClick={() => setSelectedProject(project)}
+                icon="fas fa-book-open"
               >
-                View details
+                Case study
               </Button>
             </div>
-          </article>
+          </Tilt>
         ))}
       </div>
-
-      {selectedProject && (
-        <Modal
-          isOpen={Boolean(selectedProject)}
-          onClose={() => setSelectedProject(null)}
-          title={`${selectedProject.title} case study`}
-        >
-          <div className={styles.modalContent}>
-            <Badge color="primary">{selectedProject.category}</Badge>
-            <h3>{selectedProject.title}</h3>
-
-            <div className={styles.modalGrid}>
-              <div>
-                <h4>Problem</h4>
-                <p>{selectedProject.problem}</p>
-              </div>
-              <div>
-                <h4>Solution</h4>
-                <p>{selectedProject.solution}</p>
-              </div>
-              <div>
-                <h4>Result / direction</h4>
-                <p>{selectedProject.caseStudy.result}</p>
-              </div>
-            </div>
-
-            {selectedProject.screenshots && (
-              <div>
-                <h4>Screenshots</h4>
-                <div className={styles.gallery}>
-                  {selectedProject.screenshots.map((shot) => (
-                    <img key={shot.src} src={shot.src} alt={shot.alt} loading="lazy" />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <div>
-              <h4>Main features</h4>
-              <ul className={styles.modalList}>
-                {selectedProject.features.map((feature) => (
-                  <li key={feature}>{feature}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h4>What I built</h4>
-              <p>{selectedProject.caseStudy.role}</p>
-            </div>
-
-            <div>
-              <h4>Tech stack</h4>
-              <div className={styles.stack}>
-                {selectedProject.stack.map((tech) => (
-                  <Badge key={tech} color="secondary">
-                    {tech}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-
-            <div className={styles.modalActions}>
-              {selectedProject.demo && (
-                <Button
-                  href={selectedProject.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  icon="fas fa-arrow-up-right-from-square"
-                >
-                  Open demo
-                </Button>
-              )}
-              {selectedProject.code && (
-                <Button
-                  href={selectedProject.code}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="outline"
-                  icon="fab fa-github"
-                >
-                  {selectedProject.codeBackend ? 'Frontend code' : 'Code'}
-                </Button>
-              )}
-              {selectedProject.codeBackend && (
-                <Button
-                  href={selectedProject.codeBackend}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="outline"
-                  icon="fab fa-github"
-                >
-                  Backend code
-                </Button>
-              )}
-              {!selectedProject.code && selectedProject.privateCode && (
-                <Button type="button" variant="outline" icon="fas fa-lock" disabled>
-                  Code available on request
-                </Button>
-              )}
-              <Button href="#contact" variant="secondary" icon="fas fa-paper-plane">
-                Discuss similar work
-              </Button>
-            </div>
-          </div>
-        </Modal>
-      )}
     </Section>
   );
 };

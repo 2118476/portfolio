@@ -15,12 +15,16 @@ Real product screenshots from the featured UK Habesha community platform:
 ## Features
 
 - Cinematic photo slideshow background with Ken Burns pan/zoom, aurora glows, rotating rings, and rising light particles
-- Frosted-glass (glassmorphism) UI — transparent cards, pill navbar, and glass buttons with sheen hover animations
+- Frosted-glass (glassmorphism) UI — neutral transparent cards, pill navbar, glass buttons with sheen hover, and cursor-following spotlight + 3D tilt on cards
+- One-time intro name-reveal loader and a gradient scroll-progress bar
 - Sticky glass navbar with mobile hamburger drawer, scroll-spy active links, GitHub/LinkedIn buttons, and a "Let's Build" CTA
-- Hero with rotating role line, tech badges, floating animated project cards, and CV download
-- Featured projects with category filters, real screenshots, case-study modals (problem, solution, features, what I built), live demo + frontend/backend GitHub links
-- Accordion-style About timeline and Process steps; collapsible Services details — mobile-first, tap-friendly
-- Working contact form (Formspree) with validation and direct email/WhatsApp/LinkedIn/GitHub links
+- Hero with rotating role line, animated impact counters, tech badges, floating project cards, and four CTAs (View Projects, Download CV, Contact Me, GitHub)
+- Featured projects with category filters and real screenshots, plus dedicated shareable **case-study pages** (`/projects/:id`) with problem, solution, what I built, features, stack, screenshot gallery, and demo/frontend/backend links
+- Sections for Skills, Services, **Pricing packages**, Process, **Education & growth**, **live GitHub activity** (fetched from the GitHub API), Trust, and **FAQ**
+- Accordion-style About timeline, Process steps, and FAQ; collapsible Services details — mobile-first, tap-friendly
+- Working contact form (Formspree via env var) with validation, `mailto:` fallback, and direct email/LinkedIn/GitHub links
+- Floating WhatsApp click-to-chat bubble (enabled via env var)
+- Installable **PWA** (offline support via service worker) and optional cookieless analytics
 - SEO: meta description, Open Graph, Twitter cards, JSON-LD, sitemap, robots.txt
 - Fully responsive (mobile-first) and honors `prefers-reduced-motion`
 
@@ -37,25 +41,31 @@ Real product screenshots from the featured UK Habesha community platform:
 
 ## Tech stack
 
-- **Frontend:** React 19, SCSS modules, Framer Motion, FontAwesome
-- **Forms:** Formspree
-- **Tooling:** Create React App (react-scripts), Sass
+- **Frontend:** React 19 + React Router, SCSS modules, Framer Motion, FontAwesome
+- **Build tool:** Vite 5 (with `vite-plugin-pwa`)
+- **Forms:** Formspree (with `mailto:` fallback)
 - **Hosting:** Netlify (see `my-react-app/netlify.toml`)
 
 ## Project structure
 
 ```
 my-react-app/
-├── public/                 # index.html (SEO/OG/JSON-LD), CV, sitemap, robots.txt
+├── index.html              # app entry (SEO/OG/JSON-LD meta)
+├── vite.config.js          # Vite + PWA config
+├── public/                 # CV, favicon, PWA icons, sitemap, robots.txt
 ├── src/
 │   ├── assets/             # profile photo, background photos, project screenshots
 │   ├── components/
-│   │   ├── layout/         # Navbar, Footer, Section, Container
-│   │   ├── ui/             # Button, Badge, Modal, Collapse, ScrollToTop
+│   │   ├── layout/         # Navbar, Footer, Section, Container, SiteChrome
+│   │   ├── ui/             # Button, Badge, Collapse, Tilt, Counter, ScrollProgress,
+│   │   │                   #   IntroLoader, WhatsAppBubble, ScrollToTop
 │   │   ├── AmbientBackground.jsx   # cinematic slideshow background layer
+│   │   ├── Analytics.jsx           # optional cookieless analytics
 │   │   └── ContactForm.jsx
 │   ├── data/               # projects.js, skills.js (edit content here)
-│   ├── sections/           # Hero, About, Projects, Services, Skills, Process, Trust, Contact
+│   ├── pages/              # Home.jsx, CaseStudy.jsx
+│   ├── sections/           # Hero, Stats, About, Skills, Projects, Services, Pricing,
+│   │                       #   Process, Education, GithubActivity, Trust, Faq, Contact
 │   └── styles/             # design tokens (variables.scss), mixins, globals
 └── netlify.toml            # Netlify build configuration
 ```
@@ -65,34 +75,33 @@ my-react-app/
 ```bash
 cd my-react-app
 npm install
-npm start        # dev server at http://localhost:3000
-npm run build    # production build in my-react-app/build
+npm run dev      # dev server at http://localhost:3000
+npm run build    # production build in my-react-app/dist
+npm run preview  # preview the production build locally
 ```
 
-## Contact form setup
+## Environment variables
 
-The contact form posts to [Formspree](https://formspree.io). The endpoint is read from
-an environment variable, with a working default baked in:
+Copy `my-react-app/.env.example` to `my-react-app/.env`. Vite exposes only `VITE_`-prefixed
+variables and reads them at startup (restart after changes). All are optional:
 
-1. Copy `my-react-app/.env.example` to `my-react-app/.env`.
-2. Create a form at [formspree.io](https://formspree.io) and set
-   `REACT_APP_FORMSPREE_ENDPOINT=https://formspree.io/f/<your-id>`.
-3. Restart the dev server (CRA reads env vars at startup).
-
-If the variable is unset, the form uses the default portfolio endpoint. If it is set
-to an empty value, the form falls back to opening the visitor's email app with the
-message pre-filled (`mailto:`). On any submission error, the UI also shows a direct
-`mailto:` link — visitors are never left with a dead form.
+| Variable | Purpose |
+| --- | --- |
+| `VITE_FORMSPREE_ENDPOINT` | Contact-form endpoint. If unset, a default is used; if set empty, the form uses a `mailto:` fallback. |
+| `VITE_WHATSAPP_NUMBER` | International number (digits only) for the floating WhatsApp bubble. Blank = disabled "coming soon" state. |
+| `VITE_ANALYTICS_DOMAIN` | Your site domain to enable cookieless Plausible analytics. Blank = no tracker loaded. |
 
 ## Deployment
 
-The site deploys to Netlify. Build command `npm run build`, publish directory `build`, configured in `my-react-app/netlify.toml`.
+The site deploys to Netlify. Build command `npm run build`, publish directory `dist`,
+configured in `my-react-app/netlify.toml`. The included SPA redirect makes case-study
+routes like `/projects/habesha-community` work on direct load and refresh.
 
 ## Future improvements
 
-- Dedicated case-study pages per project (e.g. `/projects/habesha-community`) via Next.js or React Router
 - Real client testimonials in the Trust section
 - Blog/articles for SEO
+- English/Amharic language toggle
 
 ## Contact
 
