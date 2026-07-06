@@ -24,6 +24,7 @@ const AmbientBackground = () => (
       />
     ))}
     <div className={styles.overlay} />
+    <div className={styles.mesh} />
     <div className={`${styles.blob} ${styles.blobOne}`} />
     <div className={`${styles.blob} ${styles.blobTwo}`} />
     <div className={`${styles.ring} ${styles.ringOne}`} />
