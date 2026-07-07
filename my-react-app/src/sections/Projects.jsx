@@ -16,6 +16,23 @@ const accentByCategory = {
   'Full-stack': 'fullstack'
 };
 
+const titleWords = 'Strongest builds first, with business context.'.split(' ');
+
+const headingContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } }
+};
+
+const headingItem = {
+  hidden: { opacity: 0, y: 22 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+};
+
+const headingWord = {
+  hidden: { y: '115%' },
+  visible: { y: '0%', transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
+};
+
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const categories = useMemo(() => getProjectCategories(), []);
@@ -26,20 +43,31 @@ const Projects = () => {
 
   return (
     <Section id="projects" className={styles.projects}>
-      <div className="split-heading">
-        <div>
-          <span className="section-kicker">
-            <span className="eyebrow-dot" />
-            Featured projects
-          </span>
-          <h2 className="section-title">Strongest builds first, with business context.</h2>
-        </div>
-        <p className="section-copy">
-          These projects highlight the type of work I want to do more of:
-          useful full-stack products with clear users, data, authentication,
-          dashboards, APIs, and deployment.
-        </p>
-      </div>
+      <motion.div
+        className={styles.heading}
+        variants={headingContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-100px' }}
+      >
+        <motion.span className={`section-kicker ${styles.headingKicker}`} variants={headingItem}>
+          <span className="eyebrow-dot" />
+          Featured projects
+        </motion.span>
+        <h2 className={styles.headingTitle} aria-label="Strongest builds first, with business context.">
+          {titleWords.map((word, index) => (
+            <span key={`${word}-${index}`} className={styles.wordMask} aria-hidden="true">
+              <motion.span className={styles.word} variants={headingWord}>
+                {word}
+              </motion.span>
+            </span>
+          ))}
+        </h2>
+        <motion.p className={styles.headingCopy} variants={headingItem}>
+          These projects highlight the type of work I want to do more of: useful full-stack
+          products with clear users, data, authentication, dashboards, APIs, and deployment.
+        </motion.p>
+      </motion.div>
 
       <div className={styles.filters} aria-label="Project filters">
         {categories.map((category) => (
