@@ -1,11 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Footer.module.scss';
 
 const links = [
-  { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Services', href: '#services' },
-  { label: 'Contact', href: '#contact' }
+  { label: 'About', href: '/#about' },
+  { label: 'Projects', href: '/#projects' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Detailed CV', to: '/cv' },
+  { label: 'Contact', href: '/#contact' }
 ];
 
 const socials = [
@@ -31,11 +33,17 @@ const Footer = () => {
         </div>
 
         <nav className={styles.links} aria-label="Footer navigation">
-          {links.map((link) => (
-            <a key={link.href} href={link.href}>
-              {link.label}
-            </a>
-          ))}
+          {links.map((link) =>
+            link.to ? (
+              <Link key={link.label} to={link.to}>
+                {link.label}
+              </Link>
+            ) : (
+              <a key={link.label} href={link.href}>
+                {link.label}
+              </a>
+            )
+          )}
         </nav>
 
         <div className={styles.socials}>

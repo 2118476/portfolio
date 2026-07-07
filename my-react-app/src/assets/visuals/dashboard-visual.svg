@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" fill="none" role="img">
+  <defs>
+    <linearGradient id="dv-bg" x1="0" y1="0" x2="480" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0e1626" />
+      <stop offset="1" stop-color="#0a101d" />
+    </linearGradient>
+    <linearGradient id="dv-primary" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#60b6ff" />
+      <stop offset="1" stop-color="#44debb" />
+    </linearGradient>
+    <linearGradient id="dv-accent" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#b274ff" />
+      <stop offset="1" stop-color="#60b6ff" />
+    </linearGradient>
+    <linearGradient id="dv-area" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#60b6ff" stop-opacity="0.45" />
+      <stop offset="1" stop-color="#60b6ff" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <rect width="480" height="360" rx="24" fill="url(#dv-bg)" />
+  <rect x="0.5" y="0.5" width="479" height="359" rx="23.5" stroke="#ffffff" stroke-opacity="0.08" />
+
+  <!-- top bar -->
+  <circle cx="26" cy="28" r="4" fill="#ffffff" fill-opacity="0.28" />
+  <circle cx="40" cy="28" r="4" fill="#ffffff" fill-opacity="0.18" />
+  <circle cx="54" cy="28" r="4" fill="#ffffff" fill-opacity="0.12" />
+  <rect x="392" y="20" width="64" height="16" rx="8" fill="url(#dv-primary)" fill-opacity="0.3" />
+
+  <!-- sidebar -->
+  <rect x="20" y="56" width="96" height="284" rx="16" fill="#ffffff" fill-opacity="0.04" />
+  <rect x="36" y="78" width="64" height="10" rx="5" fill="url(#dv-primary)" />
+  <rect x="36" y="104" width="52" height="8" rx="4" fill="#ffffff" fill-opacity="0.16" />
+  <rect x="36" y="124" width="60" height="8" rx="4" fill="#ffffff" fill-opacity="0.16" />
+  <rect x="36" y="144" width="44" height="8" rx="4" fill="#ffffff" fill-opacity="0.16" />
+  <rect x="36" y="164" width="56" height="8" rx="4" fill="#ffffff" fill-opacity="0.16" />
+
+  <!-- stat cards -->
+  <rect x="132" y="56" width="104" height="72" rx="14" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.06" />
+  <rect x="148" y="76" width="40" height="8" rx="4" fill="#ffffff" fill-opacity="0.2" />
+  <rect x="148" y="94" width="60" height="16" rx="6" fill="url(#dv-primary)" />
+
+  <rect x="248" y="56" width="104" height="72" rx="14" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.06" />
+  <rect x="264" y="76" width="40" height="8" rx="4" fill="#ffffff" fill-opacity="0.2" />
+  <rect x="264" y="94" width="52" height="16" rx="6" fill="url(#dv-accent)" />
+
+  <rect x="364" y="56" width="92" height="72" rx="14" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.06" />
+  <rect x="380" y="76" width="36" height="8" rx="4" fill="#ffffff" fill-opacity="0.2" />
+  <rect x="380" y="94" width="48" height="16" rx="6" fill="#44debb" fill-opacity="0.85" />
+
+  <!-- chart panel -->
+  <rect x="132" y="144" width="220" height="196" rx="16" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.06" />
+  <path d="M152 300 L152 300 L188 262 L224 278 L260 226 L296 244 L332 196 L332 320 L152 320 Z" fill="url(#dv-area)" />
+  <path d="M152 300 L188 262 L224 278 L260 226 L296 244 L332 196" stroke="url(#dv-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="332" cy="196" r="5" fill="#44debb" />
+  <circle cx="260" cy="226" r="4" fill="#60b6ff" />
+
+  <!-- right rail -->
+  <rect x="364" y="144" width="92" height="196" rx="16" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.06" />
+  <rect x="380" y="164" width="60" height="26" rx="8" fill="url(#dv-accent)" fill-opacity="0.32" />
+  <rect x="380" y="200" width="60" height="10" rx="5" fill="#ffffff" fill-opacity="0.14" />
+  <rect x="380" y="220" width="44" height="10" rx="5" fill="#ffffff" fill-opacity="0.14" />
+  <rect x="380" y="248" width="60" height="26" rx="8" fill="url(#dv-primary)" fill-opacity="0.26" />
+  <rect x="380" y="284" width="52" height="10" rx="5" fill="#ffffff" fill-opacity="0.14" />
+  <rect x="380" y="304" width="40" height="10" rx="5" fill="#ffffff" fill-opacity="0.14" />
+</svg>

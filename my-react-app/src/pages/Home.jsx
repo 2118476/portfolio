@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import SiteChrome from '../components/layout/SiteChrome';
 import SectionDots from '../components/ui/SectionDots';
 import Hero from '../sections/Hero';
+import TechMarquee from '../components/ui/TechMarquee';
 
 const Bento = lazy(() => import('../sections/Bento'));
 const About = lazy(() => import('../sections/About'));
@@ -22,6 +23,7 @@ const Home = () => (
     <SectionDots />
     <main className="snap-y">
       <Hero />
+      <TechMarquee />
       <Suspense fallback={null}>
         <Bento />
         <About />

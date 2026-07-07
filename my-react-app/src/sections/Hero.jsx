@@ -81,7 +81,10 @@ const Hero = () => {
             <Button href="#projects" icon="fas fa-table-cells-large" magnetic>
               View Projects
             </Button>
-            <Button href="/Mihretab-Nega-CV.pdf" variant="secondary" icon="fas fa-file-arrow-down" download magnetic>
+            <Button to="/cv" variant="secondary" icon="fas fa-file-lines" magnetic>
+              Detailed CV
+            </Button>
+            <Button href="/Mihretab-Nega-CV.pdf" variant="outline" icon="fas fa-file-arrow-down" download magnetic>
               Download CV
             </Button>
             <Button href="#contact" variant="outline" icon="fas fa-paper-plane" magnetic>

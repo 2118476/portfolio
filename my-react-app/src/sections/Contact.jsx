@@ -44,9 +44,24 @@ const Contact = () => {
           </p>
 
           <div className={styles.availability}>
-            <i className="fas fa-circle-check" aria-hidden="true" />
+            <span className={styles.availPulse} aria-hidden="true" />
             <span>Open to UK software roles, selected freelance projects, and community-focused products.</span>
           </div>
+
+          <ul className={styles.assurances}>
+            <li>
+              <i className="fas fa-location-dot" aria-hidden="true" />
+              UK-based &amp; remote-friendly
+            </li>
+            <li>
+              <i className="fas fa-route" aria-hidden="true" />
+              A clear next step, no spam
+            </li>
+            <li>
+              <i className="fas fa-lock" aria-hidden="true" />
+              Your details stay private
+            </li>
+          </ul>
 
           <div className={styles.quickLinks}>
             {quickLinks.map((link) =>
