@@ -14,19 +14,31 @@ Real product screenshots from the featured UK Habesha community platform:
 
 ## Features
 
-- Cinematic photo slideshow background with Ken Burns pan/zoom, aurora glows, rotating rings, and rising light particles
-- Frosted-glass (glassmorphism) UI — neutral transparent cards, pill navbar, glass buttons with sheen hover, and cursor-following spotlight + 3D tilt on cards
-- One-time intro name-reveal loader and a gradient scroll-progress bar
-- Sticky glass navbar with mobile hamburger drawer, scroll-spy active links, GitHub/LinkedIn buttons, and a "Let's Build" CTA
-- Hero with rotating role line, animated impact counters, tech badges, floating project cards, and four CTAs (View Projects, Download CV, Contact Me, GitHub)
-- Featured projects with category filters and real screenshots, plus dedicated shareable **case-study pages** (`/projects/:id`) with problem, solution, what I built, features, stack, screenshot gallery, and demo/frontend/backend links
-- Sections for Skills, Services, **Pricing packages**, Process, **Education & growth**, **live GitHub activity** (fetched from the GitHub API), Trust, and **FAQ**
-- Accordion-style About timeline, Process steps, and FAQ; collapsible Services details — mobile-first, tap-friendly
+**Signature futuristic experience**
+
+- Futuristic **OS-window hero dashboard** with a scramble/decrypt name reveal, orbiting tech constellation, 3D phone mockup of a real app, and a live status panel
+- Mouse-reactive **particle constellation** behind the hero, animated **gradient-mesh aurora** backdrop, and a cinematic photo slideshow layer
+- **Custom cursor** with magnetic buttons, cursor-following spotlight + 3D tilt on cards, and scroll-linked **parallax**
+- **Bento-grid snapshot** that condenses the essentials into one screen (less scrolling)
+- **Command palette** (Ctrl/Cmd-K) to search and jump to any section, project, or action
+- **Section dot-navigation** with scroll-snapping, one-time intro loader, and a gradient scroll-progress bar
+
+**Navigation & content**
+
+- Sticky glass navbar with mobile hamburger drawer, scroll-spy, command-palette + recruiter-mode toggles, and a "Let's Build" CTA
+- Featured projects as a **horizontal rail** (desktop) with **animated filtering**, real screenshots, and shareable **case-study pages** (`/projects/:id`)
+- Sections: Bento, About, Skills, Projects, Services, **Pricing packages**, Process, **Education**, **live GitHub activity** (GitHub API), **Testimonials** carousel, Trust, and **FAQ**
+- **Recruiter mode** that condenses the site to essentials, plus a printable **one-page resume** (`/resume`)
+- **Live status widget**: availability, London local time, and current focus
+
+**Foundations**
+
+- Frosted-glass (glassmorphism) UI, accordion sections, and collapsible details — mobile-first, tap-friendly
 - Working contact form (Formspree via env var) with validation, `mailto:` fallback, and direct email/LinkedIn/GitHub links
 - Floating WhatsApp click-to-chat bubble (enabled via env var)
-- Installable **PWA** (offline support via service worker) and optional cookieless analytics
+- Installable **PWA** (offline via service worker) and optional cookieless analytics
 - SEO: meta description, Open Graph, Twitter cards, JSON-LD, sitemap, robots.txt
-- Fully responsive (mobile-first) and honors `prefers-reduced-motion`
+- Fully responsive and honors `prefers-reduced-motion` throughout
 
 ## Featured projects
 

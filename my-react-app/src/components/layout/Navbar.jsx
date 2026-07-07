@@ -1,7 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useScrollSpy from '../../hooks/useScrollSpy';
+import { useRecruiter } from '../../context/RecruiterContext';
 import styles from './Navbar.module.scss';
+
+const openCommandPalette = () => {
+  window.dispatchEvent(
+    new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, bubbles: true })
+  );
+};
 
 const navItems = [
   { id: 'hero', label: 'Home' },
@@ -14,6 +21,7 @@ const navItems = [
 
 const Navbar = () => {
   const { pathname } = useLocation();
+  const { recruiter, toggleRecruiter } = useRecruiter();
   const onHome = pathname === '/';
   const sectionIds = useMemo(() => navItems.map((item) => item.id), []);
   const activeId = useScrollSpy(sectionIds, 96);
@@ -66,6 +74,25 @@ const Navbar = () => {
         </nav>
 
         <div className={styles.actions}>
+          <button
+            className={`${styles.iconButton} ${styles.social}`}
+            type="button"
+            onClick={openCommandPalette}
+            aria-label="Open command palette"
+            title="Search (Ctrl/Cmd + K)"
+          >
+            <i className="fas fa-magnifying-glass" aria-hidden="true" />
+          </button>
+          <button
+            className={`${styles.iconButton} ${styles.social} ${recruiter ? styles.activeToggle : ''}`}
+            type="button"
+            onClick={toggleRecruiter}
+            aria-pressed={recruiter}
+            aria-label="Toggle recruiter mode"
+            title="Recruiter mode"
+          >
+            <i className="fas fa-user-tie" aria-hidden="true" />
+          </button>
           <a
             className={`${styles.iconButton} ${styles.social}`}
             href="https://github.com/2118476"
@@ -74,15 +101,6 @@ const Navbar = () => {
             aria-label="GitHub profile"
           >
             <i className="fab fa-github" aria-hidden="true" />
-          </a>
-          <a
-            className={`${styles.iconButton} ${styles.social}`}
-            href="https://www.linkedin.com/in/mihretab-nega-56292819a/"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="LinkedIn profile"
-          >
-            <i className="fab fa-linkedin-in" aria-hidden="true" />
           </a>
           <a className={styles.cta} href={linkFor('contact')}>
             Let's Build

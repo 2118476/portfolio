@@ -191,6 +191,53 @@ button {
   }
 }
 
+/* Custom cursor: hide the native pointer only when the JS cursor is active. */
+.has-custom-cursor,
+.has-custom-cursor a,
+.has-custom-cursor button,
+.has-custom-cursor [role='button'],
+.has-custom-cursor [data-magnetic] {
+  cursor: none;
+}
+
+.has-custom-cursor input,
+.has-custom-cursor textarea,
+.has-custom-cursor select {
+  cursor: auto;
+}
+
+[data-magnetic] {
+  will-change: transform;
+}
+
+/* Gentle scroll-snap between full sections; proximity so it never traps. */
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .snap-y {
+    scroll-snap-type: y proximity;
+  }
+
+  .snap-y > section {
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+  }
+}
+
+/* Recruiter mode: condense to the essentials by hiding client-facing sections. */
+html[data-recruiter='true'] #services,
+html[data-recruiter='true'] #pricing,
+html[data-recruiter='true'] #process,
+html[data-recruiter='true'] #github,
+html[data-recruiter='true'] #testimonials,
+html[data-recruiter='true'] #faq {
+  display: none;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

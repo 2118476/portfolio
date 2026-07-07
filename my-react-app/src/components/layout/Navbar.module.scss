@@ -132,6 +132,12 @@
   }
 }
 
+.activeToggle {
+  border-color: rgba(var(--color-primary-rgb), 0.6) !important;
+  background: rgba(var(--color-primary-rgb), 0.16) !important;
+  color: var(--color-primary) !important;
+}
+
 .cta {
   display: none;
   align-items: center;

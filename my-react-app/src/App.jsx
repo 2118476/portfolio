@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
+import { RecruiterProvider } from './context/RecruiterContext';
 import AmbientBackground from './components/AmbientBackground';
 import Analytics from './components/Analytics';
 import ScrollProgress from './components/ui/ScrollProgress';
 import IntroLoader from './components/ui/IntroLoader';
+import CustomCursor from './components/ui/CustomCursor';
+import CommandPalette from './components/ui/CommandPalette';
 import Home from './pages/Home';
 import CaseStudy from './pages/CaseStudy';
+import Resume from './pages/Resume';
 
 /*
  * Restores scroll position on navigation: jumps to a #hash target when
@@ -42,18 +46,23 @@ function RouteScroller() {
 function App() {
   return (
     <ThemeProvider>
-      <BrowserRouter>
-        <AmbientBackground />
-        <ScrollProgress />
-        <IntroLoader />
-        <Analytics />
-        <RouteScroller />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects/:id" element={<CaseStudy />} />
-          <Route path="*" element={<Home />} />
-        </Routes>
-      </BrowserRouter>
+      <RecruiterProvider>
+        <BrowserRouter>
+          <AmbientBackground />
+          <CustomCursor />
+          <ScrollProgress />
+          <IntroLoader />
+          <Analytics />
+          <CommandPalette />
+          <RouteScroller />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects/:id" element={<CaseStudy />} />
+            <Route path="/resume" element={<Resume />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        </BrowserRouter>
+      </RecruiterProvider>
     </ThemeProvider>
   );
 }

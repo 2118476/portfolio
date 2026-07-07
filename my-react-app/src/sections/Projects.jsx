@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import Section from '../components/layout/Section';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
@@ -52,12 +53,22 @@ const Projects = () => {
         ))}
       </div>
 
-      <div className={styles.grid}>
+      <p className={styles.railHint} aria-hidden="true">
+        <i className="fas fa-arrows-left-right" /> Scroll to explore
+      </p>
+
+      <motion.div className={styles.grid} layout>
+        <AnimatePresence initial={false}>
         {visibleProjects.map((project) => (
           <Tilt
-            as="article"
+            as={motion.article}
             tilt={false}
             key={project.id}
+            layout
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.94 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className={`${styles.card} ${styles[accentByCategory[project.category]] || ''} ${
               project.featured ? styles.featuredCard : ''
             }`}
@@ -150,7 +161,8 @@ const Projects = () => {
             </div>
           </Tilt>
         ))}
-      </div>
+        </AnimatePresence>
+      </motion.div>
     </Section>
   );
 };

@@ -41,6 +41,20 @@
   margin-top: var(--space-8);
 }
 
+.railHint {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: var(--space-6);
+  color: var(--color-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  i {
+    color: var(--color-primary);
+  }
+}
+
 .card {
   @include glass-panel;
   @include card-hover;
@@ -282,7 +296,7 @@
   }
 }
 
-@media (min-width: 760px) {
+@media (min-width: 641px) and (max-width: 899px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -307,9 +321,55 @@
   }
 }
 
-@media (min-width: 1080px) {
+/* Desktop: projects become a horizontal scroll-snap rail. */
+@media (min-width: 900px) {
+  .railHint {
+    display: flex;
+  }
+
   .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--space-5);
+    margin-top: var(--space-3);
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding-bottom: var(--space-4);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--color-text-rgb), 0.25) transparent;
+  }
+
+  .grid::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .grid::-webkit-scrollbar-thumb {
+    border-radius: var(--radius-full);
+    background: rgba(var(--color-text-rgb), 0.2);
+  }
+
+  .card {
+    flex: 0 0 clamp(320px, 38vw, 400px);
+    scroll-snap-align: start;
+  }
+
+  .featuredCard {
+    flex-basis: clamp(520px, 60vw, 680px);
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    grid-template-rows: 1fr auto;
+
+    .mockup {
+      grid-row: 1 / -1;
+      min-height: 100%;
+    }
+
+    .cardBody h3 {
+      font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    }
+
+    .summary {
+      -webkit-line-clamp: 3;
+    }
   }
 }
 

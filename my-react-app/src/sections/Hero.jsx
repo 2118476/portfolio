@@ -2,8 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Button from '../components/ui/Button';
 import Badge from '../components/ui/Badge';
-import profile from '../assets/me.jpg';
-import artwork from '../assets/bg-photo-1.jpg';
+import ScrambleText from '../components/ui/ScrambleText';
+import ParticleField from '../components/ui/ParticleField';
+import Parallax from '../components/ui/Parallax';
+import TechOrbit from '../components/ui/TechOrbit';
+import DeviceMockup from '../components/ui/DeviceMockup';
+import StatusWidget from '../components/ui/StatusWidget';
+import habeshaShot from '../assets/shots/habesha-feed.jpg';
 import styles from './Hero.module.scss';
 
 const roles = [
@@ -41,6 +46,8 @@ const Hero = () => {
 
   return (
     <section id="hero" className={styles.hero}>
+      <ParticleField />
+
       <div className={styles.inner}>
         <motion.div
           className={styles.copy}
@@ -53,7 +60,7 @@ const Hero = () => {
             UK-based full-stack developer
           </span>
           <h1>
-            <span className={styles.name}>Mihretab Nega</span>
+            <ScrambleText text="Mihretab Nega" className={styles.name} />
             <span className={styles.headline}>
               Full-stack developer building real-world{' '}
               <span className="gradient-text">React + Spring Boot</span> applications for
@@ -71,13 +78,13 @@ const Hero = () => {
           </div>
 
           <div className={styles.actions}>
-            <Button href="#projects" icon="fas fa-table-cells-large">
+            <Button href="#projects" icon="fas fa-table-cells-large" magnetic>
               View Projects
             </Button>
-            <Button href="/Mihretab-Nega-CV.pdf" variant="secondary" icon="fas fa-file-arrow-down" download>
+            <Button href="/Mihretab-Nega-CV.pdf" variant="secondary" icon="fas fa-file-arrow-down" download magnetic>
               Download CV
             </Button>
-            <Button href="#contact" variant="outline" icon="fas fa-paper-plane">
+            <Button href="#contact" variant="outline" icon="fas fa-paper-plane" magnetic>
               Contact Me
             </Button>
             <Button
@@ -86,6 +93,7 @@ const Hero = () => {
               rel="noopener noreferrer"
               variant="outline"
               icon="fab fa-github"
+              magnetic
             >
               GitHub
             </Button>
@@ -100,6 +108,7 @@ const Hero = () => {
           </div>
         </motion.div>
 
+        <Parallax speed={26} className={styles.stageParallax}>
         <motion.div
           className={styles.stage}
           initial={{ opacity: 0, y: 28 }}
@@ -107,75 +116,51 @@ const Hero = () => {
           transition={{ duration: 0.55, delay: 0.12 }}
         >
           <div className={styles.stageGlow} aria-hidden="true" />
-          <div className={styles.orbit} aria-hidden="true">
-            <span />
-            <span />
-          </div>
-
-          <div className={styles.floatCard} aria-hidden="true">
-            <img src={artwork} alt="" />
-            <div className={styles.floatMeta}>
-              <strong>Habesha Community Platform</strong>
-              <span>React · Spring Boot · PostgreSQL</span>
-              <div className={styles.progress}>
-                <span style={{ width: '82%' }} />
-              </div>
-            </div>
-            <i className="fas fa-circle-check" aria-hidden="true" />
-          </div>
-
-          <div className={`${styles.floatCard} ${styles.floatCardAlt}`} aria-hidden="true">
-            <span className={styles.floatIcon}>
-              <i className="fas fa-calendar-check" aria-hidden="true" />
-            </span>
-            <div className={styles.floatMeta}>
-              <strong>Hair Salon Booking System</strong>
-              <span>Java · Spring Boot · MySQL</span>
-              <div className={styles.progress}>
-                <span style={{ width: '100%' }} />
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.visual} aria-label="Developer dashboard preview">
-          <div className={styles.profileStrip}>
-            <img src={profile} alt="Mihretab Nega" loading="eager" />
-            <div>
-              <strong>Mihretab Nega</strong>
-              <span>Software Engineer / Full-stack Developer</span>
-            </div>
-          </div>
 
           <div className={styles.window}>
-            <div className={styles.windowTop}>
-              <span />
-              <span />
-              <span />
+            <div className={styles.windowBar}>
+              <span className={styles.lights}>
+                <i />
+                <i />
+                <i />
+              </span>
+              <span className={styles.windowTitle}>mihretab.dev — workspace</span>
+              <span className={styles.liveTag}>
+                <span className={styles.liveDot} /> live
+              </span>
             </div>
-            <div className={styles.codeRows} aria-hidden="true">
-              <span className={styles.wide} />
-              <span />
-              <span className={styles.short} />
-              <span className={styles.medium} />
-            </div>
-          </div>
 
-          <div className={styles.metrics}>
-            <div>
-              <strong>6</strong>
-              <span>featured builds</span>
+            <div className={styles.windowBody}>
+              <DeviceMockup
+                src={habeshaShot}
+                alt="UK Habesha community platform"
+                className={styles.device}
+              />
+
+              <div className={styles.panel}>
+                <StatusWidget />
+                <div className={styles.orbitWrap}>
+                  <TechOrbit />
+                </div>
+                <div className={styles.metrics}>
+                  <div>
+                    <strong>6</strong>
+                    <span>builds</span>
+                  </div>
+                  <div>
+                    <strong>BSc</strong>
+                    <span>Comp Sci</span>
+                  </div>
+                  <div>
+                    <strong>3</strong>
+                    <span>live demos</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div>
-              <strong>BSc</strong>
-              <span>Computer Science</span>
-            </div>
-            <div>
-              <strong>UK</strong>
-              <span>roles and clients</span>
-            </div>
-          </div>
           </div>
         </motion.div>
+        </Parallax>
       </div>
     </section>
   );

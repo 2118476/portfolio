@@ -40,6 +40,36 @@ $slide-cycle: 36s;
     );
 }
 
+.aurora {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(30% 40% at 20% 30%, rgba(var(--color-primary-rgb), 0.5), transparent 60%),
+    radial-gradient(28% 36% at 78% 24%, rgba(var(--color-tertiary-rgb), 0.45), transparent 60%),
+    radial-gradient(34% 44% at 60% 78%, rgba(var(--color-secondary-rgb), 0.4), transparent 60%),
+    radial-gradient(26% 34% at 32% 82%, rgba(var(--color-warm-rgb), 0.3), transparent 60%);
+  filter: blur(60px);
+  animation: aurora-shift 24s ease-in-out infinite alternate;
+  will-change: transform, background-position;
+}
+
+@keyframes aurora-shift {
+  0% {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(3%, 2%, 0) scale(1.1);
+  }
+
+  100% {
+    transform: translate3d(-2%, 3%, 0) scale(1.04);
+  }
+}
+
 .blob {
   position: absolute;
   border-radius: 50%;

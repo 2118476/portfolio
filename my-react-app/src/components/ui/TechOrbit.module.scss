@@ -1,0 +1,88 @@
+.orbit {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 1;
+  margin-inline: auto;
+  container-type: size;
+  display: grid;
+  place-items: center;
+}
+
+.core {
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--gradient-primary);
+  color: #071018;
+  font-weight: 800;
+  font-size: clamp(1rem, 6cqmin, 1.6rem);
+  box-shadow: 0 0 40px rgba(var(--color-primary-rgb), 0.5);
+}
+
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(var(--color-text-rgb), 0.16);
+}
+
+.ringInner {
+  width: 60%;
+  height: 60%;
+  animation: orbit-spin 22s linear infinite;
+}
+
+.ringOuter {
+  width: 100%;
+  height: 100%;
+  animation: orbit-spin 34s linear infinite reverse;
+}
+
+.node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  margin: -22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--color-heading);
+  font-size: 1.05rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-sm);
+}
+
+.ringInner .node {
+  transform: rotate(var(--angle)) translateY(-29cqmin) rotate(calc(-1 * var(--angle)));
+}
+
+.ringOuter .node {
+  transform: rotate(var(--angle)) translateY(-48cqmin) rotate(calc(-1 * var(--angle)));
+}
+
+.counter {
+  color: var(--color-primary);
+  animation: orbit-spin 22s linear infinite reverse;
+}
+
+.counterOuter {
+  color: var(--color-secondary);
+  animation: orbit-spin 34s linear infinite;
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
