@@ -4,6 +4,7 @@ import Section from '../components/layout/Section';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
 import Tilt from '../components/ui/Tilt';
+import DemoStatus from '../components/ui/DemoStatus';
 import { getProjectCategories, projects } from '../data/projects';
 import styles from './Projects.module.scss';
 
@@ -74,6 +75,7 @@ const Projects = () => {
             }`}
           >
             <div className={styles.mockup} aria-label={project.visual.label}>
+              {project.demo && <DemoStatus url={project.demo} className={styles.demoStatus} />}
               {project.screenshots ? (
                 <img
                   className={styles.mockupShot}

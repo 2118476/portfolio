@@ -99,6 +99,18 @@
   }
 }
 
+.booking {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+
+  span {
+    color: var(--color-muted);
+    font-size: 0.88rem;
+  }
+}
+
 .quickLinks {
   display: flex;
   flex-wrap: wrap;

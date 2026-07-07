@@ -119,6 +119,13 @@
   font-style: italic;
 }
 
+.demoStatus {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 2;
+}
+
 .mockupShot {
   position: absolute;
   inset: 0;

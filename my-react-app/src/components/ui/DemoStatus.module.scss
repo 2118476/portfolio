@@ -1,0 +1,64 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.28rem 0.6rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: rgba(2, 6, 16, 0.5);
+  color: var(--color-soft);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  backdrop-filter: blur(10px);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-muted);
+}
+
+.live {
+  color: var(--color-secondary);
+  border-color: rgba(var(--color-secondary-rgb), 0.4);
+
+  .dot {
+    background: var(--color-secondary);
+    box-shadow: 0 0 0 0 rgba(var(--color-secondary-rgb), 0.6);
+    animation: demo-pulse 2s ease-out infinite;
+  }
+}
+
+.checking .dot {
+  background: var(--color-warm);
+  animation: demo-blink 1.2s ease-in-out infinite;
+}
+
+@keyframes demo-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--color-secondary-rgb), 0.6);
+  }
+
+  100% {
+    box-shadow: 0 0 0 7px rgba(var(--color-secondary-rgb), 0);
+  }
+}
+
+@keyframes demo-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    animation: none !important;
+  }
+}

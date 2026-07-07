@@ -68,6 +68,19 @@
   margin-top: var(--space-6);
 }
 
+.demoStatus {
+  margin-top: var(--space-4);
+}
+
+.arch {
+  margin-top: var(--space-12);
+
+  h2 {
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    margin-bottom: var(--space-5);
+  }
+}
+
 .gallery {
   margin-top: var(--space-10);
   display: grid;

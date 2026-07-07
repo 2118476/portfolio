@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Section from '../components/layout/Section';
 import Button from '../components/ui/Button';
 import Tilt from '../components/ui/Tilt';
+import GithubStats from '../components/ui/GithubStats';
 import styles from './GithubActivity.module.scss';
 
 const GITHUB_USER = '2118476';
@@ -20,6 +21,7 @@ const langColors = {
 
 const GithubActivity = () => {
   const [repos, setRepos] = useState([]);
+  const [allRepos, setAllRepos] = useState([]);
   const [state, setState] = useState('loading');
 
   useEffect(() => {
@@ -31,11 +33,11 @@ const GithubActivity = () => {
       })
       .then((data) => {
         if (!active) return;
-        const top = data
+        const owned = data
           .filter((repo) => !repo.fork)
-          .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at))
-          .slice(0, 6);
-        setRepos(top);
+          .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
+        setAllRepos(owned);
+        setRepos(owned.slice(0, 6));
         setState('ready');
       })
       .catch(() => active && setState('error'));
@@ -59,6 +61,10 @@ const GithubActivity = () => {
           code, not just descriptions.
         </p>
       </div>
+
+      {state === 'ready' && allRepos.length > 0 && (
+        <GithubStats repos={allRepos} user={GITHUB_USER} />
+      )}
 
       {state === 'error' ? (
         <div className={styles.fallback}>

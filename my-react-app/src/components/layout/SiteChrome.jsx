@@ -3,10 +3,11 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import ScrollToTop from '../ui/ScrollToTop';
 import WhatsAppBubble from '../ui/WhatsAppBubble';
+import AskAssistant from '../ui/AskAssistant';
 
 /*
  * Shared page shell: navbar, page content, footer, and the floating
- * scroll-to-top and WhatsApp controls. Used by every routed page.
+ * scroll-to-top, WhatsApp, and Ask-assistant controls. Used by every page.
  */
 const SiteChrome = ({ children }) => (
   <>
@@ -15,6 +16,7 @@ const SiteChrome = ({ children }) => (
     <Footer />
     <ScrollToTop />
     <WhatsAppBubble />
+    <AskAssistant />
   </>
 );
 

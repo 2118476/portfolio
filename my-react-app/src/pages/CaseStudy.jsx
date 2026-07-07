@@ -5,6 +5,8 @@ import SiteChrome from '../components/layout/SiteChrome';
 import Container from '../components/layout/Container';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
+import DemoStatus from '../components/ui/DemoStatus';
+import ArchitectureDiagram from '../components/ui/ArchitectureDiagram';
 import { projects } from '../data/projects';
 import styles from './CaseStudy.module.scss';
 
@@ -47,6 +49,8 @@ const CaseStudy = () => {
             </div>
             <h1 className={styles.title}>{project.title}</h1>
             <p className={styles.lead}>{project.solution}</p>
+
+            {project.demo && <DemoStatus url={project.demo} className={styles.demoStatus} />}
 
             <div className={styles.actions}>
               {project.demo && (
@@ -115,6 +119,11 @@ const CaseStudy = () => {
               <p>{project.caseStudy.result}</p>
             </section>
           </div>
+
+          <section className={styles.arch}>
+            <h2>How it&apos;s built</h2>
+            <ArchitectureDiagram project={project} />
+          </section>
 
           <div className={styles.split}>
             <section>
