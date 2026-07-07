@@ -37,20 +37,23 @@ const IntroLoader = () => {
           exit={{ opacity: 0, transition: { duration: 0.5 } }}
         >
           <motion.div
-            className={styles.mark}
+            className={styles.markWrap}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
-            MN
+            <span className={styles.ring} aria-hidden="true" />
+            <span className={styles.mark}>MN</span>
           </motion.div>
-          <motion.p
+          <motion.div
+            className={styles.names}
             initial={{ y: 14, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.35, duration: 0.5 }}
           >
-            Mihretab Nega
-          </motion.p>
+            <p>Mihretab Nega</p>
+            <span>Full-stack developer</span>
+          </motion.div>
           <div className={styles.barTrack}>
             <motion.div
               className={styles.barFill}

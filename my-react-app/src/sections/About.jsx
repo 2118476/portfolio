@@ -7,21 +7,25 @@ import styles from './About.module.scss';
 
 const timeline = [
   {
+    icon: 'fas fa-graduation-cap',
     title: 'Computer Science graduate',
     meta: 'Brunel University London',
     text: 'Built a strong foundation in software engineering, databases, web development, AI, cybersecurity, and practical project delivery.'
   },
   {
+    icon: 'fas fa-layer-group',
     title: 'Full-stack project delivery',
     meta: 'React, Spring Boot, SQL',
     text: 'Focused on full-stack apps with authentication, REST APIs, dashboards, admin panels, and database-backed workflows.'
   },
   {
+    icon: 'fas fa-users',
     title: 'Community and business tools',
     meta: 'UK Habesha, salons, automation',
     text: 'Shaping software around real users: local businesses, diaspora communities, job seekers, and teams that need practical automation.'
   },
   {
+    icon: 'fas fa-rocket',
     title: 'Current focus',
     meta: 'Jobs, freelance, product builds',
     text: 'Available for UK software developer roles and selected freelance projects where clean delivery matters.'
@@ -97,7 +101,10 @@ const About = () => {
                     aria-expanded={open}
                     aria-controls={`about-panel-${index}`}
                   >
-                    <span className={styles.marker}>{String(index + 1).padStart(2, '0')}</span>
+                    <span className={styles.marker}>
+                      <i className={item.icon} aria-hidden="true" />
+                      <em className={styles.markerNum}>{String(index + 1).padStart(2, '0')}</em>
+                    </span>
                     <span className={styles.headerText}>
                       <strong>{item.title}</strong>
                       <em>{item.meta}</em>

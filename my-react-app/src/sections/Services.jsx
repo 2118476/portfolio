@@ -94,8 +94,14 @@ const Services = () => {
               transition={{ duration: 0.35, delay: index * 0.03 }}
               viewport={{ once: true, amount: 0.25 }}
             >
+              <span className={styles.slash} aria-hidden="true" />
+              <span className={styles.index} aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
               <div className={styles.cardTop}>
-                <i className={service.icon} aria-hidden="true" />
+                <span className={styles.icon}>
+                  <i className={service.icon} aria-hidden="true" />
+                </span>
                 <h3>{service.title}</h3>
               </div>
               <p>{service.description}</p>

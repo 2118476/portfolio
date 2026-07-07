@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import AmbientBackground from './components/AmbientBackground';
@@ -7,6 +7,8 @@ import ScrollProgress from './components/ui/ScrollProgress';
 import IntroLoader from './components/ui/IntroLoader';
 import Home from './pages/Home';
 import CaseStudy from './pages/CaseStudy';
+
+const CV = lazy(() => import('./pages/CV'));
 
 /*
  * Restores scroll position on navigation: jumps to a #hash target when
@@ -48,11 +50,14 @@ function App() {
         <IntroLoader />
         <Analytics />
         <RouteScroller />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects/:id" element={<CaseStudy />} />
-          <Route path="*" element={<Home />} />
-        </Routes>
+        <Suspense fallback={<div className="loading">Loading…</div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cv" element={<CV />} />
+            <Route path="/projects/:id" element={<CaseStudy />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </ThemeProvider>
   );

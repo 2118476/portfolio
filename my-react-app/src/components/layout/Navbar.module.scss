@@ -73,6 +73,9 @@
 
   a {
     position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     border-radius: var(--radius-md);
     padding: 0.65rem 0.75rem;
     color: var(--color-soft);
@@ -84,6 +87,14 @@
     &:focus-visible {
       color: var(--color-heading);
       background: rgba(var(--color-text-rgb), 0.06);
+    }
+
+    /* Icons are decorative on the desktop bar; shown in the mobile menu. */
+    i {
+      display: none;
+      width: 18px;
+      text-align: center;
+      color: var(--color-primary);
     }
   }
 }
@@ -195,6 +206,10 @@
 
     a {
       padding: 0.95rem 1rem;
+
+      i {
+        display: inline-block;
+      }
     }
   }
 }

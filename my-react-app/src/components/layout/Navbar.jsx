@@ -1,21 +1,21 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useScrollSpy from '../../hooks/useScrollSpy';
 import styles from './Navbar.module.scss';
 
 const navItems = [
-  { id: 'hero', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'services', label: 'Services' },
-  { id: 'pricing', label: 'Pricing' },
-  { id: 'contact', label: 'Contact' }
+  { id: 'hero', label: 'Home', icon: 'fas fa-house' },
+  { id: 'about', label: 'About', icon: 'fas fa-user' },
+  { id: 'projects', label: 'Projects', icon: 'fas fa-table-cells-large' },
+  { id: 'services', label: 'Services', icon: 'fas fa-briefcase' },
+  { id: 'cv', label: 'CV', icon: 'fas fa-file-lines', route: '/cv' },
+  { id: 'contact', label: 'Contact', icon: 'fas fa-paper-plane' }
 ];
 
 const Navbar = () => {
   const { pathname } = useLocation();
   const onHome = pathname === '/';
-  const sectionIds = useMemo(() => navItems.map((item) => item.id), []);
+  const sectionIds = useMemo(() => navItems.filter((item) => !item.route).map((item) => item.id), []);
   const activeId = useScrollSpy(sectionIds, 96);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -53,16 +53,29 @@ const Navbar = () => {
           className={`${styles.navLinks} ${menuOpen ? styles.open : ''}`}
           aria-label="Main navigation"
         >
-          {navItems.map((item) => (
-            <a
-              key={item.id}
-              href={linkFor(item.id)}
-              className={onHome && activeId === item.id ? styles.active : ''}
-              onClick={() => setMenuOpen(false)}
-            >
-              {item.label}
-            </a>
-          ))}
+          {navItems.map((item) =>
+            item.route ? (
+              <Link
+                key={item.id}
+                to={item.route}
+                className={pathname === item.route ? styles.active : ''}
+                onClick={() => setMenuOpen(false)}
+              >
+                <i className={item.icon} aria-hidden="true" />
+                {item.label}
+              </Link>
+            ) : (
+              <a
+                key={item.id}
+                href={linkFor(item.id)}
+                className={onHome && activeId === item.id ? styles.active : ''}
+                onClick={() => setMenuOpen(false)}
+              >
+                <i className={item.icon} aria-hidden="true" />
+                {item.label}
+              </a>
+            )
+          )}
         </nav>
 
         <div className={styles.actions}>

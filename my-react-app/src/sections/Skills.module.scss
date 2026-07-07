@@ -1,9 +1,197 @@
 @import '../styles/mixins.scss';
 
+/* ---------- Orbit centerpiece ---------- */
+.orbitWrap {
+  margin-top: var(--space-10);
+  padding-block: var(--space-6);
+  display: grid;
+  place-items: center;
+}
+
+.orbit {
+  --orbit-size: min(460px, 82vw);
+  --inner-r: calc(var(--orbit-size) * 0.29);
+  --outer-r: calc(var(--orbit-size) * 0.44);
+
+  position: relative;
+  width: var(--orbit-size);
+  height: var(--orbit-size);
+}
+
+.orbitGlow {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(var(--color-primary-rgb), 0.22), transparent 62%),
+    radial-gradient(circle at 60% 70%, rgba(var(--color-tertiary-rgb), 0.18), transparent 64%);
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+.ringLine {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 1px dashed rgba(var(--color-text-rgb), 0.14);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.ringLineInner {
+  width: calc(var(--inner-r) * 2);
+  height: calc(var(--inner-r) * 2);
+}
+
+.ringLineOuter {
+  width: calc(var(--outer-r) * 2);
+  height: calc(var(--outer-r) * 2);
+  border-color: rgba(var(--color-text-rgb), 0.1);
+}
+
+.core {
+  @include glass-panel;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  width: clamp(120px, 32%, 168px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.15rem;
+  text-align: center;
+  box-shadow: var(--shadow-glow);
+  animation: pulse-glow 5s ease-in-out infinite;
+
+  i {
+    font-size: clamp(1.3rem, 4vw, 1.7rem);
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  strong {
+    margin-top: 0.35rem;
+    color: var(--color-heading);
+    font-size: clamp(0.9rem, 2.4vw, 1.05rem);
+  }
+
+  span {
+    color: var(--color-muted);
+    font-size: clamp(0.62rem, 1.7vw, 0.72rem);
+    font-weight: 700;
+  }
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+}
+
+.ringInner {
+  animation: orbit-spin 64s linear infinite;
+}
+
+.ringOuter {
+  animation: orbit-spin 88s linear infinite reverse;
+}
+
+.slot {
+  --angle: calc(var(--i) * (360deg / var(--total)));
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.ringInner .slot {
+  transform: rotate(var(--angle)) translateY(calc(-1 * var(--inner-r)));
+}
+
+.ringOuter .slot {
+  transform: rotate(var(--angle)) translateY(calc(-1 * var(--outer-r)));
+}
+
+/* Continuously undoes the parent ring's spin so badges stay upright. */
+.spin {
+  display: block;
+}
+
+.ringInner .spin {
+  animation: orbit-spin-reverse 64s linear infinite;
+}
+
+.ringOuter .spin {
+  animation: orbit-spin 88s linear infinite;
+}
+
+.orbitBadge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: rgba(var(--color-card-rgb), 0.78);
+  color: var(--color-soft);
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-sm);
+  /* translate centers the pill on the slot point; rotate undoes the slot angle */
+  transform: translate(-50%, -50%) rotate(calc(-1 * var(--angle)));
+
+  i {
+    font-size: 0.95rem;
+  }
+
+  em {
+    font-style: normal;
+  }
+}
+
+.primary i {
+  color: var(--color-primary);
+}
+
+.secondary i {
+  color: var(--color-secondary);
+}
+
+.tertiary i {
+  color: var(--color-tertiary);
+}
+
+.warm i {
+  color: var(--color-warm);
+}
+
+/* Static grid shown instead of the orbit on small screens. */
+.orbitFallback {
+  display: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------- Grouped category cards ---------- */
 .grid {
   display: grid;
   gap: var(--space-5);
-  margin-top: var(--space-10);
+  margin-top: var(--space-12);
 }
 
 .card {
@@ -47,18 +235,51 @@
   gap: var(--space-2);
 }
 
-@media (min-width: 860px) {
+@media (min-width: 720px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (min-width: 1120px) {
+@media (min-width: 1060px) {
   .grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Collapse the orbit into a readable grid on phones. */
+@media (max-width: 680px) {
+  .orbit {
+    display: none;
   }
 
-  .card {
-    align-content: start;
+  .orbitFallback {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2);
+
+    li {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.85rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: rgba(var(--color-text-rgb), 0.05);
+      color: var(--color-soft);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ringInner,
+  .ringOuter,
+  .ringInner .spin,
+  .ringOuter .spin,
+  .core {
+    animation: none;
   }
 }

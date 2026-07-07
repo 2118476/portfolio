@@ -1,38 +1,42 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
 import Section from '../components/layout/Section';
-import Collapse from '../components/ui/Collapse';
 import styles from './Process.module.scss';
 
 const steps = [
   {
-    title: 'Discovery call / requirements',
-    text: 'We clarify the real goal, users, pages, workflows, integrations, and what success looks like.'
+    label: 'Discover',
+    icon: 'fas fa-compass',
+    text: 'Clarify the real goal, users, workflows, and what success looks like.'
   },
   {
-    title: 'UI/UX design plan',
-    text: 'I map the screens, data, and key user journeys before code so the build has direction.'
+    label: 'Plan',
+    icon: 'fas fa-diagram-project',
+    text: 'Map the screens, data model, and key user journeys before any code.'
   },
   {
-    title: 'Full-stack development',
-    text: 'React frontend, Spring Boot or suitable backend, database schema, authentication, and APIs.'
+    label: 'Design',
+    icon: 'fas fa-pen-ruler',
+    text: 'Shape a clean, responsive UI and a sensible component structure.'
   },
   {
-    title: 'Testing and feedback',
-    text: 'I test core flows, fix rough edges, and adjust based on real use rather than assumptions.'
+    label: 'Build',
+    icon: 'fas fa-code',
+    text: 'React frontend, Spring Boot backend, database, authentication, and APIs.'
   },
   {
-    title: 'Deployment',
-    text: 'The app is prepared for hosting with environment variables, deployment settings, and launch checks.'
+    label: 'Deploy',
+    icon: 'fas fa-rocket',
+    text: 'Ship with environment config, production settings, and launch checks.'
   },
   {
-    title: 'Support and improvements',
-    text: 'After launch, I can help improve features, fix bugs, and keep the system moving forward.'
+    label: 'Improve',
+    icon: 'fas fa-arrow-trend-up',
+    text: 'Fix, refine, and grow the product based on real use and feedback.'
   }
 ];
 
 const Process = () => {
-  const [openStep, setOpenStep] = useState(0);
-
   return (
     <Section id="process" className={styles.process}>
       <div className="split-heading">
@@ -49,29 +53,29 @@ const Process = () => {
         </p>
       </div>
 
-      <div className={styles.steps}>
-        {steps.map((step, index) => {
-          const open = openStep === index;
-          return (
-            <article key={step.title} className={`${styles.step} ${open ? styles.openStep : ''}`}>
-              <button
-                type="button"
-                className={styles.stepHeader}
-                onClick={() => setOpenStep(open ? -1 : index)}
-                aria-expanded={open}
-                aria-controls={`process-panel-${index}`}
-              >
-                <span className={styles.stepNumber}>{String(index + 1).padStart(2, '0')}</span>
-                <h3>{step.title}</h3>
-                <i className={`fas fa-chevron-down ${styles.chevron}`} aria-hidden="true" />
-              </button>
-              <Collapse open={open} id={`process-panel-${index}`}>
-                <p className={styles.stepBody}>{step.text}</p>
-              </Collapse>
-            </article>
-          );
-        })}
-      </div>
+      <ol className={styles.track}>
+        {steps.map((step, index) => (
+          <motion.li
+            key={step.label}
+            className={styles.step}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.45, delay: index * 0.08 }}
+          >
+            <div className={styles.node}>
+              <span className={styles.circle}>
+                <i className={step.icon} aria-hidden="true" />
+              </span>
+              <span className={styles.num}>{String(index + 1).padStart(2, '0')}</span>
+            </div>
+            <div className={styles.content}>
+              <h3>{step.label}</h3>
+              <p>{step.text}</p>
+            </div>
+          </motion.li>
+        ))}
+      </ol>
     </Section>
   );
 };

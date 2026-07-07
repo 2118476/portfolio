@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import SiteChrome from '../components/layout/SiteChrome';
 import Hero from '../sections/Hero';
+import TechMarquee from '../components/ui/TechMarquee';
 
 const Stats = lazy(() => import('../sections/Stats'));
 const About = lazy(() => import('../sections/About'));
@@ -19,6 +20,7 @@ const Home = () => (
   <SiteChrome>
     <main>
       <Hero />
+      <TechMarquee />
       <Suspense fallback={null}>
         <Stats />
         <About />
