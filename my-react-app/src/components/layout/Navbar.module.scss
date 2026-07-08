@@ -8,15 +8,25 @@
   transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
+/*
+ * Scroll state: a faint tint + hairline + shadow only. The blur intentionally
+ * lives ONLY on the `.inner` pill below — stacking a second backdrop-filter
+ * here (a filter nested inside a filter) made the compositor re-rasterize two
+ * blur buffers every scroll frame, which flashed the thin glass bar on and off.
+ */
 .scrolled {
   background: rgba(var(--color-bg-rgb), 0.42);
   border-bottom: 1px solid var(--color-border);
   box-shadow: var(--shadow-sm);
-  backdrop-filter: blur(18px);
 }
 
 .inner {
   @include glass-panel;
+
+  /* Pin the fixed glass pill to one stable composite layer so its
+     backdrop-filter snapshot doesn't thrash while content scrolls under it. */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 
   width: min(var(--container), calc(100% - 1rem));
   min-height: var(--nav-height);
