@@ -274,6 +274,43 @@ button {
   will-change: transform;
 }
 
+/*
+ * Mobile phones are sensitive to live blur + large transform layers while the
+ * visual viewport resizes during scroll. Use solid surfaces and static layers
+ * on narrow/touch screens so sections do not flash dark compositor rectangles.
+ */
+@media (max-width: 760px), (hover: none) and (pointer: coarse) {
+  :root {
+    --glass-bg: var(--glass-bg-solid);
+  }
+
+  html {
+    scroll-behavior: auto;
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  body *,
+  body *::before,
+  body *::after {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .i-tilt,
+  [data-magnetic] {
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .i-spotlight::after {
+    display: none;
+  }
+}
+
 /* Gentle scroll-snap between full sections; proximity so it never traps. */
 @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
   .snap-y {

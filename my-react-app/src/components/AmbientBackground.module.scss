@@ -251,3 +251,38 @@ $slide-cycle: 36s;
     opacity: 0;
   }
 }
+
+@media (max-width: 760px), (hover: none) and (pointer: coarse) {
+  .slide {
+    inset: 0;
+    opacity: 0;
+    transform: none;
+    animation: none !important;
+    will-change: auto;
+  }
+
+  .slide:first-child {
+    opacity: 1;
+  }
+
+  .aurora,
+  .blob,
+  .ring,
+  .particles {
+    animation: none !important;
+    filter: none;
+    mix-blend-mode: normal;
+    display: none;
+  }
+
+  .overlay {
+    background:
+      radial-gradient(120% 90% at 50% 50%, transparent 36%, rgba(var(--color-bg-rgb), 0.58) 100%),
+      linear-gradient(
+        180deg,
+        rgba(var(--color-bg-rgb), 0.45) 0%,
+        rgba(var(--color-bg-rgb), 0.58) 46%,
+        rgba(var(--color-bg-rgb), 0.76) 100%
+      );
+  }
+}
