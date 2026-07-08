@@ -10,16 +10,20 @@
   -webkit-backdrop-filter: blur(26px) saturate(160%);
 
   /*
-   * Touch devices only: the mobile URL bar hides/shows on scroll, resizing the
-   * visual viewport. Every resize forces backdrop-filter surfaces to re-sample
-   * and re-blur, which on phone GPUs flashes the panel as a dark translucent
-   * rectangle mid-scroll. Swap to an opaque surface (no live blur) so there is
-   * nothing to re-rasterize. Desktop/fine-pointer keeps the real frosted glass.
+   * Narrow/touch devices: the mobile URL bar hides/shows on scroll, resizing
+   * the visual viewport. Every resize forces backdrop-filter surfaces to
+   * re-sample and re-blur, which on phone GPUs flashes the panel as a dark
+   * translucent rectangle mid-scroll. Swap to an opaque surface so there is
+   * nothing to re-rasterize.
    */
-  @media (hover: none) and (pointer: coarse) {
+  @media (max-width: 760px), (hover: none) and (pointer: coarse) {
     background: var(--glass-bg-solid);
+    background-image: none;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
+    contain: paint;
+    isolation: isolate;
+    will-change: auto;
   }
 }
 
@@ -33,6 +37,19 @@
       inset 0 1px 0 var(--glass-highlight),
       0 0 40px rgba(var(--color-primary-rgb), 0.16),
       var(--shadow-md);
+  }
+
+  @media (max-width: 760px), (hover: none) and (pointer: coarse) {
+    transition: none;
+
+    &:hover {
+      transform: none;
+      border-color: var(--glass-border);
+      box-shadow:
+        inset 0 1px 0 var(--glass-highlight),
+        inset 0 -1px 0 rgba(var(--color-text-rgb), 0.04),
+        var(--shadow-sm);
+    }
   }
 }
 
@@ -61,6 +78,12 @@
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
+  }
+
+  @media (max-width: 760px), (hover: none) and (pointer: coarse) {
+    &::before {
+      display: none;
+    }
   }
 }
 
@@ -101,6 +124,12 @@
 
   &:hover::after {
     animation: sheen 900ms ease;
+  }
+
+  @media (max-width: 760px), (hover: none) and (pointer: coarse) {
+    &::after {
+      display: none;
+    }
   }
 }
 

@@ -32,7 +32,7 @@ npm run build
 - Project content lives in `src/data/projects.js`.
 - Skills content lives in `src/data/skills.js`.
 - Contact links are in `src/sections/Contact.jsx` and `src/components/layout/Footer.jsx`.
-- Replace `public/me.jpg` and `src/assets/me.jpg` when updating the portrait.
+- Replace `public/me.jpg` when updating the portrait.
 - Add the real CV as `public/Mihretab-Nega-CV.pdf` so the hero download button points to the final file.
 - Replace project mockups with real screenshots by extending each project object and rendering image assets in `src/sections/Projects.jsx`.
 - Netlify deployment settings are in `netlify.toml`.

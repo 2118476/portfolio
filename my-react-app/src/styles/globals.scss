@@ -282,6 +282,7 @@ button {
 @media (max-width: 760px), (hover: none) and (pointer: coarse) {
   :root {
     --glass-bg: var(--glass-bg-solid);
+    --shadow-glow: var(--shadow-sm);
   }
 
   html {
@@ -298,6 +299,8 @@ button {
   body *::after {
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
+    filter: none !important;
+    mix-blend-mode: normal !important;
   }
 
   .i-tilt,
@@ -308,6 +311,73 @@ button {
 
   .i-spotlight::after {
     display: none;
+  }
+
+  main section,
+  main section *,
+  main section *::before,
+  main section *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  main section [style*='opacity'] {
+    opacity: 1 !important;
+  }
+
+  main section [style*='transform'],
+  main section [style*='translate'],
+  main section [style*='scale'],
+  main section [style*='rotate'] {
+    transform: none !important;
+  }
+
+  main section article,
+  main section [class*='_card_'],
+  main section [class*='_tile_'],
+  main section [class*='_panel_'],
+  main section [class*='_profile_'],
+  main section [class*='_timelineItem_'],
+  main section [class*='_window_'],
+  main section [class*='_mockup_'],
+  main section [class*='_quote_'],
+  main section [class*='_plan_'] {
+    background: var(--glass-bg-solid) !important;
+    background-image: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    contain: paint;
+    isolation: isolate;
+    will-change: auto !important;
+  }
+
+  main section article::before,
+  main section article::after,
+  main section [class*='_card_']::before,
+  main section [class*='_card_']::after,
+  main section [class*='_tile_']::before,
+  main section [class*='_tile_']::after,
+  main section [class*='_panel_']::before,
+  main section [class*='_panel_']::after,
+  main section [class*='_window_']::before,
+  main section [class*='_window_']::after,
+  main section [class*='_profile_']::before,
+  main section [class*='_profile_']::after,
+  main section [class*='_timelineItem_']::before,
+  main section [class*='_timelineItem_']::after,
+  main section [class*='_mockup_']::before,
+  main section [class*='_mockup_']::after,
+  main section [class*='_quote_']::before,
+  main section [class*='_quote_']::after,
+  main section [class*='_plan_']::before,
+  main section [class*='_plan_']::after {
+    display: none !important;
+  }
+
+  main section [class*='_slash_'],
+  main section [class*='_stageGlow_'],
+  main section [class*='_orbitGlow_'] {
+    display: none !important;
   }
 }
 

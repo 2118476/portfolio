@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Section from '../components/layout/Section';
 import Collapse from '../components/ui/Collapse';
-import profile from '../assets/me.jpg';
 import styles from './About.module.scss';
+
+const profile = '/me.jpg';
 
 const timeline = [
   {
