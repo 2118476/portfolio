@@ -67,6 +67,16 @@
     rgba(255, 255, 255, 0.05) 40%,
     rgba(255, 255, 255, 0.02) 100%
   );
+  /* Opaque stand-in for glass on touch devices, where a live backdrop-filter
+     flickers as the mobile URL bar resizes the viewport during scroll. Keeps
+     the subtle top sheen over a solid card colour so there is no blur to flash. */
+  --glass-bg-solid: linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.02) 55%,
+      rgba(255, 255, 255, 0.01) 100%
+    ),
+    rgba(var(--color-card-rgb), 0.92);
   --glass-border: rgba(255, 255, 255, 0.24);
   --glass-highlight: rgba(255, 255, 255, 0.4);
 }

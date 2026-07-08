@@ -8,6 +8,19 @@
     var(--shadow-sm);
   backdrop-filter: blur(26px) saturate(160%);
   -webkit-backdrop-filter: blur(26px) saturate(160%);
+
+  /*
+   * Touch devices only: the mobile URL bar hides/shows on scroll, resizing the
+   * visual viewport. Every resize forces backdrop-filter surfaces to re-sample
+   * and re-blur, which on phone GPUs flashes the panel as a dark translucent
+   * rectangle mid-scroll. Swap to an opaque surface (no live blur) so there is
+   * nothing to re-rasterize. Desktop/fine-pointer keeps the real frosted glass.
+   */
+  @media (hover: none) and (pointer: coarse) {
+    background: var(--glass-bg-solid);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
 }
 
 @mixin card-hover {
