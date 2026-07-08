@@ -17,7 +17,7 @@
   display: grid;
   place-items: center;
   background: var(--gradient-primary);
-  color: #071018;
+  color: var(--color-on-accent);
   font-size: 1.3rem;
   cursor: pointer;
   box-shadow: 0 12px 30px rgba(var(--color-primary-rgb), 0.4);
@@ -76,7 +76,7 @@
   display: grid;
   place-items: center;
   background: var(--gradient-primary);
-  color: #071018;
+  color: var(--color-on-accent);
   font-weight: 800;
   font-size: 0.82rem;
 }
@@ -179,7 +179,7 @@
     border: 0;
     border-radius: 50%;
     background: var(--gradient-primary);
-    color: #071018;
+    color: var(--color-on-accent);
     cursor: pointer;
   }
 }

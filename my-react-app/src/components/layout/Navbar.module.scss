@@ -52,7 +52,7 @@
   display: grid;
   place-items: center;
   background: var(--gradient-primary);
-  color: #071018;
+  color: var(--color-on-accent);
   font-weight: 800;
   box-shadow: 0 12px 30px rgba(var(--color-primary-rgb), 0.24);
 }

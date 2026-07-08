@@ -17,7 +17,7 @@
   display: grid;
   place-items: center;
   background: var(--gradient-primary);
-  color: #071018;
+  color: var(--color-on-accent);
   font-weight: 800;
   font-size: clamp(1rem, 6cqmin, 1.6rem);
   box-shadow: 0 0 40px rgba(var(--color-primary-rgb), 0.5);

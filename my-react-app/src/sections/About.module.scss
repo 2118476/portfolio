@@ -1,7 +1,7 @@
 @import '../styles/mixins.scss';
 
 .about {
-  background: linear-gradient(180deg, transparent, rgba(2, 6, 16, 0.36), transparent);
+  background: linear-gradient(180deg, transparent, var(--section-tint), transparent);
 }
 
 .grid {

@@ -1,7 +1,7 @@
 @import '../styles/mixins.scss';
 
 .contact {
-  background: rgba(2, 6, 16, 0.28);
+  background: var(--section-tint);
 }
 
 .grid {

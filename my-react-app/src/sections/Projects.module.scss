@@ -1,7 +1,7 @@
 @import '../styles/mixins.scss';
 
 .projects {
-  background: rgba(2, 6, 16, 0.28);
+  background: var(--section-tint);
 }
 
 /* Standalone, centered heading with a scroll-triggered word reveal. */
@@ -73,7 +73,7 @@
 }
 
 .activeFilter {
-  color: #061017 !important;
+  color: var(--color-on-accent) !important;
   background: var(--gradient-primary) !important;
   border-color: transparent !important;
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import useScrollSpy from '../../hooks/useScrollSpy';
 import { useRecruiter } from '../../context/RecruiterContext';
+import { useTheme } from '../../context/ThemeContext';
 import styles from './Navbar.module.scss';
 
 const openCommandPalette = () => {
@@ -22,6 +23,7 @@ const navItems = [
 const Navbar = () => {
   const { pathname } = useLocation();
   const { recruiter, toggleRecruiter } = useRecruiter();
+  const { isDark, toggleTheme } = useTheme();
   const onHome = pathname === '/';
   const sectionIds = useMemo(() => navItems.filter((item) => !item.route).map((item) => item.id), []);
   const activeId = useScrollSpy(sectionIds, 96);
@@ -95,6 +97,16 @@ const Navbar = () => {
             title="Search (Ctrl/Cmd + K)"
           >
             <i className="fas fa-magnifying-glass" aria-hidden="true" />
+          </button>
+          <button
+            className={styles.iconButton}
+            type="button"
+            onClick={toggleTheme}
+            aria-pressed={isDark}
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={isDark ? 'Light mode' : 'Dark mode'}
+          >
+            <i className={isDark ? 'fas fa-sun' : 'fas fa-moon'} aria-hidden="true" />
           </button>
           <button
             className={`${styles.iconButton} ${styles.social} ${recruiter ? styles.activeToggle : ''}`}
