@@ -13,8 +13,8 @@
    * Narrow/touch devices: the mobile URL bar hides/shows on scroll, resizing
    * the visual viewport. Every resize forces backdrop-filter surfaces to
    * re-sample and re-blur, which on phone GPUs flashes the panel as a dark
-   * translucent rectangle mid-scroll. Swap to an opaque surface so there is
-   * nothing to re-rasterize.
+   * translucent rectangle mid-scroll. Keep the translucent glass colour, but
+   * remove live blur so there is nothing expensive to re-rasterize.
    */
   @media (max-width: 760px), (hover: none) and (pointer: coarse) {
     background: var(--glass-bg-solid);

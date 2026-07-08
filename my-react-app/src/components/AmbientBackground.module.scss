@@ -1,3 +1,6 @@
+$slide-count: 4;
+$slide-cycle: 40s;
+
 .ambient {
   position: fixed;
   inset: 0;
@@ -7,6 +10,8 @@
   background: rgb(var(--color-bg-rgb));
 }
 
+.photos,
+.slide,
 .grid,
 .wash,
 .edge {
@@ -14,8 +19,25 @@
   inset: 0;
 }
 
+.photos {
+  overflow: hidden;
+}
+
+.slide {
+  inset: -3%;
+  background-position: center 24%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  filter: saturate(var(--ambient-photo-saturate)) contrast(0.96);
+  will-change: opacity, transform;
+  animation:
+    photo-crossfade $slide-cycle ease-in-out calc(var(--slide) * ($slide-cycle / $slide-count)) infinite,
+    photo-drift $slide-cycle ease-in-out calc(var(--slide) * ($slide-cycle / $slide-count)) infinite;
+}
+
 .grid {
-  opacity: 0.28;
+  opacity: 0.3;
   background-image:
     linear-gradient(rgba(var(--color-text-rgb), 0.055) 1px, transparent 1px),
     linear-gradient(90deg, rgba(var(--color-text-rgb), 0.045) 1px, transparent 1px);
@@ -26,23 +48,69 @@
 
 .wash {
   background:
-    linear-gradient(180deg, rgba(var(--color-surface-rgb), 0.74) 0%, transparent 28%),
-    linear-gradient(0deg, rgba(var(--color-surface-rgb), 0.78) 0%, transparent 34%),
-    linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.055), transparent 38%),
-    linear-gradient(315deg, rgba(var(--color-secondary-rgb), 0.05), transparent 42%);
+    linear-gradient(
+      180deg,
+      var(--ambient-overlay-top) 0%,
+      var(--ambient-overlay-mid) 48%,
+      var(--ambient-overlay-bottom) 100%
+    ),
+    linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.08), transparent 38%),
+    linear-gradient(315deg, rgba(var(--color-secondary-rgb), 0.07), transparent 42%);
 }
 
 .edge {
   background: linear-gradient(
     90deg,
-    rgba(var(--color-bg-rgb), 0.78) 0%,
+    rgba(var(--color-bg-rgb), 0.72) 0%,
     transparent 14%,
     transparent 86%,
-    rgba(var(--color-bg-rgb), 0.78) 100%
+    rgba(var(--color-bg-rgb), 0.72) 100%
   );
 }
 
+@keyframes photo-crossfade {
+  0% {
+    opacity: var(--ambient-photo-opacity);
+  }
+
+  25% {
+    opacity: var(--ambient-photo-opacity);
+  }
+
+  34%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes photo-drift {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(1.06) translate3d(-1.2%, -0.8%, 0);
+  }
+
+  100% {
+    transform: scale(1.04) translate3d(1%, 0.8%, 0);
+  }
+}
+
 @media (max-width: 760px), (hover: none) and (pointer: coarse) {
+  .slide {
+    inset: 0;
+    opacity: 0;
+    transform: none;
+    filter: saturate(var(--ambient-photo-saturate)) contrast(0.95);
+    animation: none !important;
+    will-change: auto;
+  }
+
+  .slide:first-child {
+    opacity: var(--ambient-photo-opacity);
+  }
+
   .grid {
     opacity: 0.18;
     background-size: 44px 44px;
@@ -50,7 +118,12 @@
 
   .wash {
     background:
-      linear-gradient(180deg, rgba(var(--color-surface-rgb), 0.72), transparent 30%),
-      linear-gradient(0deg, rgba(var(--color-surface-rgb), 0.76), transparent 38%);
+      linear-gradient(
+        180deg,
+        var(--ambient-overlay-top) 0%,
+        var(--ambient-overlay-mid) 46%,
+        var(--ambient-overlay-bottom) 100%
+      ),
+      linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.04), transparent 42%);
   }
 }

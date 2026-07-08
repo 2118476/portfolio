@@ -276,8 +276,8 @@ button {
 
 /*
  * Mobile phones are sensitive to live blur + large transform layers while the
- * visual viewport resizes during scroll. Use solid surfaces and static layers
- * on narrow/touch screens so sections do not flash dark compositor rectangles.
+ * visual viewport resizes during scroll. Use static translucent surfaces on
+ * narrow/touch screens so sections keep the glass feel without flashing.
  */
 @media (max-width: 760px), (hover: none) and (pointer: coarse) {
   :root {
