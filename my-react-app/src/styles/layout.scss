@@ -14,9 +14,8 @@
 }
 
 .eyebrow-dot {
-  width: 0.55rem;
-  height: 0.55rem;
+  width: 0.5rem;
+  height: 0.5rem;
   border-radius: 50%;
-  background: var(--gradient-primary);
-  box-shadow: 0 0 22px rgba(var(--color-primary-rgb), 0.7);
+  background: var(--color-primary);
 }

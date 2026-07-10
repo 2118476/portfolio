@@ -1,285 +1,85 @@
-@import '../styles/mixins.scss';
+.skills {
+  border-top: 1px solid var(--color-border);
+}
 
-/* ---------- Orbit centerpiece ---------- */
-.orbitWrap {
-  margin-top: var(--space-10);
-  padding-block: var(--space-6);
+.columns {
+  margin-top: clamp(2rem, 4vw, 3rem);
   display: grid;
-  place-items: center;
+  gap: clamp(2rem, 4vw, 3.5rem);
+
+  @media (min-width: 880px) {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  }
 }
 
-.orbit {
-  --orbit-size: min(460px, 82vw);
-  --inner-r: calc(var(--orbit-size) * 0.29);
-  --outer-r: calc(var(--orbit-size) * 0.44);
-
-  position: relative;
-  width: var(--orbit-size);
-  height: var(--orbit-size);
-}
-
-.orbitGlow {
-  position: absolute;
-  inset: 12%;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 50% 42%, rgba(var(--color-primary-rgb), 0.22), transparent 62%),
-    radial-gradient(circle at 60% 70%, rgba(var(--color-tertiary-rgb), 0.18), transparent 64%);
-  filter: blur(18px);
-  pointer-events: none;
-}
-
-.ringLine {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border-radius: 50%;
-  border: 1px dashed rgba(var(--color-text-rgb), 0.14);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.ringLineInner {
-  width: calc(var(--inner-r) * 2);
-  height: calc(var(--inner-r) * 2);
-}
-
-.ringLineOuter {
-  width: calc(var(--outer-r) * 2);
-  height: calc(var(--outer-r) * 2);
-  border-color: rgba(var(--color-text-rgb), 0.1);
-}
-
-.core {
-  @include glass-panel;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 4;
-  width: clamp(120px, 32%, 168px);
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
+.skillsCol {
   display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 0.15rem;
-  text-align: center;
-  box-shadow: var(--shadow-glow);
-  animation: pulse-glow 5s ease-in-out infinite;
-
-  i {
-    font-size: clamp(1.3rem, 4vw, 1.7rem);
-    background: var(--gradient-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  strong {
-    margin-top: 0.35rem;
-    color: var(--color-heading);
-    font-size: clamp(0.9rem, 2.4vw, 1.05rem);
-  }
-
-  span {
-    color: var(--color-muted);
-    font-size: clamp(0.62rem, 1.7vw, 0.72rem);
-    font-weight: 700;
-  }
+  gap: var(--space-6);
+  align-content: start;
 }
 
-.ring {
-  position: absolute;
-  inset: 0;
-}
-
-.ringInner {
-  animation: orbit-spin 64s linear infinite;
-}
-
-.ringOuter {
-  animation: orbit-spin 88s linear infinite reverse;
-}
-
-.slot {
-  --angle: calc(var(--i) * (360deg / var(--total)));
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-}
-
-.ringInner .slot {
-  transform: rotate(var(--angle)) translateY(calc(-1 * var(--inner-r)));
-}
-
-.ringOuter .slot {
-  transform: rotate(var(--angle)) translateY(calc(-1 * var(--outer-r)));
-}
-
-/* Continuously undoes the parent ring's spin so badges stay upright. */
-.spin {
-  display: block;
-}
-
-.ringInner .spin {
-  animation: orbit-spin-reverse 64s linear infinite;
-}
-
-.ringOuter .spin {
-  animation: orbit-spin 88s linear infinite;
-}
-
-.orbitBadge {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.85rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-full);
-  background: rgba(var(--color-card-rgb), 0.78);
-  color: var(--color-soft);
-  font-size: 0.82rem;
-  font-weight: 700;
-  white-space: nowrap;
-  backdrop-filter: blur(12px);
-  box-shadow: var(--shadow-sm);
-  /* translate centers the pill on the slot point; rotate undoes the slot angle */
-  transform: translate(-50%, -50%) rotate(calc(-1 * var(--angle)));
-
-  i {
-    font-size: 0.95rem;
-  }
-
-  em {
-    font-style: normal;
-  }
-}
-
-.primary i {
-  color: var(--color-primary);
-}
-
-.secondary i {
-  color: var(--color-secondary);
-}
-
-.tertiary i {
-  color: var(--color-tertiary);
-}
-
-.warm i {
-  color: var(--color-warm);
-}
-
-/* Static grid shown instead of the orbit on small screens. */
-.orbitFallback {
-  display: none;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* ---------- Grouped category cards ---------- */
-.grid {
-  display: grid;
-  gap: var(--space-5);
-  margin-top: var(--space-12);
-}
-
-.card {
-  @include glass-panel;
-  @include card-hover;
-
-  border-radius: var(--radius-lg);
-  padding: var(--space-5);
-  display: grid;
-  gap: var(--space-5);
-}
-
-.cardHeader {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
-
-  i {
-    width: 46px;
-    height: 46px;
-    flex: 0 0 auto;
-    border-radius: var(--radius-md);
-    display: grid;
-    place-items: center;
-    color: var(--color-secondary);
-    background: rgba(var(--color-secondary-rgb), 0.12);
-  }
-
+.group {
   h3 {
-    font-size: 1.18rem;
-  }
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.02rem;
+    margin-bottom: var(--space-3);
 
-  p {
-    margin-top: var(--space-2);
+    i {
+      color: var(--color-primary);
+      font-size: 0.9rem;
+      width: 20px;
+      text-align: center;
+    }
   }
 }
 
 .badges {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
+  gap: 0.45rem;
 }
 
-@media (min-width: 720px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+.expCol {
+  display: grid;
+  gap: var(--space-5);
+  align-content: start;
+  border-left: 1px solid var(--color-border);
+  padding-left: clamp(1.25rem, 3vw, 2rem);
+}
+
+.expItem {
+  h3 {
+    font-size: 1.02rem;
+    margin-top: var(--space-1);
+  }
+
+  p {
+    font-size: 0.95rem;
+    margin-top: var(--space-1);
   }
 }
 
-@media (min-width: 1060px) {
-  .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+.period {
+  display: inline-block;
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
-/* Collapse the orbit into a readable grid on phones. */
-@media (max-width: 680px) {
-  .orbit {
-    display: none;
-  }
-
-  .orbitFallback {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-2);
-
-    li {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 0.85rem;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-full);
-      background: rgba(var(--color-text-rgb), 0.05);
-      color: var(--color-soft);
-      font-size: 0.82rem;
-      font-weight: 700;
-    }
-  }
+.org {
+  color: var(--color-soft);
+  font-weight: 600;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .ringInner,
-  .ringOuter,
-  .ringInner .spin,
-  .ringOuter .spin,
-  .core {
-    animation: none;
+@media (max-width: 879px) {
+  .expCol {
+    border-left: 0;
+    padding-left: 0;
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-6);
   }
 }

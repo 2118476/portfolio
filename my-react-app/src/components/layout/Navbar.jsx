@@ -1,29 +1,21 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import useScrollSpy from '../../hooks/useScrollSpy';
-import { useRecruiter } from '../../context/RecruiterContext';
+import { useTheme } from '../../context/ThemeContext';
 import styles from './Navbar.module.scss';
 
-const openCommandPalette = () => {
-  window.dispatchEvent(
-    new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, bubbles: true })
-  );
-};
-
 const navItems = [
-  { id: 'hero', label: 'Home', icon: 'fas fa-house' },
-  { id: 'about', label: 'About', icon: 'fas fa-user' },
-  { id: 'projects', label: 'Projects', icon: 'fas fa-table-cells-large' },
-  { id: 'services', label: 'Services', icon: 'fas fa-briefcase' },
-  { id: 'cv', label: 'CV', icon: 'fas fa-file-lines', route: '/cv' },
-  { id: 'contact', label: 'Contact', icon: 'fas fa-paper-plane' }
+  { id: 'projects', label: 'Work' },
+  { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'contact', label: 'Contact' }
 ];
 
 const Navbar = () => {
   const { pathname } = useLocation();
-  const { recruiter, toggleRecruiter } = useRecruiter();
+  const { theme, toggleTheme } = useTheme();
   const onHome = pathname === '/';
-  const sectionIds = useMemo(() => navItems.filter((item) => !item.route).map((item) => item.id), []);
+  const sectionIds = useMemo(() => navItems.map((item) => item.id), []);
   const activeId = useScrollSpy(sectionIds, 96);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -50,10 +42,7 @@ const Navbar = () => {
       <div className={styles.inner}>
         <a className={styles.brand} href={onHome ? '#hero' : '/'} aria-label="Mihretab Nega home">
           <span className={styles.brandMark}>MN</span>
-          <span className={styles.brandText}>
-            <strong>Mihretab Nega</strong>
-            <span>Full-stack developer</span>
-          </span>
+          <span className={styles.brandText}>Mihretab Nega</span>
         </a>
 
         <nav
@@ -61,62 +50,30 @@ const Navbar = () => {
           className={`${styles.navLinks} ${menuOpen ? styles.open : ''}`}
           aria-label="Main navigation"
         >
-          {navItems.map((item) =>
-            item.route ? (
-              <Link
-                key={item.id}
-                to={item.route}
-                className={pathname === item.route ? styles.active : ''}
-                onClick={() => setMenuOpen(false)}
-              >
-                <i className={item.icon} aria-hidden="true" />
-                {item.label}
-              </Link>
-            ) : (
-              <a
-                key={item.id}
-                href={linkFor(item.id)}
-                className={onHome && activeId === item.id ? styles.active : ''}
-                onClick={() => setMenuOpen(false)}
-              >
-                <i className={item.icon} aria-hidden="true" />
-                {item.label}
-              </a>
-            )
-          )}
+          {navItems.map((item) => (
+            <a
+              key={item.id}
+              href={linkFor(item.id)}
+              className={onHome && activeId === item.id ? styles.active : ''}
+              onClick={() => setMenuOpen(false)}
+            >
+              {item.label}
+            </a>
+          ))}
         </nav>
 
         <div className={styles.actions}>
           <button
-            className={`${styles.iconButton} ${styles.social}`}
+            className={styles.iconButton}
             type="button"
-            onClick={openCommandPalette}
-            aria-label="Open command palette"
-            title="Search (Ctrl/Cmd + K)"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+            title={theme === 'dark' ? 'Light theme' : 'Dark theme'}
           >
-            <i className="fas fa-magnifying-glass" aria-hidden="true" />
+            <i className={theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'} aria-hidden="true" />
           </button>
-          <button
-            className={`${styles.iconButton} ${styles.social} ${recruiter ? styles.activeToggle : ''}`}
-            type="button"
-            onClick={toggleRecruiter}
-            aria-pressed={recruiter}
-            aria-label="Toggle recruiter mode"
-            title="Recruiter mode"
-          >
-            <i className="fas fa-user-tie" aria-hidden="true" />
-          </button>
-          <a
-            className={`${styles.iconButton} ${styles.social}`}
-            href="https://github.com/2118476"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="GitHub profile"
-          >
-            <i className="fab fa-github" aria-hidden="true" />
-          </a>
-          <a className={styles.cta} href={linkFor('contact')}>
-            Let's Build
+          <a className={styles.cta} href="/Mihretab-Nega-CV.pdf" download>
+            Download CV
           </a>
           <button
             className={`${styles.menuButton} ${menuOpen ? styles.menuOpen : ''}`}

@@ -71,7 +71,7 @@ button {
 }
 
 ::selection {
-  background: rgba(var(--color-primary-rgb), 0.28);
+  background: rgba(var(--color-primary-rgb), 0.25);
   color: var(--color-heading);
 }
 
@@ -93,18 +93,19 @@ button {
   gap: 0.5rem;
   color: var(--color-primary);
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .section-title {
   margin-top: 0.75rem;
-  font-size: clamp(2rem, 5vw, 3.35rem);
+  font-size: clamp(2rem, 4.5vw, 3rem);
   font-weight: 800;
   letter-spacing: -0.02em;
 }
 
+/* Reserved for one headline phrase (and nothing else). */
 .gradient-text {
   background: var(--gradient-text);
   -webkit-background-clip: text;
@@ -113,6 +114,7 @@ button {
   color: transparent;
 }
 
+/* Used by the CV page's floating decorations. */
 @keyframes floaty {
   0%,
   100% {
@@ -122,80 +124,6 @@ button {
   50% {
     transform: translateY(calc(var(--float-distance, 12px) * -1)) rotate(var(--float-tilt, 0deg));
   }
-}
-
-@keyframes sheen {
-  from {
-    transform: translateX(-140%) skewX(-16deg);
-  }
-
-  to {
-    transform: translateX(240%) skewX(-16deg);
-  }
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes orbit-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Counter-rotates orbiting children so their content stays upright. */
-@keyframes orbit-spin-reverse {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(-360deg);
-  }
-}
-
-@keyframes pulse-glow {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0.4);
-  }
-
-  50% {
-    box-shadow: 0 0 26px 4px rgba(var(--color-primary-rgb), 0.28);
-  }
-}
-
-@keyframes shimmer {
-  from {
-    background-position: -200% 0;
-  }
-
-  to {
-    background-position: 200% 0;
-  }
-}
-
-/* Reusable loading skeleton shimmer surface. */
-.skeleton-shimmer {
-  background: linear-gradient(
-    100deg,
-    rgba(var(--color-text-rgb), 0.05) 30%,
-    rgba(var(--color-text-rgb), 0.12) 50%,
-    rgba(var(--color-text-rgb), 0.05) 70%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.6s ease-in-out infinite;
 }
 
 .section-copy {
@@ -214,86 +142,6 @@ button {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-
-/* Cursor-following spotlight + subtle 3D tilt, driven by the Tilt wrapper. */
-.i-spotlight {
-  position: relative;
-}
-
-.i-spotlight::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(
-    240px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(255, 255, 255, 0.12),
-    transparent 62%
-  );
-  transition: opacity 260ms ease;
-}
-
-.i-spotlight:hover::after {
-  opacity: 1;
-}
-
-.i-tilt {
-  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transform-style: preserve-3d;
-  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms ease,
-    box-shadow 220ms ease;
-  will-change: transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .i-tilt {
-    transform: none;
-  }
-}
-
-/* Custom cursor: hide the native pointer only when the JS cursor is active. */
-.has-custom-cursor,
-.has-custom-cursor a,
-.has-custom-cursor button,
-.has-custom-cursor [role='button'],
-.has-custom-cursor [data-magnetic] {
-  cursor: none;
-}
-
-.has-custom-cursor input,
-.has-custom-cursor textarea,
-.has-custom-cursor select {
-  cursor: auto;
-}
-
-[data-magnetic] {
-  will-change: transform;
-}
-
-/* Gentle scroll-snap between full sections; proximity so it never traps. */
-@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
-  .snap-y {
-    scroll-snap-type: y proximity;
-  }
-
-  .snap-y > section {
-    scroll-snap-align: start;
-    scroll-snap-stop: normal;
-  }
-}
-
-/* Recruiter mode: condense to the essentials by hiding client-facing sections. */
-html[data-recruiter='true'] #services,
-html[data-recruiter='true'] #pricing,
-html[data-recruiter='true'] #process,
-html[data-recruiter='true'] #github,
-html[data-recruiter='true'] #testimonials,
-html[data-recruiter='true'] #faq {
-  display: none;
 }
 
 @media print {

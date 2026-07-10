@@ -5,8 +5,6 @@ import styles from '../sections/Contact.module.scss';
 const initialValues = {
   name: '',
   email: '',
-  projectType: '',
-  budget: '',
   message: ''
 };
 
@@ -47,7 +45,7 @@ const ContactForm = () => {
     if (!endpoint) {
       const subject = encodeURIComponent(`Portfolio enquiry from ${values.name}`);
       const body = encodeURIComponent(
-        `${values.message}\n\nProject type: ${values.projectType || '-'}\nBudget: ${values.budget || '-'}\nFrom: ${values.name} <${values.email}>`
+        `${values.message}\n\nFrom: ${values.name} <${values.email}>`
       );
       window.location.href = `mailto:${fallbackEmail}?subject=${subject}&body=${body}`;
       setStatus({ type: 'success', message: 'Opening your email app to send the message directly.' });
@@ -112,49 +110,6 @@ const ContactForm = () => {
             aria-invalid={Boolean(errors.email)}
           />
           {errors.email && <span className={styles.errorText}>{errors.email}</span>}
-        </div>
-      </div>
-
-      <div className={styles.fieldGroup}>
-        <div className={styles.field}>
-          <label htmlFor="project-type">Project type (optional)</label>
-          <select
-            id="project-type"
-            name="projectType"
-            value={values.projectType}
-            onChange={updateField}
-            aria-invalid={Boolean(errors.projectType)}
-          >
-            <option value="">Select one</option>
-            <option>Junior developer role</option>
-            <option>Business website</option>
-            <option>Booking system</option>
-            <option>Full-stack web app</option>
-            <option>Community platform</option>
-            <option>SMS / WhatsApp automation</option>
-            <option>App maintenance</option>
-          </select>
-          {errors.projectType && <span className={styles.errorText}>{errors.projectType}</span>}
-        </div>
-
-        <div className={styles.field}>
-          <label htmlFor="budget">Budget range (optional)</label>
-          <select
-            id="budget"
-            name="budget"
-            value={values.budget}
-            onChange={updateField}
-            aria-invalid={Boolean(errors.budget)}
-          >
-            <option value="">Select one</option>
-            <option>Hiring / job opportunity</option>
-            <option>Under GBP 500</option>
-            <option>GBP 500 - 1,500</option>
-            <option>GBP 1,500 - 3,000</option>
-            <option>GBP 3,000+</option>
-            <option>Not sure yet</option>
-          </select>
-          {errors.budget && <span className={styles.errorText}>{errors.budget}</span>}
         </div>
       </div>
 

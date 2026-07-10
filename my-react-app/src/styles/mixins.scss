@@ -1,25 +1,23 @@
+/*
+ * Panel surface. Historically a heavy glassmorphism mixin; now a solid
+ * card so blur/translucency stays reserved for the navbar (see Navbar
+ * module, which applies its own backdrop-filter).
+ */
 @mixin glass-panel {
   position: relative;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  box-shadow:
-    inset 0 1px 0 var(--glass-highlight),
-    inset 0 -1px 0 rgba(var(--color-text-rgb), 0.04),
-    var(--shadow-sm);
-  backdrop-filter: blur(26px) saturate(160%);
-  -webkit-backdrop-filter: blur(26px) saturate(160%);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
 }
 
 @mixin card-hover {
-  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), border-color 260ms ease, box-shadow 260ms ease;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms ease,
+    box-shadow 220ms ease;
 
   &:hover {
-    transform: translateY(-6px);
-    border-color: rgba(var(--color-primary-rgb), 0.4);
-    box-shadow:
-      inset 0 1px 0 var(--glass-highlight),
-      0 0 40px rgba(var(--color-primary-rgb), 0.16),
-      var(--shadow-md);
+    transform: translateY(-3px);
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-md);
   }
 }
 
@@ -28,67 +26,25 @@
   --float-distance: #{$distance};
 }
 
-/*
- * Draws a 1px gradient ring on the element's own border-radius using a
- * masked pseudo-element, so it never bleeds over rounded corners. Pass a
- * gradient token; the ring sits above the background but below content.
- */
+/* Kept for API compatibility: now renders a plain 1px border. */
 @mixin gradient-border($gradient: var(--gradient-primary), $width: 1px) {
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    border-radius: inherit;
-    padding: $width;
-    background: $gradient;
-    -webkit-mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
+  border: $width solid var(--color-border);
 }
 
-/*
- * Soft coloured glow that intensifies on hover — used for premium cards and
- * badges. Accepts an rgb tri: e.g. var(--color-primary-rgb).
- */
+/* Kept for API compatibility: subtle border/shadow lift, no glow. */
 @mixin glow-border($rgb: var(--color-primary-rgb)) {
-  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), border-color 300ms ease,
-    box-shadow 300ms ease;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms ease,
+    box-shadow 220ms ease;
 
   &:hover,
   &:focus-within {
-    border-color: rgba($rgb, 0.55);
-    box-shadow:
-      inset 0 1px 0 var(--glass-highlight),
-      0 0 0 1px rgba($rgb, 0.28),
-      0 0 46px rgba($rgb, 0.22),
-      var(--shadow-md);
+    border-color: rgba($rgb, 0.4);
+    box-shadow: var(--shadow-md);
   }
 }
 
-/*
- * Diagonal light sweep that runs across a card once on hover. The host must
- * be position: relative and overflow: hidden.
- */
+/* Kept for API compatibility: the light-sweep effect has been retired. */
 @mixin shine {
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0 auto 0 0;
-    z-index: 3;
-    width: 55%;
-    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.16), transparent);
-    transform: translateX(-140%) skewX(-16deg);
-    pointer-events: none;
-  }
-
-  &:hover::after {
-    animation: sheen 900ms ease;
-  }
 }
 
 /* Browser-window chrome (three traffic-light dots + top bar) for mockups. */

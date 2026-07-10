@@ -1,15 +1,16 @@
 # Mihretab Nega Portfolio (app)
 
-Premium one-page portfolio for [mihretab.org](https://mihretab.org/), built with Create React App, React, SCSS modules, Framer Motion, and FontAwesome. See the [repository README](../README.md) for the full overview, screenshots, and featured project links.
+Clean, product-focused portfolio for [mihretab.org](https://mihretab.org/), built with Vite, React, SCSS modules, Framer Motion, and FontAwesome. See the [repository README](../README.md) for the full overview, screenshots, and featured project links.
 
 ## What is included
 
-- Cinematic photo slideshow background with glassmorphism UI throughout
-- Sticky glass navbar with mobile hamburger menu, scroll-spy, and social buttons
-- Hero, About, Projects, Services, Skills, Process, Trust, Contact, and Footer sections
-- Project filtering, real screenshots, and case-study modals with demo + GitHub links
-- Accordion About/Process sections and collapsible Services details (mobile-first)
-- Client lead form using Formspree with validation and direct-email fallback
+- Six-section homepage: Hero, Featured Work, Skills & Experience, About, Availability, Contact
+- Light and dark themes (one green accent, warm off-white / near-black backgrounds) with a navbar toggle and no-flash persistence
+- Sticky navbar (the site's only glass surface) with scroll-spy and a mobile hamburger menu
+- Featured Work grid: one large UK Habesha card plus two smaller cards, all fully clickable into case studies
+- `/projects` index of all builds, plus per-project case-study routes with demo and GitHub links
+- Detailed CV route (`/cv`) and downloadable PDF CV
+- Simple contact form (name, email, message) using Formspree with validation and direct-email fallback
 - SEO metadata, Open Graph tags, JSON-LD, sitemap, robots.txt, and SVG favicon
 
 ## Run locally
@@ -29,11 +30,10 @@ npm run build
 
 ## Updating content
 
-- Project content lives in `src/data/projects.js`.
-- Skills content lives in `src/data/skills.js`.
+- Project content lives in `src/data/projects.js` (the three featured homepage projects are picked by id in `src/sections/Projects.jsx`).
+- Skills content lives in `src/data/skills.js`; the experience column is in `src/sections/Skills.jsx`.
 - Contact links are in `src/sections/Contact.jsx` and `src/components/layout/Footer.jsx`.
 - Replace `public/me.jpg` and `src/assets/me.jpg` when updating the portrait.
-- Add the real CV as `public/Mihretab-Nega-CV.pdf` so the hero download button points to the final file.
-- Replace project mockups with real screenshots by extending each project object and rendering image assets in `src/sections/Projects.jsx`.
+- Keep the current CV at `public/Mihretab-Nega-CV.pdf`; the navbar, hero, and availability buttons all point to it.
+- Theme colours and radii are defined once in `src/styles/variables.scss` (dark defaults plus a `[data-theme='light']` block).
 - Netlify deployment settings are in `netlify.toml`.
-- Update the WhatsApp URL in `src/sections/Contact.jsx` when you want the button to open a specific phone number.

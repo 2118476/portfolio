@@ -1,0 +1,16 @@
+.page {
+  padding-block: calc(var(--nav-height) + clamp(2.5rem, 6vw, 4rem)) clamp(3rem, 7vw, 5rem);
+}
+
+.heading {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-6);
+
+  @media (min-width: 720px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}

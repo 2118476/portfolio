@@ -1,108 +1,94 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import Section from '../components/layout/Section';
 import Badge from '../components/ui/Badge';
-import { skillCategories, orbitSkills } from '../data/skills';
+import { skillCategories } from '../data/skills';
 import styles from './Skills.module.scss';
 
-const inner = orbitSkills.filter((skill) => skill.ring === 'inner');
-const outer = orbitSkills.filter((skill) => skill.ring === 'outer');
+/* Condense the six data categories into the four groups shown on the homepage. */
+const groupIds = [
+  { id: 'frontend', title: 'Frontend', icon: 'fas fa-layer-group' },
+  { id: 'backend', title: 'Backend', icon: 'fas fa-server', mergeWith: 'apis-auth' },
+  { id: 'databases', title: 'Databases', icon: 'fas fa-database' },
+  { id: 'deployment', title: 'Deployment & Tools', icon: 'fas fa-cloud-arrow-up', mergeWith: 'automation' }
+];
 
-const Ring = ({ items, className }) => (
-  <div className={className} aria-hidden="true">
-    {items.map((skill, index) => (
-      <span
-        key={skill.label}
-        className={styles.slot}
-        style={{ '--i': index, '--total': items.length }}
-      >
-        <span className={styles.spin}>
-          <span className={`${styles.orbitBadge} ${styles[skill.tone]}`}>
-            <i className={skill.icon} aria-hidden="true" />
-            <em>{skill.label}</em>
-          </span>
+const groups = groupIds.map(({ id, title, icon, mergeWith }) => {
+  const base = skillCategories.find((category) => category.id === id);
+  const extra = mergeWith ? skillCategories.find((category) => category.id === mergeWith) : null;
+  return {
+    id,
+    title,
+    icon,
+    skills: [...(base?.skills ?? []), ...(extra?.skills.slice(0, 3) ?? [])]
+  };
+});
+
+const experience = [
+  {
+    title: 'BSc Computer Science',
+    org: 'Brunel University London',
+    period: 'Graduate',
+    text: 'Software engineering, databases, web development, AI foundations, and cybersecurity principles.'
+  },
+  {
+    title: 'Full-stack project delivery',
+    org: 'Self-directed, project-based',
+    period: 'Ongoing',
+    text: 'Production-style React and Spring Boot apps with JWT auth, role-based access, and Netlify/Render deployment.'
+  },
+  {
+    title: 'Community and business tools',
+    org: 'UK Habesha, salons, automation',
+    period: 'Recent',
+    text: 'Software shaped around real users: local businesses, diaspora communities, and teams needing practical automation.'
+  }
+];
+
+const Skills = () => (
+  <Section id="skills" className={styles.skills}>
+    <div className="split-heading">
+      <div>
+        <span className="section-kicker">
+          <span className="eyebrow-dot" />
+          Skills &amp; experience
         </span>
-      </span>
-    ))}
-  </div>
-);
-
-const Skills = () => {
-  return (
-    <Section id="skills" className={styles.skills}>
-      <div className="split-heading">
-        <div>
-          <span className="section-kicker">
-            <span className="eyebrow-dot" />
-            Skills
-          </span>
-          <h2 className="section-title">A focused stack, orbiting one goal.</h2>
-        </div>
-        <p className="section-copy">
-          The stack is intentionally practical: React for interfaces, Java/Spring
-          Boot for APIs, SQL databases for durable data, and cloud platforms for
-          deploying usable apps.
-        </p>
+        <h2 className="section-title">A practical stack, proven in real builds.</h2>
       </div>
+      <p className="section-copy">
+        React for interfaces, Java and Spring Boot for APIs, SQL databases for durable
+        data, and cloud platforms for shipping usable apps.
+      </p>
+    </div>
 
-      <div className={styles.orbitWrap}>
-        <div className={styles.orbit}>
-          <div className={styles.orbitGlow} aria-hidden="true" />
-          <div className={`${styles.ringLine} ${styles.ringLineInner}`} aria-hidden="true" />
-          <div className={`${styles.ringLine} ${styles.ringLineOuter}`} aria-hidden="true" />
-
-          <div className={styles.core}>
-            <i className="fas fa-code" aria-hidden="true" />
-            <strong>Core Stack</strong>
-            <span>Full-stack developer</span>
-          </div>
-
-          <Ring items={inner} className={`${styles.ring} ${styles.ringInner}`} />
-          <Ring items={outer} className={`${styles.ring} ${styles.ringOuter}`} />
-        </div>
-
-        <ul className={styles.orbitFallback} aria-label="Core technologies">
-          {orbitSkills.map((skill) => (
-            <li key={skill.label} className={styles[skill.tone]}>
-              <i className={skill.icon} aria-hidden="true" />
-              {skill.label}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className={styles.grid}>
-        {skillCategories.map((category, index) => (
-          <motion.article
-            key={category.id}
-            className={styles.card}
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: index * 0.04 }}
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <div className={styles.cardHeader}>
-              <i className={category.icon} aria-hidden="true" />
-              <div>
-                <h3>{category.title}</h3>
-                <p>{category.summary}</p>
-              </div>
-            </div>
+    <div className={styles.columns}>
+      <div className={styles.skillsCol}>
+        {groups.map((group) => (
+          <article key={group.id} className={styles.group}>
+            <h3>
+              <i className={group.icon} aria-hidden="true" />
+              {group.title}
+            </h3>
             <div className={styles.badges}>
-              {category.skills.map((skill, skillIndex) => (
-                <Badge
-                  key={skill}
-                  color={skillIndex % 3 === 0 ? 'primary' : skillIndex % 3 === 1 ? 'secondary' : 'tertiary'}
-                >
-                  {skill}
-                </Badge>
+              {group.skills.map((skill) => (
+                <Badge key={skill}>{skill}</Badge>
               ))}
             </div>
-          </motion.article>
+          </article>
         ))}
       </div>
-    </Section>
-  );
-};
+
+      <div className={styles.expCol}>
+        {experience.map((item) => (
+          <article key={item.title} className={styles.expItem}>
+            <span className={styles.period}>{item.period}</span>
+            <h3>{item.title}</h3>
+            <p className={styles.org}>{item.org}</p>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </Section>
+);
 
 export default Skills;

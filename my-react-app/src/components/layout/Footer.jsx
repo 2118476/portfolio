@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import styles from './Footer.module.scss';
 
 const links = [
+  { label: 'Work', href: '/#projects' },
   { label: 'About', href: '/#about' },
-  { label: 'Projects', href: '/#projects' },
-  { label: 'Services', href: '/#services' },
-  { label: 'Detailed CV', to: '/cv' },
-  { label: 'Contact', href: '/#contact' }
+  { label: 'Skills', href: '/#skills' },
+  { label: 'Contact', href: '/#contact' },
+  { label: 'All projects', to: '/projects' },
+  { label: 'Detailed CV', to: '/cv' }
 ];
 
 const socials = [

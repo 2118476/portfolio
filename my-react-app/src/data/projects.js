@@ -3,14 +3,6 @@ import habeshaServices from '../assets/shots/habesha-services.jpg';
 import habeshaRental from '../assets/shots/habesha-rental.jpg';
 import habeshaSwap from '../assets/shots/habesha-swap.jpg';
 
-export const projectCategories = [
-  'Full-stack',
-  'Community',
-  'Business',
-  'Automation',
-  'AI/Tools'
-];
-
 export const projects = [
   {
     id: 'habesha-community',
@@ -198,7 +190,3 @@ export const projects = [
     }
   }
 ];
-
-export function getProjectCategories() {
-  return ['All', ...projectCategories];
-}

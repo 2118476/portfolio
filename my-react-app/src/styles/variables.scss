@@ -1,38 +1,43 @@
 :root {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  --color-bg-rgb: 8, 11, 20;
-  --color-surface-rgb: 14, 19, 32;
-  --color-card-rgb: 19, 26, 42;
-  --color-text-rgb: 230, 237, 248;
-  --color-primary-rgb: 96, 182, 255;
-  --color-secondary-rgb: 68, 222, 178;
-  --color-tertiary-rgb: 178, 116, 255;
-  --color-warm-rgb: 251, 176, 64;
+  /* Dark theme (default): near-black neutrals + one green accent. */
+  --color-bg-rgb: 11, 12, 11;
+  --color-surface-rgb: 17, 19, 18;
+  --color-card-rgb: 21, 24, 23;
+  --color-text-rgb: 216, 221, 216;
+  --color-primary-rgb: 62, 207, 142;
+  --color-secondary-rgb: 62, 207, 142;
+  --color-tertiary-rgb: 148, 163, 153;
+  --color-warm-rgb: 217, 164, 90;
 
   --color-bg: rgb(var(--color-bg-rgb));
   --color-surface: rgb(var(--color-surface-rgb));
   --color-card: rgb(var(--color-card-rgb));
-  --color-heading: #f8fbff;
+  --color-heading: #f4f6f4;
   --color-text: rgb(var(--color-text-rgb));
-  --color-muted: #a9b6cc;
-  --color-soft: #d3dcea;
+  --color-muted: #9aa39c;
+  --color-soft: #c4ccc5;
   --color-primary: rgb(var(--color-primary-rgb));
   --color-secondary: rgb(var(--color-secondary-rgb));
   --color-tertiary: rgb(var(--color-tertiary-rgb));
   --color-warm: rgb(var(--color-warm-rgb));
-  --color-border: rgba(var(--color-text-rgb), 0.16);
-  --color-border-strong: rgba(var(--color-text-rgb), 0.26);
-  --color-input-bg: rgba(255, 255, 255, 0.06);
+  --color-border: rgba(var(--color-text-rgb), 0.12);
+  --color-border-strong: rgba(var(--color-text-rgb), 0.2);
+  --color-input-bg: rgba(255, 255, 255, 0.04);
   --color-success: #34d399;
   --color-success-bg: rgba(52, 211, 153, 0.13);
   --color-error: #fb7185;
   --color-error-bg: rgba(251, 113, 133, 0.13);
 
-  --gradient-primary: linear-gradient(135deg, #60b6ff 0%, #44debb 100%);
-  --gradient-accent: linear-gradient(135deg, #b274ff 0%, #60b6ff 100%);
-  --gradient-warm: linear-gradient(135deg, #fbb040 0%, #44debb 100%);
-  --gradient-text: linear-gradient(110deg, #7cc4ff 10%, #b274ff 50%, #44debb 90%);
+  /* On-accent text (buttons and marks filled with the accent colour). */
+  --color-on-accent: #0a1f15;
+
+  /* Gradients collapse to one green family; used sparingly. */
+  --gradient-primary: linear-gradient(135deg, #3ecf8e 0%, #27a56f 100%);
+  --gradient-accent: linear-gradient(135deg, #3ecf8e 0%, #27a56f 100%);
+  --gradient-warm: linear-gradient(135deg, #d9a45a 0%, #3ecf8e 100%);
+  --gradient-text: linear-gradient(110deg, #4adf9d 10%, #2fbd80 90%);
 
   --radius-xs: 8px;
   --radius-sm: 12px;
@@ -54,19 +59,52 @@
   --space-20: 5rem;
 
   --container: 1180px;
-  --nav-height: 72px;
-  --shadow-sm: 0 10px 34px rgba(2, 6, 16, 0.35);
-  --shadow-md: 0 24px 80px rgba(2, 6, 16, 0.45);
-  --shadow-glow:
-    0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 0 44px rgba(2, 6, 16, 0.35),
-    0 30px 90px rgba(2, 6, 16, 0.5);
-  --glass-bg: linear-gradient(
-    155deg,
-    rgba(255, 255, 255, 0.13) 0%,
-    rgba(255, 255, 255, 0.05) 40%,
-    rgba(255, 255, 255, 0.02) 100%
-  );
-  --glass-border: rgba(255, 255, 255, 0.24);
-  --glass-highlight: rgba(255, 255, 255, 0.4);
+  --nav-height: 68px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.28), 0 6px 20px rgba(0, 0, 0, 0.22);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.3), 0 16px 40px rgba(0, 0, 0, 0.3);
+  --shadow-glow: var(--shadow-md);
+
+  /* Glass is reserved for the navbar. */
+  --glass-bg: rgba(var(--color-bg-rgb), 0.78);
+  --glass-border: rgba(var(--color-text-rgb), 0.1);
+  --glass-highlight: rgba(255, 255, 255, 0.05);
+}
+
+:root[data-theme='light'] {
+  /* Light theme: warm off-white neutrals + a deeper green for contrast. */
+  --color-bg-rgb: 250, 249, 246;
+  --color-surface-rgb: 255, 255, 255;
+  --color-card-rgb: 255, 255, 255;
+  --color-text-rgb: 42, 46, 43;
+  --color-primary-rgb: 16, 141, 87;
+  --color-secondary-rgb: 16, 141, 87;
+  --color-tertiary-rgb: 96, 108, 100;
+  --color-warm-rgb: 176, 118, 41;
+
+  --color-heading: #191c1a;
+  --color-muted: #5d655f;
+  --color-soft: #3e4540;
+  --color-border: rgba(25, 28, 26, 0.1);
+  --color-border-strong: rgba(25, 28, 26, 0.18);
+  --color-input-bg: rgba(25, 28, 26, 0.03);
+  --color-success: #0f9d6a;
+  --color-success-bg: rgba(15, 157, 106, 0.1);
+  --color-error: #d64562;
+  --color-error-bg: rgba(214, 69, 98, 0.1);
+
+  --color-on-accent: #ffffff;
+
+  --gradient-primary: linear-gradient(135deg, #12a866 0%, #0d7a4c 100%);
+  --gradient-accent: linear-gradient(135deg, #12a866 0%, #0d7a4c 100%);
+  --gradient-warm: linear-gradient(135deg, #b07629 0%, #108d57 100%);
+  --gradient-text: linear-gradient(110deg, #12a866 10%, #0c6e45 90%);
+
+  --shadow-sm: 0 1px 2px rgba(25, 28, 26, 0.05), 0 6px 20px rgba(25, 28, 26, 0.06);
+  --shadow-md: 0 2px 4px rgba(25, 28, 26, 0.05), 0 16px 40px rgba(25, 28, 26, 0.09);
+  --shadow-glow: var(--shadow-md);
+
+  --glass-bg: rgba(250, 249, 246, 0.82);
+  --glass-border: rgba(25, 28, 26, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.6);
 }
