@@ -16,9 +16,10 @@ import {
   cvTools,
   strengths
 } from '../data/cv';
-import profile from '../assets/me.jpg';
 import dashboardVisual from '../assets/visuals/dashboard-visual.svg';
 import styles from './CV.module.scss';
+
+const profile = '/me.jpg';
 
 const education = [
   {

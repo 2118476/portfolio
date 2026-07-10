@@ -1,7 +1,8 @@
 import React from 'react';
 import Section from '../components/layout/Section';
-import profile from '../assets/me.jpg';
 import styles from './About.module.scss';
+
+const profile = '/me.jpg';
 
 const facts = [
   { icon: 'fas fa-location-dot', text: 'Based in London, UK' },

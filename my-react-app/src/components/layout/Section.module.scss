@@ -3,3 +3,14 @@
   padding-block: clamp(4.5rem, 9vw, 7.5rem);
   overflow: clip;
 }
+
+@media (max-width: 760px), (hover: none) and (pointer: coarse) {
+  .section {
+    overflow: visible;
+  }
+
+  .section > div {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
