@@ -12,6 +12,7 @@ import {
   cvSummary,
   coreStack,
   quickFacts,
+  languages,
   workBackground,
   cvTools,
   strengths
@@ -26,21 +27,18 @@ const education = [
     icon: 'fas fa-graduation-cap',
     title: 'BSc Computer Science',
     org: 'Brunel University London',
-    period: 'Graduate',
+    period: 'Sept 2021 – June 2024',
     points: [
-      'Software engineering, databases, and web development',
-      'REST API design, AI foundations, and cybersecurity principles'
+      'Modules: Software Development, Algorithms, Cybersecurity, AI, and Networking',
+      'Final year project: Hair Salon Booking System — secure booking platform with admin/user roles'
     ]
   },
   {
-    icon: 'fas fa-code',
-    title: 'Full-stack practice',
-    org: 'Self-directed, project-based',
-    period: 'Ongoing',
-    points: [
-      'React, Java, and Spring Boot production patterns',
-      'JWT + BCrypt auth and cloud deployment on Netlify & Render'
-    ]
+    icon: 'fas fa-certificate',
+    title: 'Access to HE Diploma — Electronics & Software Engineering',
+    org: 'Newham College of Further Education',
+    period: 'Sept 2020 – June 2021',
+    points: ['Distinctions in Programming, Project Management, and Web Design']
   }
 ];
 
@@ -138,6 +136,10 @@ const CV = () => (
                   <a href={`mailto:${cvProfile.email}`}>{cvProfile.email}</a>
                 </li>
                 <li>
+                  <i className="fas fa-phone" aria-hidden="true" />
+                  <span>Phone available on request</span>
+                </li>
+                <li>
                   <i className="fab fa-github" aria-hidden="true" />
                   <a href={cvProfile.github} target="_blank" rel="noopener noreferrer">
                     github.com/2118476
@@ -178,6 +180,20 @@ const CV = () => (
                       <em>{fact.label}</em>
                       {fact.value}
                     </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className={styles.card}>
+              <h3 className={styles.railTitle}>
+                <i className="fas fa-language" aria-hidden="true" /> Languages
+              </h3>
+              <ul className={styles.stackList}>
+                {languages.map((language) => (
+                  <li key={language.label}>
+                    <i className="fas fa-comment" aria-hidden="true" />
+                    {language.label} — {language.level}
                   </li>
                 ))}
               </ul>

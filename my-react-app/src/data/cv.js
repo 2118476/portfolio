@@ -8,12 +8,18 @@
 export const cvProfile = {
   name: 'Mihretab Nega',
   title: 'Full-stack Developer',
-  location: 'London, UK',
+  location: 'London, W3, UK',
   availability: 'Open to roles & freelance',
   email: 'mihretabtesfahun2124@gmail.com',
   github: 'https://github.com/2118476',
   linkedin: 'https://www.linkedin.com/in/mihretab-nega-56292819a/'
 };
+
+export const languages = [
+  { label: 'English', level: 'Fluent' },
+  { label: 'Amharic', level: 'Fluent' },
+  { label: 'Tigrinya', level: 'Basic' }
+];
 
 export const cvSummary =
   'London-based full-stack developer with a Computer Science background, focused on building practical web applications that real people use. I work across the whole stack — React interfaces, Java/Spring Boot REST APIs, SQL databases, JWT authentication, and cloud deployment — and enjoy projects where the frontend, backend, data model, and deployment all have to work together cleanly. Available for UK software developer roles and selected full-stack freelance projects.';
@@ -57,15 +63,6 @@ export const workBackground = [
       'Integrated third-party APIs such as Twilio for SMS and voice workflows.',
       'Own product design, architecture, and delivery for each build.'
     ]
-  },
-  {
-    // TODO: Replace this block with any formal employment or placement you want
-    // to list (role, company, dates, and 2–3 achievement bullet points).
-    role: 'TODO: Add role / company',
-    org: 'TODO: Employer · Location',
-    period: 'TODO: dates',
-    placeholder: true,
-    points: ['TODO: Add 2–3 short bullet points describing what you did and delivered.']
   }
 ];
 
